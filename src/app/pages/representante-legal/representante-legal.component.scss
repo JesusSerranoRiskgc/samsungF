@@ -1,0 +1,30 @@
+.a4-container {
+    width: 210mm;  /* Ancho A4 */
+    height: 297mm; /* Alto A4 */
+    margin: 0;
+    padding: 10mm; /* Margen de 1 cm */
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+// Clase personalizada para alert-info con colores Samsung
+.alert-info-custom {
+    background-color: #e3f2fd !important; /* Azul muy claro */
+    border-color: #1976d2 !important; /* Azul Samsung */
+    color: #0d47a1 !important; /* Azul oscuro para el texto */
+    border: 1px solid #1976d2;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+
+    h5, h6 {
+        color: #0d47a1 !important;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+        color: #0d47a1 !important;
+    }
+}

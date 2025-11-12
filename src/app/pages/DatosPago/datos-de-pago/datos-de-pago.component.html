@@ -1,0 +1,110 @@
+<div class="container" style="margin-top: 10px;">
+  <div id="DatosPagoDiv" style="margin-top: 30px; margin-bottom: 50px;">
+        <h3>{{ 'DatosdePago' | translate }}</h3>
+    <form [formGroup]="formulario">
+        <div class="p-20">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>{{ 'NombreBanco' | translate }}:</label>
+                    <input type="text" formControlName="NombreBanco" class="form-control" />
+                    <span *ngIf="formulario.get('NombreBanco')?.invalid && formulario.get('NombreBanco')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'NumeroCuenta' | translate }}:</label>
+                    <input
+                      type="text"
+                      formControlName="NumeroCuenta"
+                      class="form-control"
+                      (keypress)="soloNumeros($event)"
+                      inputmode="numeric"
+                    />
+                    <span *ngIf="formulario.get('NumeroCuenta')?.hasError('required') && formulario.get('NumeroCuenta')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                    <span *ngIf="formulario.get('NumeroCuenta')?.hasError('pattern') && formulario.get('NumeroCuenta')?.touched" class="text-danger">
+                      {{ 'Formato Número' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4">
+                    <label>{{ 'TipoCuenta' | translate }}:<b class="text-error">*</b></label>
+                    <select class="form-control" formControlName="TipoCuenta">
+                      <option  value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                      <option *ngFor="let tipocuenta of ListaTipoCuentaBancaria" [value]="tipocuenta.id">{{ tipocuenta.nombre }}</option>
+                      </select>
+                      <span *ngIf="formulario.get('TipoCuenta')?.invalid && formulario.get('TipoCuenta')?.touched" class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Swift' | translate }}:</label>
+                    <input type="text" formControlName="CodigoSwift" class="form-control" />
+                    <span *ngIf="formulario.get('CodigoSwift')?.invalid && formulario.get('CodigoSwift')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Ciudad' | translate }}:</label>
+                    <input type="text" formControlName="Ciudad" class="form-control" />
+                    <span *ngIf="formulario.get('Ciudad')?.invalid && formulario.get('Ciudad')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Pais' | translate }}:</label>
+                    <select class="form-control" formControlName="Pais">
+                        <option  value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+                      </select>
+                      <span *ngIf="formulario.get('Pais')?.invalid && formulario.get('Pais')?.touched" class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'CorreoElecPagos' | translate }}:</label>
+                    <input type="email" formControlName="CorreoElectronico" class="form-control"
+                    [class.is-invalid]="formulario.get('CorreoElectronico')?.invalid && formulario.get('CorreoElectronico')?.touched" />
+                    <span *ngIf="formulario.get('CorreoElectronico')?.invalid && formulario.get('CorreoElectronico')?.touched" class="text-danger">
+                      <span *ngIf="formulario.get('CorreoElectronico')?.errors?.['required']">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                      <span *ngIf="formulario.get('CorreoElectronico')?.errors?.['emailWithCom']">
+                        El email debe tener un formato válido y terminar en .com
+                      </span>
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Sucursal' | translate }}:</label>
+                    <input
+                      type="text"
+                      formControlName="Sucursal"
+                      class="form-control" />
+                    <span
+                      *ngIf="formulario.get('Sucursal')?.invalid && formulario.get('Sucursal')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+
+                  <!-- <div class="col-md-4 mb-3">
+                    <label>{{ 'DireccionSucursal' | translate }}:</label>
+                    <input
+                      type="text"
+                      formControlName="DireccionSucursal"
+                      class="form-control" />
+                    <span
+                      *ngIf="formulario.get('DireccionSucursal')?.invalid && formulario.get('DireccionSucursal')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div> -->
+
+            </div>
+        </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,331 @@
+<div class="container">
+  <h3>Junta Directiva</h3>
+
+  <form [formGroup]="JuntaDirectiva" >
+    <div formArrayName="Directivos">
+      <div *ngFor="let directivo of directivo.controls; let i = index" [formGroupName]="i"
+      class="border p-3 mb-2">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5>Directivo {{ i + 1 }}</h5>
+        <button type="button" class="btn btn-danger" (click)="removeDirectivo(i)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label>Nombre Completo:</label>
+          <input type="text" formControlName="NombreCompleto" class="form-control" />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Tipo de Identificación:</label>
+          <select formControlName="tipoDocumento" class="form-control">
+            <option value="">Seleccione</option>
+            <option *ngFor="let tipo of ListaTipoDocumentos" [value]="tipo.id">{{ tipo.nombre }}</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Número de identificación (ID):</label>
+          <input type="text" formControlName="NumeroIdentificacion" class="form-control" />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Nacionalidad:</label>
+          <select formControlName="Nacionalidad" class="form-control" >
+            <option value="">Seleccione</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>¿Está vinculado con una Persona Expuesta Políticamente (PEP)?</label>
+          <select formControlName="vinculadoPep" class="form-control" >
+            <option value="">Seleccione</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" *ngIf="directivo.get('vinculadoPep')?.value === 'si'" >
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label>1. ¿Usted o por su cargo maneja recursos públicos?</label>
+            <select formControlName="ManejaRecursos" class="form-control" >
+              <option value="">Seleccione</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>¿Cuáles recursos maneja?:</label>
+            <input type="text" formControlName="CualesRecursos" class="form-control" />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>2. ¿Por su cargo o actividad ejerce algún grado de poder público?</label>
+            <select formControlName="PoderPolitico" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>¿A que rama del poder público pertenece?</label>
+            <input type="text" formControlName="RamaPoderPublico" class="form-control" />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>3. ¿Usted ostenta actualmente un algún cargo público? </label>
+            <select formControlName="CargoPublico" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>¿Cuál?:</label>
+            <input type="text" formControlName="CualCargoPublico" class="form-control" />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>4. ¿Es sujeto de obligaciones tributarias en el extranjero? </label>
+            <select formControlName="ObligacionTributaria" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Identifique el (los) país(es):</label>
+            <select formControlName="PaisesObligacionTributaria" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="Colombia">Colombia</option>
+              <option value="españa">españa</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>5. ¿Tiene cuentas financieras en el extranjero? </label>
+            <select formControlName="CuentasFinancierasExt" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="Colombia">Colombia</option>
+              <option value="españa">españa</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Identifique el (los) país(es):</label>
+            <select formControlName="PaisesCuentasExt" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="Colombia">Colombia</option>
+              <option value="españa">españa</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>6. ¿Tiene derecho o poder de firma o de otra índole sobre alguna cuenta financiera en el
+              extranjero? </label>
+            <select formControlName="TienePoderCuentaExtranjera" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="Colombia">Colombia</option>
+              <option value="españa">españa</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Identifique el (los) país(es):</label>
+            <select formControlName="PaisesPoderCuentaExtranjera" class="form-control">
+              <option value="">Seleccione</option>
+              <option value="Colombia">Colombia</option>
+              <option value="españa">españa</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>¿Ha sido PEP durante los últimos 2 años?  </label>
+            <select formControlName="hasidoPep2" class="form-control">
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-12">
+          <div formArrayName="cargosPublicos" *ngIf="directivo.get('hasidoPep2')?.value === 'si'" class="border border-3  p-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6>Cargos Públicos</h6>
+              <button type="button" class="btn btn-primary mt-2" (click)="addCargoPublico(i)">Agregar Cargo Público <i class="bi bi-plus"></i>
+              </button>
+            </div>
+            <div *ngFor="let cargo of getCargosPublicos(i).controls; let j = index" [formGroupName]="j" class="border p-2">
+               <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6>Cargos publico {{j+1}}</h6>
+                <button type="button" class="btn btn-danger" (click)="removeCargoPublico(i, j)"> <i class="bi bi-trash"></i>
+                </button>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Nombre de la Entidad:</label>
+                <input type="text" formControlName="NombreEntidad" class="form-control" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Fecha de Ingreso:</label>
+                <input type="text" formControlName="FechaIngreso" class="form-control" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Fecha de desvinculación:</label>
+                <input type="text" formControlName="FechaDesvinculacion" class="form-control" />
+              </div>
+            </div>
+            <!-- Botón para agregar otro cargo -->
+
+          </div>
+        </div>
+
+          <br>
+          <br>
+          <br>
+          <div class="col-md-6" style="margin: 11px;">
+            <label>¿Se encuentra vinculado con personas jurídicas o naturales, patrimonios autónomos o fiducias donde tenga más del 5% de participación en capital social o participación?  </label>
+            <select formControlName="Tienevinculosmas5" class="form-control">
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="col-md-12">
+
+          <div formArrayName="Vinculosmas" *ngIf="directivo.get('Tienevinculosmas5')?.value === 'si'" class="border border-3 p-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6>Vinculos</h6>
+              <button type="button" class="btn btn-primary mt-2" (click)="addVinculomas5(i)">Agregar Vinculo<i class="bi bi-plus"></i>
+              </button>
+            </div>
+            <div *ngFor="let cargo of getVinculomas5(i).controls; let j = index" [formGroupName]="j" class="border p-2">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6>Vinculo {{j+1}}</h6>
+                <button type="button" class="btn btn-danger" (click)="removeVinculomas5(i, j)"> <i class="bi bi-trash"></i>
+                </button>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Nombre completo o Razón social:</label>
+                <input type="text" formControlName="NombreCompleto" class="form-control" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Tipo de Identificación (ID)</label>
+                <select formControlName="TipoIdentificacion" class="form-control">
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Número de identificación (ID)</label>
+                <input type="text" formControlName="NumeroIdentificacion" class="form-control" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Pais</label>
+                <select formControlName="Pais" class="form-control">
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>% Participación</label>
+                <input type="text" formControlName="PorcentajeParticipacion" class="form-control" />
+              </div>
+            </div>
+            <!-- Botón para agregar otro cargo -->
+
+          </div>
+        </div>
+          <div class="col-md-12">
+            <div formArrayName="InfoFamiliaPep" style="margin-top: 10px;"  class="border border-3 p-3">
+
+            <h6>Asociado Cercano</h6>
+
+            <!-- Asociado Cercano -->
+            <div class="alert alert-info-custom" role="alert">
+              <h6 class="fw-bold">{{ 'AsociadoCercanoInfo' | translate }}</h6>
+                                <a href="#" class="text-danger d-inline-flex align-items-center" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalLong">
+                    <i class="bi bi-info-circle-fill me-1"></i> Más información
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Asociado Cercano:</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Son las personas jurídicas que tengan como administradores, accionistas, controlantes o
+                          gestores alguno de los PEP enlistados en el artículo 2.1.4.2.3. del decreto 830 de 2021
+                          (Departamento administrativo de la Presidencia de la República) o que hayan constituido
+                          patrimonios autónomos o fiducias en beneficio de estos, o con quienes se mantengan relaciones
+                          comerciales.
+                          Dentro de este campo también se debe incluir: (i) los nombres e identificación de las personas
+                          con las que tengan sociedad conyugal, de hecho, o de derecho; (ii) los nombres e
+                          identificación de sus familiares hasta segundo grado de consanguinidad, primero afinidad y
+                          primero civil.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+            </div>
+            <div *ngFor="let cargo of getInfoFamiliar(i).controls; let j = index" [formGroupName]="j" class="border p-2">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6>{{ 'Vinculo' | translate }}{{j+1}}</h6>
+                <button type="button" class="btn btn-danger" (click)="removeInfoFamilia(i, j)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label>Nombre completo o Razón social:</label>
+                <input type="text" formControlName="NombreCompleto" class="form-control" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Tipo de Identificación (ID)</label>
+                <select formControlName="TipoIdentificacion" class="form-control">
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Número de identificación (ID)</label>
+                <input type="text" formControlName="NumeroIdentificacion" class="form-control" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>Nacionalidad</label>
+                <select formControlName="Nacionalidad" class="form-control">
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>% Participación</label>
+                <input type="text" formControlName="VinculoFamiliar" class="form-control" />
+              </div>
+
+            </div>
+            <!-- Botón para agregar otro cargo -->
+            <button type="button" class="btn btn-primary mt-2" (click)="addInfoFamilia(i)">{{ 'AgregarFamiliar' | translate }}</button>
+          </div>
+        </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary mt-2" (click)="addDirectivo()">Agregar Representante</button>
+  <button type="submit" class="btn btn-success mt-2" (click)="submit()">Enviar</button>
+</form>
+</div>

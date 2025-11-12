@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card border-dark">
+          <div class="card-header text-center">
+            <h5 class="card-title">{{ 'ActualizarContraseña' | translate }}</h5>
+          </div>
+          <div class="card-body d-flex flex-column align-items-center">
+            <form [formGroup]="changepassoForm" (ngSubmit)="onSubmit()" style="width: 70%;">              
+              <div class="row">
+                <div class="col-md-10">
+                  <label for="newContraseña" class="form-label">{{ 'NuevaContraseña' | translate }}</label>
+                  <input type="password" class="form-control" id="newContraseña" placeholder="Nueva Contraseña" formControlName="newContraseña" name="newContraseña" required>
+                  <div *ngIf="changepassoForm.get('newContraseña')?.errors?.['passwordStrength'] && changepassoForm.get('newContraseña')?.touched" class="text-danger">
+                    {{ 'Contraseñadvertencia' | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <label for="confirmContraseña" class="form-label">{{ 'ConfirmarContraseña' | translate }}</label>
+                  <input type="password" class="form-control" id="confirmContraseña" placeholder="Confirmar Contraseña" formControlName="confirmContraseña" name="confirmContraseña" required>
+                  <div *ngIf="changepassoForm.get('confirmContraseña')?.errors?.['passwordsMismatch'] && changepassoForm.get('confirmContraseña')?.touched" class="text-danger">
+                    {{ 'Contraseñadvertencia2' | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-md-10">
+                  <button type="submit" class="btn btn-primary" [disabled]="changepassoForm.invalid">{{ 'Guardar' | translate }}</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

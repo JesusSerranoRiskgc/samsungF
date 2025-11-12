@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center align-items-center" *ngIf="isLoading">
+  <div class="spinner-border text-primary" role="status">
+    <span ></span>
+  </div> &nbsp;
+  <span >Loading..</span>
+</div>    
+<div class="container" >
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card border-dark">
+          <div class="card-header text-center">
+            <h5 class="card-title">Editar Usuario</h5>
+          </div>
+          <div class="card-body d-flex flex-column align-items-center">
+            <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" style="width: 70%;">              
+              <div class="row">
+                <div class="col-md-10">
+                  <label for="newContraseña" class="form-label">Nombre Usuario</label>
+                  <input type="text" class="form-control" id="newContraseña" placeholder="Nombre Usuario" formControlName="nombres" name="newContraseña" required>
+                  <div *ngIf="registroForm.get('nombres')?.touched && registroForm.get('nombres')?.invalid" class="text-danger">
+                    Nombre Requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <label for="ApellidoUsuario" class="form-label">Apellido Usuario</label>
+                  <input type="text" class="form-control" id="ApellidoUsuario" placeholder="Apellido Usuario" formControlName="apellidos" name="ApellidoUsuario" required>
+                  <div *ngIf="registroForm.get('apellidos')?.touched && registroForm.get('apellidos')?.invalid" class="text-danger">
+                    Apellido Requerido.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <label for="Identificacion" class="form-label">Número Identificación</label>
+                  <input type="text" class="form-control" id="Identificacion" placeholder="Identificacion" formControlName="identificacion" name="Identificacion" required>
+                  <div *ngIf="registroForm.get('identificacion')?.touched && registroForm.get('identificacion')?.invalid" class="text-danger">
+                    Numero Identificacion.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <label for="Email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="Email" placeholder="Email" formControlName="email" name="email">                  
+                  <div *ngIf="registroForm.get('email')?.touched && registroForm.get('email')?.invalid" class="text-danger">
+                    Email Requedido.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-10">
+                <label for="IdTipoUsuario" class="form-label">Tipo Usuario</label>
+                <select id="IdTipoUsuario" formControlName="idTipoUsuario" class="form-select">
+                  <option *ngFor="let tipo of tipoUsuarios" [value]="tipo.id">
+                    {{ tipo.nombre }}
+                  </option>
+                </select>               
+              </div>  
+              <!-- <div class="col-md-10" *ngIf="registroForm.get('idTipoUsuario')?.value === '7'">
+                <label for="IdTipoUsuario" class="form-label">Comprador Vendedor</label>
+                <select id="IdTipoUsuario" formControlName="idCompreadorVendedor" class="form-select">
+                  <option value="-1" disabled selected>Seleccione</option>
+                  <option *ngFor="let compravende of compradorVendedor" [value]="compravende.id">
+                    {{ compravende.nombre }}
+                  </option>
+                </select>            
+              </div>           -->
+              <br>
+              <div class="col-md-10">
+              <div class="form-check form-switch">
+                <label for="IdTipoUsuario" class="form-label">Activo</label>
+                <input type="checkbox" formControlName="Activo" class="form-check-input">
+              </div> 
+            </div>          
+            <br>        
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-md-10">
+                  <button type="submit" class="btn btn-primary" [disabled]="registroForm.invalid">Guardar</button>&nbsp;&nbsp;
+                  <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

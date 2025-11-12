@@ -1,0 +1,34 @@
+export interface DatosGeneralesDto {
+    Id:number;
+    IdFormulario:number;
+    FechaDiligenciamiento: string;
+    Empresa: number;
+    TipoSolicitud:number;
+    ClaseTercero:number;
+    CategoriaTercero:number;
+    NombreRazonSocial:string;
+    TipoIdentificacion:string;
+    NumeroIdentificacion:string;
+    DigitoVerificacion:string;
+    Pais:number;
+    Ciudad:string;
+    TamanoTercero:number;
+    ActividadEconimoca:number;
+    DireccionPrincipal:string;
+    codigoPostal:string;
+    CorreoElectronico:string;
+    Telefono:string;
+    ObligadoFE:number;
+    EstadoCivil:string;
+    ConyugeIdentificacion:string;
+    TipoPago:boolean;
+    CertBASC: boolean;
+    CertOEA: boolean;
+    CertCTPAT: boolean;
+    CertOtros: boolean;
+    CertNinguno: boolean;
+    CorreoElectronicoFE:string;
+    TieneSucursalesOtrosPaises:number;
+    PaisesOtrasSucursales:number;
+    PreguntasAdicionales: any;
+  }

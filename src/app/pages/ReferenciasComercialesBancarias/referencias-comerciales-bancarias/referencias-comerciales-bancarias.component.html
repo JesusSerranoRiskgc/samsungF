@@ -1,0 +1,76 @@
+<div class="container">
+  <div id="ReferenciasBanComDiv" style="margin-top: 30px; margin-bottom: 50px;">
+    <h3>{{ 'Referencias_comerciales_bancarias' | translate }}</h3>
+    <form [formGroup]="ReferenciasFinancieras">
+      <div formArrayName="ReferenciaFinanciera">
+        <div *ngFor="let Referencia of Referencia.controls; let i = index" [formGroupName]="i" class="border p-3 mb-2">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5>{{ 'Referencia' | translate }} {{ i + 1 }}</h5>
+            <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeReferencia(i,Referencia)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>{{ 'TipoReferencia' | translate }}:</label>
+              <select formControlName="TipoReferencia" class="form-control">
+                <option value="" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let tipoReferencia of ListaTipoReferencia" [value]="tipoReferencia.id">{{
+                  tipoReferencia.nombre }}</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Nombre_o_Razon_Social' | translate }}:</label>
+              <input type="text" formControlName="NombreCompleto" class="form-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Ciudad' | translate }}:</label>
+              <input type="text" formControlName="Ciudad" class="form-control"
+                [class.is-invalid]="Referencia.get('Ciudad')?.invalid && Referencia.get('Ciudad')?.touched" />
+
+              <span *ngIf="Referencia.get('Ciudad')?.invalid && Referencia.get('Ciudad')?.touched" class="text-danger">
+                <span *ngIf="Referencia.get('Ciudad')?.errors?.['required']">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+                <span *ngIf="Referencia.get('Ciudad')?.errors?.['pattern']">
+                  Solo se permiten letras 
+                </span>
+              </span>
+            </div>
+
+            <div class="col-md-4 mb-3"> <label>{{ 'Telefono' | translate }}:</label>
+              <input type="text" formControlName="Telefono" class="form-control"
+                (keypress)="allowOnlyNumbersForPhone($event)"
+                (input)="validatePhoneInput($event, getReferenciaTelefono(i))"
+                [class.is-invalid]="getReferenciaTelefono(i)?.invalid && getReferenciaTelefono(i)?.touched" />
+              <span *ngIf="getReferenciaTelefono(i)?.invalid && getReferenciaTelefono(i)?.touched" class="text-danger">
+                <span *ngIf="getReferenciaTelefono(i)?.errors?.['required']">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+                <span *ngIf="getReferenciaTelefono(i)?.errors?.['pattern']">
+                  {{ 'SoloNumerosPermitidos' | translate }}
+                </span>
+              </span>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label>Valor anual de compras</label>
+              <input type="text" formControlName="ValorAnualCompras" class="form-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>Cupo</label>
+              <input type="text" formControlName="Cupo" class="form-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>Plazo</label>
+              <input type="text" formControlName="Plazo" class="form-control" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addReferencia()">Agregar
+        Referencia</button>
+
+    </form>
+  </div>
+</div>

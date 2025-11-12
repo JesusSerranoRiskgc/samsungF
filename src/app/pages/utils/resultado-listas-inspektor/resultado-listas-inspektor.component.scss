@@ -1,0 +1,18 @@
+.modal-dialog-centered {
+    height: 30vh; /* Ajusta la altura del modal a 80% de la altura de la pantalla */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    height: 40%; /* Asegura que el contenido del modal llene el modal */
+}
+.modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}

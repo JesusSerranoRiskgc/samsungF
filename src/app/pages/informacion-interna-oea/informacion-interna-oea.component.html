@@ -1,0 +1,399 @@
+<div class="container" style="margin-top: 10px;">
+    <h3>Informacion ENKA</h3>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="p-20">
+
+          <!-- UEN -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>UEN</label>
+                <input type="text" class="form-control" formControlName="uen" required />
+                <span *ngIf="formulario.get('uen')?.invalid && formulario.get('uen')?.touched" class="text-danger">
+                   Campo requerido.
+                  </span>
+              </div>
+            </div>
+
+            <!-- Responsable de la venta -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Responsable de la venta</label>
+                <input type="text" class="form-control" formControlName="responsableVenta" />
+                <span *ngIf="formulario.get('responsableVenta')?.invalid && formulario.get('responsableVenta')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Correo electrónico -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Correo electrónico</label>
+                <input type="email" class="form-control" formControlName="correoElectronico" required />
+                <span *ngIf="formulario.get('correoElectronico')?.invalid && formulario.get('correoElectronico')?.touched" class="text-danger">
+                    <span *ngIf="formulario.get('correoElectronico')?.errors?.['required']">
+                        Campo requerido.
+                    </span>
+                    <span *ngIf="formulario.get('correoElectronico')?.errors?.['emailWithCom']">
+                        El email debe tener un formato válido y terminar en .com
+                    </span>
+                </span>
+            </div>
+            </div>
+
+            <!-- Responsable de la cartera -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Responsable de la cartera</label>
+                <input type="text" class="form-control" formControlName="responsableCartera"  />
+                <span *ngIf="formulario.get('responsableCartera')?.invalid && formulario.get('responsableCartera')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+            </div>
+            </div>
+
+            <!-- Responsable técnico -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Responsable técnico</label>
+                <input type="text" class="form-control" formControlName="responsableTecnico"  />
+                <span *ngIf="formulario.get('responsableTecnico')?.invalid && formulario.get('responsableTecnico')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+            </div>
+            </div>
+
+            <!-- Moneda -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Moneda</label>
+                <input type="text" class="form-control" formControlName="moneda" />
+                <span *ngIf="formulario.get('moneda')?.invalid && formulario.get('moneda')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Condiciones comerciales -->
+           <br>
+          <h3>Condiciones comerciales:</h3>
+          <div class="row">
+            <!-- Forma de pago -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Forma de pago</label>
+                <select class="form-control" formControlName="formaPago" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="Contado" >Contado</option>
+                  <option  value="Crédito" >Crédito</option>
+                </select>
+                <span *ngIf="formulario.get('formaPago')?.invalid && formulario.get('formaPago')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Número de días -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Número de días</label>
+                <input type="number" class="form-control" formControlName="numeroDias" required />
+                <span *ngIf="formulario.get('numeroDias')?.invalid && formulario.get('numeroDias')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+            </div>
+            </div>
+          </div>
+
+          <br>
+          <!-- Análisis del riesgo -->
+          <h3>Análisis del riesgo:</h3>
+          <div class="row">
+            <!-- ¿El tercero hace parte de la cadena de logística internacional? -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>¿El tercero hace parte de la cadena de logística internacional?</label>
+                <select class="form-control" formControlName="cadenaLogistica" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="Si" >Si</option>
+                  <option  value="No" >No</option>
+                </select>
+                <span *ngIf="formulario.get('cadenaLogistica')?.invalid && formulario.get('cadenaLogistica')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <!-- Proveedor -->
+          <h3>Proveedor:</h3>
+          <div class="row">
+            <!-- ¿Se encuentra en listas de Riesgo? -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>¿Se encuentra en listas de Riesgo?</label>
+                <select class="form-control" formControlName="listasRiesgo" >
+                    <option value="" disabled>Selecciona una opción</option>
+                    <option  value="Si" >Si</option>
+                    <option  value="No" >No</option>
+                  </select>
+                  <span *ngIf="formulario.get('listasRiesgo')?.invalid && formulario.get('listasRiesgo')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- ¿Es proveedor de sustancias precursoras de narcoticos? -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>¿Es proveedor de sustancias precursoras de narcoticos?</label>
+                <select class="form-control" formControlName="sustanciasNarcoticos" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="Si" >Si</option>
+                  <option  value="No" >No</option>
+                </select>
+                <span *ngIf="formulario.get('sustanciasNarcoticos')?.invalid && formulario.get('sustanciasNarcoticos')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Certificaciones -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Certificaciones</label>
+                <select class="form-control" formControlName="certificaciones" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1 OEA C-TPAT ó Certificación Aduana Extranjera" >1 OEA C-TPAT ó Certificación Aduana Extranjera</option>
+                  <option  value="3 BASC ISO28000 AES" >3 BASC ISO28000 AES</option>
+                  <option  value="4 ISO9000 14000 27000 45000" >4 ISO9000 14000 27000 45000</option>
+                  <option  value="6 Ninguna" >6 Ninguna</option>
+                </select>
+                <span *ngIf="formulario.get('certificaciones')?.invalid && formulario.get('certificaciones')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- ¿Es un proveedor de la cadena logística? -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>¿Es un proveedor de la cadena logística?</label>
+                <select class="form-control" formControlName="proveedorCadenaLogistica" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1" >1</option>
+                  <option  value="6" >6</option>
+                </select>
+                <span *ngIf="formulario.get('proveedorCadenaLogistica')?.invalid && formulario.get('proveedorCadenaLogistica')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Riesgo país -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Riesgo país</label>
+                <select class="form-control" formControlName="riesgoPais" required>
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1" >1</option>
+                  <option  value="2" >2</option>
+                  <option  value="3" >3</option>
+                  <option  value="4" >4</option>
+                  <option  value="5" >5</option>
+                  <option  value="6" >6</option>
+                </select>
+                <span *ngIf="formulario.get('riesgoPais')?.invalid && formulario.get('riesgoPais')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Antigüedad de la empresa -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Antigüedad de la empresa</label>
+                <select class="form-control" formControlName="antiguedadEmpresa" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1 Mayor de 10 años" >1 Mayor de 10 años</option>
+                  <option  value="3 Entre 2 y 10 años" >3 Entre 2 y 10 años</option>
+                  <option  value="6 Menor o igual a 2 años" >6 Menor o igual a 2 años</option>
+                </select>
+                <span *ngIf="formulario.get('antiguedadEmpresa')?.invalid && formulario.get('antiguedadEmpresa')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- RIESGO SEGURIDAD -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>RIESGO SEGURIDAD</label>
+                <input type="text" class="form-control" formControlName="riesgoSeguridad"  />
+                <span *ngIf="formulario.get('riesgoSeguridad')?.invalid && formulario.get('riesgoSeguridad')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- VALORACIÓN -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>VALORACIÓN</label>
+                <select class="form-control" formControlName="valoracion" required>
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="Crítico" >Crítico</option>
+                  <option  value="No Crítico" >No Crítico</option>
+                </select>
+                <span *ngIf="formulario.get('valoracion')?.invalid && formulario.get('valoracion')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <!-- Cliente -->
+          <h3>Cliente:</h3>
+          <div class="row">
+            <!-- ¿Se encuentra en listas de Riesgo? -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>¿Se encuentra en listas de Riesgo?</label>
+                <select class="form-control" formControlName="listasRiesgoCliente" >
+                    <option value="" disabled>Selecciona una opción</option>
+                    <option  value="Si" >Si</option>
+                    <option  value="No" >No</option>
+                  </select>
+                <span *ngIf="formulario.get('listasRiesgoCliente')?.invalid && formulario.get('listasRiesgoCliente')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Tipo de negociación -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Tipo de negociación</label>
+                <select class="form-control" formControlName="tipoNegociacion" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1 DDP" >1 DDP</option>
+                  <option  value="2 CFR CPT CIF CIP DAP DAT" >2 CFR CPT CIF CIP DAP DAT</option>
+                  <option  value="4 FOB FCA FAS o Entrega directa en cliente nal de prod import" >4 FOB FCA FAS o Entrega directa en cliente nal de prod import</option>
+                  <option  value="6 EXW" >6 EXW</option>
+                </select>
+                <span *ngIf="formulario.get('tipoNegociacion')?.invalid && formulario.get('tipoNegociacion')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Visto bueno de la aseguradora -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Visto bueno de la aseguradora</label>
+                <select class="form-control" formControlName="vistoBuenoAseguradora" required>
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1" >1</option>
+                  <option  value="2" >2</option>
+                  <option  value="3" >3</option>
+                  <option  value="4" >4</option>
+                  <option  value="5" >5</option>
+                  <option  value="6" >6</option>
+                </select>
+                <span *ngIf="formulario.get('vistoBuenoAseguradora')?.invalid && formulario.get('vistoBuenoAseguradora')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Riesgo país -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Riesgo país</label>
+                <select class="form-control" formControlName="riesgoPaisCliente" required>
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1" >1</option>
+                  <option  value="2" >2</option>
+                  <option  value="3" >3</option>
+                  <option  value="4" >4</option>
+                  <option  value="5" >5</option>
+                  <option  value="6" >6</option>
+                </select>
+                <span *ngIf="formulario.get('riesgoPaisCliente')?.invalid && formulario.get('riesgoPaisCliente')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Certificaciones - Institucionalidad -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Certificaciones - Institucionalidad</label>
+                <select class="form-control" formControlName="certificacionesInstitucionalidad" required>
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="1 OEA PROFAC C-TPAT ó equivalente" >1 OEA PROFAC C-TPAT ó equivalente</option>
+                  <option  value="3 BASC ISO28000 AES" >3 BASC ISO28000 AES</option>
+                  <option  value="4 ISO9000 14000 27000 OSHAS18000 SERASA" >4 ISO9000 14000 27000 OSHAS18000 SERASA</option>
+                  <option  value="Ninguna" >Ninguna</option>
+                </select>
+                <span *ngIf="formulario.get('certificacionesInstitucionalidad')?.invalid && formulario.get('certificacionesInstitucionalidad')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- RIESGO SEGURIDAD -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>RIESGO SEGURIDAD</label>
+                <input type="text" class="form-control" formControlName="riesgoSeguridadCliente"  />
+                <span *ngIf="formulario.get('riesgoSeguridadCliente')?.invalid && formulario.get('riesgoSeguridadCliente')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+            </div>
+            </div>
+
+            <!-- VALORACIÓN -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>VALORACIÓN</label>
+                <select class="form-control" formControlName="valoracionCliente" >
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="Crítico" >Crítico</option>
+                  <option  value="No Crítico" >No Crítico</option>
+                </select>
+                <span *ngIf="formulario.get('valoracionCliente')?.invalid && formulario.get('valoracionCliente')?.touched" class="text-danger">
+                    Campo requerido.
+                </span>
+              </div>
+            </div>
+
+            <!-- Segmentación del riesgo (opcional) -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Segmentación del riesgo</label>
+                <select class="form-control" formControlName="segmentacionRiesgo">
+                  <option value="" disabled>Selecciona una opción</option>
+                  <option  value="Alto" >Alto</option>
+                  <option  value="Medio" >Medio</option>
+                  <option  value="Bajo" >Bajo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de envío -->
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-primary" >Guardar</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+</div>

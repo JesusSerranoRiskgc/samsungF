@@ -1,0 +1,65 @@
+  
+  
+<div class="d-flex justify-content-center align-items-center" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+    <div style="text-align: center;" *ngIf="!isLoading">
+      <h5>Lista de Usuarios</h5>
+      </div>
+      
+    <div class="container" style="width: 80%;"  *ngIf="!isLoading">
+      <div class="card">
+        <div class="card-body">
+          <div class="mb-3 row d-flex align-items-center">
+            <div class="col-auto d-flex align-items-center">
+              <label for="table-complete-search" class="col-form-label me-2">Buscar:</label>
+              <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchTerm" (input)="applyFilter()">
+            </div>
+            <div class="col d-flex justify-content-end">              
+              <button class="btn btn-primary" style="margin-right: 20PX; background: linear-gradient(135deg, #1428A0 0%, #2A2F4F 100%)" (click)="crearUsuario()"><i class="bi bi-plus-circle" style="font-size: 1.5rem;" (click)="crearUsuario()"></i></button>
+            </div>
+          </div>
+          <br>
+          <br>
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre Usuario</th>
+                <th scope="col">Número Identificación</th>
+                <th scope="col">Email</th> 
+                <th scope="col">Usuario</th>
+                <th scope="col" style="width: 80px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let element of getPagedData()">
+                <td>{{ element.id }}</td> <!-- Asumiendo que tu modelo tiene la propiedad 'id' en minúsculas -->
+                <td>{{element.nombres}} &nbsp;{{element.apellidos}}</td>
+                <td>{{ element.identificacion }}</td>
+                <td>{{ element.email }}</td> <!-- Asumiendo que tu modelo tiene la propiedad 'id' en minúsculas --> 
+                <td>{{ element.usuario }}</td> 
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="edit(element)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <ngb-pagination 
+   [collectionSize]="totalItems"
+   [(page)]="currentPage" 
+   [pageSize]="pageSize" 
+   (pageChange)="loadItems()"
+   [maxSize]="5" 
+   [ellipses]="true"
+   [rotate]="true">
+</ngb-pagination>
+          <button class="btn btn-primary" (click)="exportToExcel2()">Exportar a Excel</button>
+        </div>
+      </div>
+    </div>

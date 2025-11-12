@@ -1,0 +1,148 @@
+<div class="container" style="margin-top: 10px; font-size: 0.9rem;">
+    <br />
+    <h4>Datos de Revisor Fiscal</h4>
+
+    <form [formGroup]="formulario">
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>¿Tiene revisor fiscal?</label>
+                <select class="form-control" formControlName="tieneRevisorFiscal">
+                     <option [ngValue]="true">{{ 'Si' | translate }}</option>
+                    <option [ngValue]="false">{{ 'No' | translate }}</option>
+                   
+                </select>
+            </div>
+            <div class="col-md-9" *ngIf="formulario.get('tieneRevisorFiscal')?.value === false">
+                <label>Justificar respuesta:</label>
+                <input type="text" class="form-control" formControlName="justificarRespuesta"
+                    [class.is-invalid]="formulario.get('justificarRespuesta')?.invalid && formulario.get('justificarRespuesta')?.touched" />
+                <span
+                    *ngIf="formulario.get('justificarRespuesta')?.invalid && formulario.get('justificarRespuesta')?.touched"
+                    class="text-danger">
+                    {{ 'CampoRequerido' | translate }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>¿Revisor fiscal adscrito a alguna firma?</label>
+                <select class="form-control" formControlName="revisorFiscalAdscritoFirma">
+                    <option [ngValue]="false">{{ 'No' | translate }}</option>
+                    <option [ngValue]="true">{{ 'Si' | translate }}</option>
+                </select>
+            </div>
+            <div class="col-md-9" *ngIf="formulario.get('revisorFiscalAdscritoFirma')?.value === true">
+                <label>En caso afirmativo, nombre de la firma:</label>
+                <input type="text" class="form-control" formControlName="nombreFirma"
+                    [class.is-invalid]="formulario.get('nombreFirma')?.invalid && formulario.get('nombreFirma')?.touched" />
+                <span *ngIf="formulario.get('nombreFirma')?.invalid && formulario.get('nombreFirma')?.touched"
+                    class="text-danger">
+                    {{ 'CampoRequerido' | translate }}
+                </span>
+            </div>
+        </div>
+
+        <hr />
+
+        <div *ngIf="formulario.get('tieneRevisorFiscal')?.value === true">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Nombre completo y apellidos:</label>
+                    <input type="text" class="form-control" formControlName="nombreCompletoApellidos"
+                        [class.is-invalid]="formulario.get('nombreCompletoApellidos')?.invalid && formulario.get('nombreCompletoApellidos')?.touched" />
+                    <span
+                        *ngIf="formulario.get('nombreCompletoApellidos')?.invalid && formulario.get('nombreCompletoApellidos')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                    </span>
+                </div>
+
+                <div class="col-md-3">
+                    <label>{{ 'Tipo de ID' | translate }}:</label>
+                    <select class="form-control" formControlName="tipoID"
+                        [class.is-invalid]="formulario.get('tipoID')?.invalid && formulario.get('tipoID')?.touched">
+                        <option value="" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let tipo of documentosFiltrados" [value]="tipo.value">
+                            {{ tipo.nombre }}
+                        </option>
+                    </select>
+
+                    <span *ngIf="formulario.get('tipoID')?.invalid && formulario.get('tipoID')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                    </span>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Número de ID:</label>
+                    <input type="text" class="form-control" formControlName="numeroID"
+                        [class.is-invalid]="formulario.get('numeroID')?.invalid && formulario.get('numeroID')?.touched" />
+                    <span *ngIf="formulario.get('numeroID')?.invalid && formulario.get('numeroID')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>Teléfono:</label> <input type="text" class="form-control" formControlName="telefono"
+                        (keypress)="allowOnlyNumbersForPhone($event)" (input)="validatePhoneInput($event)"
+                        [class.is-invalid]="formulario.get('telefono')?.invalid && formulario.get('telefono')?.touched" />
+                    <span *ngIf="formulario.get('telefono')?.invalid && formulario.get('telefono')?.touched"
+                        class="text-danger">
+                        <span *ngIf="formulario.get('telefono')?.errors?.['required']">
+                            {{ 'CampoRequerido' | translate }}
+                        </span>
+                        <span *ngIf="formulario.get('telefono')?.errors?.['pattern']">
+                            {{ 'SoloNumerosPermitidos' | translate }}
+                        </span>
+                    </span>
+                </div>
+                <div class="col-md-3">
+                    <label>Ciudad:</label>
+                    <input type="text" class="form-control" formControlName="ciudad" [class.is-invalid]="
+      formulario.get('ciudad')?.invalid && formulario.get('ciudad')?.touched
+    " />
+                    <span *ngIf="formulario.get('ciudad')?.invalid && formulario.get('ciudad')?.touched"
+                        class="text-danger">
+                        <span *ngIf="formulario.get('ciudad')?.errors?.['required']">
+                            {{ 'CampoRequerido' | translate }}
+                        </span>
+                        <span *ngIf="formulario.get('ciudad')?.errors?.['pattern']">
+                            Solo se permiten letras
+                        </span>
+                    </span>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Dirección:</label>
+                    <input type="text" class="form-control" formControlName="direccion"
+                        [class.is-invalid]="formulario.get('direccion')?.invalid && formulario.get('direccion')?.touched" />
+                    <span *ngIf="formulario.get('direccion')?.invalid && formulario.get('direccion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                    </span>
+                </div>
+                <div class="col-md-3">
+                    <label>Email:</label>
+                    <input type="text" class="form-control" formControlName="email"
+                        [class.is-invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched" />
+                    <span *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+                        class="text-danger">
+                        <span *ngIf="formulario.get('email')?.errors?.['required']">
+                            {{ 'CampoRequerido' | translate }}
+                        </span>
+                        <span *ngIf="formulario.get('email')?.errors?.['pattern']">
+                            {{ 'FormatoEmailInvalido' | translate }}
+                        </span>
+                        <span *ngIf="formulario.get('email')?.errors?.['missingAtSymbol']">
+                            {{ 'Falta "@" o dominio' | translate }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

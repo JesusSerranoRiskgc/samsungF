@@ -1,0 +1,851 @@
+<div class="container" style="margin-top: 10px; font-size: 0.9rem">
+  <br />
+  <h4>DECLARACIÓN DE CONFLICTO DE INTERÉS</h4>
+  <div class="accordion" id="accordionConflicto">
+    <form [formGroup]="formulario">
+      <div class="alert alert-info-custom" style="font-size: 0.9rem">
+        <p>
+          Esta declaración se presenta conforme lo previsto por el Código de
+          Conducta, la Política Anticorrupción y Soborno y el Programa de
+          Transparencia y Ética Empresarial de SAMSUNG ELECTRONICS COLOMBIA S.A.
+          (en adelante “SAMSUNG”) y no exime a cada una de las contrapartes de
+          SAMSUNG de cumplir con otras disposiciones del código, la política y
+          otros aspectos asociados a la regulación y modelo de cumplimiento de
+          SAMSUNG.
+        </p>
+        <p><strong>Declaración:</strong></p>
+        <p>
+          Por medio de la presente, actuando en nombre propio (y de la persona
+          jurídica que represento, si aplica) según se indica al pie de mi
+          firma, dejo constancia que conozco de la importancia de la veracidad
+          de la información aquí emitida, de la cual doy fe que es totalmente
+          cierta y la cual declaro de manera libre y espontánea. Entiendo que un
+          “Conflicto de Intereses” surge cuando mis intereses de negocios,
+          financieros, familiares, políticos o personales, puedan interferir con
+          mi juicio de valor en relación con los compromisos/obligaciones hacia
+          SAMSUNG. Esta situación de conflicto o contraposición, en la que los
+          intereses personales pueden influir en el cumplimiento de presentes o
+          futuro/as compromisos y/o responsabilidades, afectando el interés de
+          SAMSUNG, debe ser advertida y gestionada en forma preventiva, evitando
+          que se favorezcan intereses ajenos a los de SAMSUNG.
+        </p>
+        <p>
+          Por lo anterior, declaro lo siguiente:
+          <br />
+        </p>
+      </div>
+
+      <!-- ACCORDION 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            a) Conozco y comprendo el Procedimiento de Conflicto de Interés, el
+            Código de Conducta, la Política Anticorrupción y Soborno, el
+            Programa de Transparencia y Ética Empresarial (PTEE), y demás
+            documentos y regulaciones de SAMSUNG en materia de conflicto de
+            interés, reconozco su importancia y me comprometo a aplicarlos. En
+            caso que los incumpla o la persona jurídica a la que represento, nos
+            sometemos al régimen sancionatorio definido en el PTEE, dichas
+            políticas y regulación interna de SAMSUNG igualmente aplicable.
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordionConflicto"
+        >
+          <div class="accordion-body">
+            <div class="row">
+              <div class="col-md-2">
+                <br />
+                <select
+                  formControlName="conoceProcedimientoConflicto"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('conoceProcedimientoConflicto')?.invalid &&
+                    formulario.get('conoceProcedimientoConflicto')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('conoceProcedimientoConflicto')?.invalid &&
+                    formulario.get('conoceProcedimientoConflicto')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+
+              <div
+                class="col-md-6"
+                *ngIf="
+                  formulario.get('conoceProcedimientoConflicto')?.value ===
+                  false
+                "
+              >
+                <label>En caso negativo, por favor indique su razón.</label>
+                <input
+                  type="text"
+                  formControlName="razonNoConocerProcedimientoConflicto"
+                  class="form-control"
+                  
+                />
+                <div
+                  *ngIf="
+                    formulario.get('razonNoConocerProcedimientoConflicto')
+                      ?.invalid &&
+                    formulario.get('razonNoConocerProcedimientoConflicto')
+                      ?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  Este campo es obligatorio
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--======-->
+
+      <!-- ACCORDION 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            b) Actualmente doy a conocer si me encuentro, me he encontrado, o la
+            persona jurídica que represento (si aplica), así como sus empleados
+            (en caso de que aplique) se encuentran en una situación de conflicto
+            de interés como las que se detallan a continuación:
+          </button>
+        </h2>
+        <div
+          id="collapseTwo"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingTwo"
+          data-bs-parent="#accordionConflicto"
+        >
+          <div class="accordion-body">
+            <h6>
+              <strong>i.</strong> Las siguientes son las sociedades, empresas,
+              negocios y/u organizaciones sin ánimo de lucro de las cuales soy
+              dueño, representante legal, miembro de junta directiva, directivo
+              o empleado, o de los cuales he sido en los últimos 5 años y que
+              tienen algún tipo de relación o vinculación con SAMSUNG o que la
+              hayan tenido en los últimos cinco años:
+            </h6>
+            <div formArrayName="entidadesRelacionSamsung" class="mb-4">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Entidad o negocio</th>
+                    <th>Tipo de Participación y actividad</th>
+                    <th>Fechas</th>
+                    <th style="width: 40px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let group of entidadesRelacionSamsungArr.controls;
+                      let i = index
+                    "
+                    [formGroupName]="i"
+                  >
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="entidad"
+                        [class.is-invalid]="
+                          group.get('entidad')?.invalid &&
+                          group.get('entidad')?.touched
+                        "
+                      />
+                      <span
+                        *ngIf="
+                          group.get('entidad')?.invalid &&
+                          group.get('entidad')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ "CampoRequerido" | translate }}
+                      </span>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="tipoRelacion"
+                        [class.is-invalid]="
+                          group.get('tipoRelacion')?.invalid &&
+                          group.get('tipoRelacion')?.touched
+                        "
+                      />
+                      <span
+                        *ngIf="
+                          group.get('tipoRelacion')?.invalid &&
+                          group.get('tipoRelacion')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ "CampoRequerido" | translate }}
+                      </span>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="fechas"
+                        [class.is-invalid]="
+                          group.get('fechas')?.invalid &&
+                          group.get('fechas')?.touched
+                        "
+                      />
+                      <span
+                        *ngIf="
+                          group.get('fechas')?.invalid &&
+                          group.get('fechas')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ "CampoRequerido" | translate }}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="eliminarEntidadRelacionSamsung(i)"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <span
+                *ngIf="
+                  entidadesRelacionSamsungArr.invalid &&
+                  entidadesRelacionSamsungArr.touched
+                "
+                class="text-danger"
+              >
+                {{ "AlMenosUnaEntradaRequerida" | translate }}
+              </span>
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                (click)="agregarEntidadRelacionSamsung()"
+              >
+                <small><small>+ Agregar fila</small></small>
+              </button>
+            </div>
+
+            <div class="mt-3">
+              <h6>
+                <strong>ii.</strong> Describa a continuación otros tipos de
+                situaciones (otras relaciones como amigos, socios, aliados,
+                vinculación sentimental, enemistad, relación laboral como jefe/
+                subordinado, calidad de deudor, acreedor, demandante, demandado,
+                querellante, querellado, denunciante, denunciado, accionante,
+                accionado, etc.) con/contra algún o algunos empleados,
+                directivos, representantes legales, accionistas, miembros de
+                Junta Directiva, clientes, aliados o competidores de SAMSUNG que
+                puedan generar un potencial conflicto de interés.
+              </h6>
+              <textarea
+                formControlName="otrasSituacionesConflicto"
+                class="form-control"
+                rows="3"
+                [class.is-invalid]="
+                  formulario.get('otrasSituacionesConflicto')?.invalid &&
+                  formulario.get('otrasSituacionesConflicto')?.touched
+                "
+              ></textarea>
+              <span
+                *ngIf="
+                  formulario.get('otrasSituacionesConflicto')?.invalid &&
+                  formulario.get('otrasSituacionesConflicto')?.touched
+                "
+                class="text-danger"
+              >
+                {{ "CampoRequerido" | translate }}
+              </span>
+            </div>
+
+            <hr />
+            <h6>
+              <strong>iii.</strong> Tengo, o la persona jurídica a la que
+              represento (si aplica) otras actividades comerciales, laborales,
+              empresariales, soy dueño, accionista o presto servicios a empresas
+              competidoras con SAMSUNG o he tenido estas actividades o vínculos
+              en los últimos 5 años.
+            </h6>
+            <div class="row mt-3">
+              <div class="col-md-2">
+                <select
+                  formControlName="actividadesCompetidor"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('actividadesCompetidor')?.invalid &&
+                    formulario.get('actividadesCompetidor')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('actividadesCompetidor')?.invalid &&
+                    formulario.get('actividadesCompetidor')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div
+                class="col-md-6"
+                *ngIf="formulario.get('actividadesCompetidor')?.value === true"
+              >
+                <label>En caso afirmativo, por favor indique su razón.</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="razonActividadesCompetidor"
+                  [class.is-invalid]="
+                    formulario.get('razonActividadesCompetidor')?.invalid &&
+                    formulario.get('razonActividadesCompetidor')?.touched
+                  "
+                />
+                <span
+                  *ngIf="
+                    formulario.get('razonActividadesCompetidor')?.invalid &&
+                    formulario.get('razonActividadesCompetidor')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <br />
+            <h6>
+              <strong>iv.</strong> Tengo, o la persona jurídica a la que
+              represento (si aplica) relaciones con el Estado colombiano u otros
+              gobiernos, Funcionarios Públicos o realizo donaciones o
+              contribuciones.
+            </h6>
+            <div class="row mt-3">
+              <div class="col-md-2">
+                <select
+                  formControlName="relacionesEstado"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('relacionesEstado')?.invalid &&
+                    formulario.get('relacionesEstado')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('relacionesEstado')?.invalid &&
+                    formulario.get('relacionesEstado')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div
+                class="col-md-6"
+                *ngIf="formulario.get('relacionesEstado')?.value === true"
+              >
+                <label>En caso afirmativo, por favor indique su razón.</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="razonRelacionesEstado"
+                  [class.is-invalid]="
+                    formulario.get('razonRelacionesEstado')?.invalid &&
+                    formulario.get('razonRelacionesEstado')?.touched
+                  "
+                />
+                <span
+                  *ngIf="
+                    formulario.get('razonRelacionesEstado')?.invalid &&
+                    formulario.get('razonRelacionesEstado')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <h6>
+              <strong>v.</strong> He recibido o dado, he prometido o me han
+              prometido regalos u hospitalidad a/o de parte de personas
+              vinculadas a SAMSUNG que hayan podido o se puedan interpretar como
+              una situación que afecte mi independencia o juicio, como
+              contraparte de SAMSUNG.
+            </h6>
+            <div class="row mt-3">
+              <div class="col-md-2">
+                <select
+                  formControlName="regalosHospitalidad"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('regalosHospitalidad')?.invalid &&
+                    formulario.get('regalosHospitalidad')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('regalosHospitalidad')?.invalid &&
+                    formulario.get('regalosHospitalidad')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div
+                class="col-md-6"
+                *ngIf="formulario.get('regalosHospitalidad')?.value === true"
+              >
+                <label>En caso afirmativo, por favor indique su razón.</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="razonRegalosHospitalidad"
+                  [class.is-invalid]="
+                    formulario.get('razonRegalosHospitalidad')?.invalid &&
+                    formulario.get('razonRegalosHospitalidad')?.touched
+                  "
+                />
+                <span
+                  *ngIf="
+                    formulario.get('razonRegalosHospitalidad')?.invalid &&
+                    formulario.get('razonRegalosHospitalidad')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+            <hr />
+            <h6>
+              <strong>vi.</strong> Tengo, he tenido un parentesco hasta el
+              tercer grado de consanguinidad, segundo de afinidad, primero
+              civil, o soy cónyuge o compañero permanente de algún o algunos
+              empleados, representantes legales, directivos, accionistas o
+              miembros de Junta Directiva, clientes o aliados de SAMSUNG.
+            </h6>
+            <div formArrayName="parentescosTercerGrado">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Tipo de relación</th>
+                    <th style="width: 40px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let group of parentescosArr.controls; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="nombre"
+                        [class.is-invalid]="
+                          group.get('nombre')?.invalid &&
+                          group.get('nombre')?.touched
+                        "
+                      />
+                      <span
+                        *ngIf="
+                          group.get('nombre')?.invalid &&
+                          group.get('nombre')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ "CampoRequerido" | translate }}
+                      </span>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="tipoRelacion"
+                        [class.is-invalid]="
+                          group.get('tipoRelacion')?.invalid &&
+                          group.get('tipoRelacion')?.touched
+                        "
+                      />
+                      <span
+                        *ngIf="
+                          group.get('tipoRelacion')?.invalid &&
+                          group.get('tipoRelacion')?.touched
+                        "
+                        class="text-danger"
+                      >
+                        {{ "CampoRequerido" | translate }}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="eliminarParentesco(i)"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <span
+                *ngIf="parentescosArr.invalid && parentescosArr.touched"
+                class="text-danger"
+              >
+                {{ "AlMenosUnaEntradaRequerida" | translate }}
+              </span>
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                (click)="agregarParentesco()"
+              >
+                <small><small>+ Agregar</small></small>
+              </button>
+              <br />
+            </div>
+
+            <h6>
+              <strong>vii.</strong> Otras situaciones no incluidas en las
+              anteriores, que considero que puedan afectar mi independencia en
+              cuanto a mi relación o futura vinculación con SAMSUNG.
+            </h6>
+            <div class="row mt-3">
+              <div class="col-md-2">
+                <select
+                  formControlName="otrasSituacionesAfectanIndependencia"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('otrasSituacionesAfectanIndependencia')
+                      ?.invalid &&
+                    formulario.get('otrasSituacionesAfectanIndependencia')
+                      ?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('otrasSituacionesAfectanIndependencia')
+                      ?.invalid &&
+                    formulario.get('otrasSituacionesAfectanIndependencia')
+                      ?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div
+                class="col-md-6"
+                *ngIf="
+                  formulario.get('otrasSituacionesAfectanIndependencia')
+                    ?.value === true
+                "
+              >
+                <label>En caso afirmativo, por favor indique su razón.</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="razonOtrasSituacionesAfectanIndependencia"
+                  [class.is-invalid]="
+                    formulario.get('razonOtrasSituacionesAfectanIndependencia')
+                      ?.invalid &&
+                    formulario.get('razonOtrasSituacionesAfectanIndependencia')
+                      ?.touched
+                  "
+                />
+                <span
+                  *ngIf="
+                    formulario.get('razonOtrasSituacionesAfectanIndependencia')
+                      ?.invalid &&
+                    formulario.get('razonOtrasSituacionesAfectanIndependencia')
+                      ?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ACCORDION 3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseThree"
+            aria-expanded="true"
+            aria-controls="collapseThree"
+          >
+            c) Otras declaraciones
+          </button>
+        </h2>
+        <div
+          id="collapseThree"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingThree"
+          data-bs-parent="#accordionConflicto"
+        >
+          <div class="accordion-body">
+            <div class="row mb-2">
+              <div class="col-md-4">
+                <h6>
+                  <strong>i.</strong> ¿Ha intentado ejercer influencia indebida
+                  sobre las políticas o decisiones de SAMSUNG para beneficio
+                  personal o beneficio de un tercero?
+                </h6>
+                <select
+                  formControlName="influenciaIndebidaPoliticas"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('influenciaIndebidaPoliticas')?.invalid &&
+                    formulario.get('influenciaIndebidaPoliticas')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('influenciaIndebidaPoliticas')?.invalid &&
+                    formulario.get('influenciaIndebidaPoliticas')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div class="col-md-4">
+                <h6>
+                  <strong>ii.</strong> ¿Influye o ha influido indebidamente en
+                  la adjudicación o rechazo para la vinculación con SAMSUNG
+                  (mediante contratos o cualquier forma jurídica existente) de
+                  familiares, amigos, asociados, o cualquier otro tercero?
+                </h6>
+                <select
+                  formControlName="influenciaIndebidaAdjudicaciones"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('influenciaIndebidaAdjudicaciones')
+                      ?.invalid &&
+                    formulario.get('influenciaIndebidaAdjudicaciones')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('influenciaIndebidaAdjudicaciones')
+                      ?.invalid &&
+                    formulario.get('influenciaIndebidaAdjudicaciones')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div class="col-md-4">
+                <h6>
+                  <strong>iii.</strong> ¿Compra a precio de descuento, si es
+                  aliado, y revende directa o indirectamente a terceros
+                  productos de SAMSUNG?
+                </h6>
+                <select
+                  formControlName="descuentoReventa"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('descuentoReventa')?.invalid &&
+                    formulario.get('descuentoReventa')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('descuentoReventa')?.invalid &&
+                    formulario.get('descuentoReventa')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4">
+                <h6>
+                  <strong>iv.</strong> ¿Participa en actividades regulatorias u
+                  otras actividades de una comunidad o ente gubernamental que
+                  tengan un impacto directo sobre las actividades de SAMSUNG,
+                  salvo que ello sea autorizado por SAMSUNG?
+                </h6>
+                <select
+                  formControlName="actividadesRegulatorias"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('actividadesRegulatorias')?.invalid &&
+                    formulario.get('actividadesRegulatorias')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('actividadesRegulatorias')?.invalid &&
+                    formulario.get('actividadesRegulatorias')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div class="col-md-4">
+                <h6>
+                  <strong>v.</strong> ¿Actúa o ha actuado como corredor,
+                  comisionista o como cualquier intermediario para beneficio de
+                  un tercero en las transacciones que involucran a SAMSUNG o sus
+                  intereses?
+                </h6>
+                <select
+                  formControlName="corredorIntermediario"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('corredorIntermediario')?.invalid &&
+                    formulario.get('corredorIntermediario')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('corredorIntermediario')?.invalid &&
+                    formulario.get('corredorIntermediario')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+              <div class="col-md-4">
+                <h6>
+                  <strong>vi.</strong> ¿Acepta o ha aceptado, entrega o ha
+                  entregado, regalos, hospitalidad u otros beneficios a/de
+                  funcionarios públicos, empleados, aliados, proveedores,
+                  clientes u otros terceros relacionados con SAMSUNG?
+                </h6>
+                <select
+                  formControlName="regalosFuncionarios"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('regalosFuncionarios')?.invalid &&
+                    formulario.get('regalosFuncionarios')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('regalosFuncionarios')?.invalid &&
+                    formulario.get('regalosFuncionarios')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4">
+                <h6>
+                  <strong>vii.</strong> ¿Aprueba, supervisa o gestiona, directa o
+                  indirectamente, transacciones o relaciones donde conozca del
+                  hecho de que hay un conflicto de interés real, potencial o
+                  percibido, en relación con los involucrados en la transacción
+                  o negocio?
+                </h6>
+                <select
+                  formControlName="apruebaTransaccionesConflicto"
+                  class="form-control"
+                  [class.is-invalid]="
+                    formulario.get('apruebaTransaccionesConflicto')?.invalid &&
+                    formulario.get('apruebaTransaccionesConflicto')?.touched
+                  "
+                >
+                  <option [ngValue]="false">{{ "No" | translate }}</option>
+                  <option [ngValue]="true">{{ "Si" | translate }}</option>
+                </select>
+                <span
+                  *ngIf="
+                    formulario.get('apruebaTransaccionesConflicto')?.invalid &&
+                    formulario.get('apruebaTransaccionesConflicto')?.touched
+                  "
+                  class="text-danger"
+                >
+                  {{ "CampoRequerido" | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

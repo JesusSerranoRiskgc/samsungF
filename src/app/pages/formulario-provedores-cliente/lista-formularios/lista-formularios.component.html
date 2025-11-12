@@ -1,0 +1,406 @@
+<div class="d-flex justify-content-center align-items-center" *ngIf="isLoading">
+  <div class="spinner-border text-primary" role="status">
+    <span></span>
+  </div>
+  &nbsp;
+  <span>Loading..</span>
+</div>
+<div style="text-align: center" *ngIf="!isLoading">
+  <h5>Lista de Formularios</h5>
+</div>
+
+<div class="container" style="width: 80%" *ngIf="!isLoading">
+  <div class="card" *ngIf="NombreRol === 'Proveedor/Cliente'">
+    <div class="card-body">
+      <li>
+        <button class="btn btn-primary" style="background: linear-gradient(135deg, #1428a0 0%, #2a2f4f 100%)"
+          (click)="abrirModal()">
+          Crear Formulario Nuevo
+        </button>
+      </li>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3 row d-flex align-items-center">
+        <div class="col-auto d-flex align-items-center">
+          <label for="table-complete-search" class="col-form-label me-2">Buscar:</label>
+          <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchTerm"
+            (input)="applyFilter()" />
+        </div>
+        <div *ngIf="NombreRol === 'Proveedor/Cliente'" class="col d-flex justify-content-end">
+          <button class="btn btn-primary" style="
+              margin-right: 20px;
+              background: linear-gradient(135deg, #1428a0 0%, #2a2f4f 100%);
+            " (click)="abrirModal()">
+            <i class="bi bi-plus-circle" style="font-size: 1.5rem" (click)="abrirModal()"></i>
+          </button>
+        </div>
+      </div>
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th scope="col">NumeroFormulario</th>
+            <th scope="col">Nombre Usuario</th>
+            <th scope="col">Estado</th>
+
+            <th scope="col">Fecha</th>
+
+            <th scope="col" style="width: 180px">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of getPagedData()">
+            <td>{{ element.id }}</td>
+            <!-- Asumiendo que tu modelo tiene la propiedad 'id' en minúsculas -->
+            <td>{{ element.nombreUsuario }}</td>
+            <td>{{ element.estado }}</td>
+
+            <td>{{ element.fechaFormulario }}</td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="edit(element)" title="Editar Ver">
+                <i [ngClass]="
+                    (element.idUsuario === userId && element.idEstado === 1) ||
+                    element.idEstado === 2 ||
+                    element.idEstado === 6
+                      ? 'bi bi-pencil'
+                      : 'bi bi-eye'
+                  "></i></button>&nbsp;
+              <button *ngIf="esRolValido()" type="button" class="btn btn-primary" (click)="abrirlistas(element)"
+                title="Resultados Listas">
+                <i class="bi bi-clipboard-check"></i></button>&nbsp;
+              <button type="button" class="btn btn-primary" (click)="GenerarPdfConVerificacion(element)"
+                title="Descargar Pdf">
+                <i class="bi bi-file-earmark-fill"></i></button>&nbsp;
+              <button type="button" class="btn btn-info btn-sm" (click)="debugPdfDownload(element)"
+                title="Diagnosticar PDF">
+                <i class="bi bi-bug-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ngb-pagination [collectionSize]="filteredDataSource.length" [(page)]="currentPage" [pageSize]="pageSize" style="
+          margin-right: 20px;
+          background: linear-gradient(135deg, #1428a0 0%, #2a2f4f 100%);
+        " (pageChange)="onPageChange($event)" [maxSize]="5" [ellipses]="true" [rotate]="true">
+      </ngb-pagination>
+      <button class="btn btn-primary" style="background: linear-gradient(135deg, #1428a0 0%, #2a2f4f 100%)"
+        (click)="exportToExcel2()">
+        Exportar a Excel
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="terminos-condiciones" #modalTerminos>
+  <div class="modal-dialog modal-80w">
+    <div class="modal-content" style="width: 100%">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title" id="terminos-header">Términos y condiciones</h2>
+        <button type="button" class="close" data-dismiss="modal" (click)="cerrarModal()">
+          ×
+        </button>
+      </div>
+
+      <!-- Modal body PRINCIPAL -->
+      <div class="modal-body">
+        <div class="content-wrapper">
+          <p style="text-align: center">
+            <br /><br /><b>DECLARACIONES DE CUMPLIMIENTO:</b>
+          </p>
+          <ol style="text-align: justify; padding: 5px 60px 5px 60px">
+            <li>
+              SAMSUNG ELECTRONICS COLOMBIA SA (SAMSUNG) se encuentra obligada
+              bajo las normas colombianas, especialmente por las relativas a la
+              implementación de un sistema de autocontrol y gestión del riesgo
+              integral de lavado de activos, financiamiento al terrorismo y
+              financiamiento de la proliferación de armas de destrucción masiva-
+              LA/FT/FPADM (“SAGRILAFT”) y un Programa de Transparencia y Ética
+              Empresarial (“PTEE”) para gestionar, prevenir y controlar los
+              riesgos provenientes de actos de corrupción, sobornos y otros, de
+              conformidad con la Ley 2195 de 2022, la Circular 170 de la DIAN y
+              los Capítulos X y XIII de la Circular Básica Jurídica expedida por
+              la Superintendencia de Sociedades. Como parte de la mencionada
+              regulación, SAMSUNG debe llevar a cabo medidas de debida
+              diligencia que permitan entre otras finalidades identificar el/los
+              beneficiario(s) final(es), teniendo en cuenta como mínimo los
+              siguientes criterios:
+              <ul>
+                <li>
+                  Identificar la persona natural, persona jurídica, estructura
+                  sin personería jurídica o similar con la que se celebre el
+                  negocio jurídico o el contrato.
+                </li>
+                <li>
+                  Identificar el/los beneficiario(s) final(es) y la estructura
+                  de titularidad y control de la persona jurídica, estructura
+                  sin personería jurídica o similar con la que se celebre el
+                  negocio jurídico o el contrato, y tomar medidas razonables
+                  para verificar la información reportada.
+                </li>
+                <li>
+                  Solicitar y obtener información que permita conocer el
+                  objetivo que se pretende con el negocio jurídico o el
+                  contrato. Debe obtener la información que permita entender el
+                  objeto social del contratista.
+                </li>
+                <li>
+                  Realizar una debida diligencia de manera continua del negocio
+                  jurídico o el contrato estatal, examinando las transacciones
+                  llevadas a cabo a lo largo de esa relación para asegurar que
+                  las transacciones sean consistentes con el conocimiento de la
+                  persona natural, persona jurídica, estructura sin personería
+                  jurídica o similar con la que se realiza el negocio jurídico o
+                  el contrato, su actividad comercial, perfil de riesgo y fuente
+                  de los fondos.
+                </li>
+                <li>
+                  Como sujeto obligado, SAMSUNG debe mantener actualizada la
+                  información suministrada por la contaparte. Por lo anterior,
+                  cuando la contraparte sea una persona jurídica, el formato
+                  debe venir suscrito por el representante legal, gerente o el
+                  que haga sus veces.
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <b>DECLARACIONES GENERALES:</b><br />
+              El suscrito declara que:
+              <ul>
+                <li>
+                  La información incluida en el diligenciamiento del presente
+                  formato ha sido entregada de manera voluntaria.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  La información incluida en el diligenciamiento del presente
+                  formato es veraz y completa. Que en el caso de encontrarse
+                  incongruencias y/o errores en la misma, este formato podrá ser
+                  devuelto para ajustar la información o ser rechazado.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  Autorizo a SAMSUNG para que lleve a cabo la verificación en
+                  Listas Restrictivas y otras listas que esta utiliza para
+                  cumplir con su política de cumplimiento, respecto de la
+                  persona jurídica, sus representantes legales, miembros de
+                  junta directiva, apoderados, revisores fiscales, accionistas
+                  directos e indirectos hasta llegar al beneficiario real o
+                  final. La presente autorización se extiende durante la
+                  vigencia del vínculo o relacionamiento con SAMSUNG por lo que
+                  se entiende que la autorización tiene un alcance indefinido,
+                  en la medida en que, por regulación externa y políticas de
+                  lavado de activos, financiamiento al terrorismo,
+                  financiamiento de la proliferación de armas de destrucción
+                  masiva y corrupción, los monitoreos a este sistema exigen que
+                  se haga verificación de manera constante y/o regular.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  En el evento que la información incluida en este formato
+                  cambie o sea actualizada, el suscrito se compromete a que de
+                  manera inmediata lo pondrá en conocimiento de SAMSUNG.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>DECLARACIÓN SOBRE CONOCIMIENTO Y ACEPTACIÓN DE POLÍTICAS
+                SAMSUNG:</b><br />
+              Declaro que he leído y conozco los principios del Código de
+              Conducta de SAMSUNG ELECTRONICS COLOMBIA S.A. (en adelante
+              "SAMSUNG") (https://www.sec-audit.com/common/portal/sdpMain.do),
+              así como las políticas y procedimientos aplicables a terceros,
+              accesibles en www.samsung.com/co/info/generalpolicies/ por lo que
+              me adhiero al compromiso de evitar los conflictos de intereses,
+              combatir la corrupción y el soborno, prevenir el lavado de dinero,
+              promover la libre competencia, la protección de datos personales,
+              así como la protección del medio ambiente, la salud y la seguridad
+              y en general, dar cumplimiento a estos principios. Por ello,
+              tomaremos las medidas adecuadas para garantizar el cumplimiento de
+              estos requisitos en la cadena de valor. SAMSUNG se reserva el
+              derecho de verificar el cumplimiento utilizando los medios
+              apropiados, incluyendo, sin limitarse, a solicitudes de
+              información a través cuestionarios o visitas a las instalaciones
+              de sus terceros o aliados, previamente acordadas con este y de
+              manera anual. Asimismo, declaro bajo la gravedad del juramento:
+              (i) que la totalidad de los activos y bienes tienen origen en
+              actividades licitas y no tienen relaciones con personas u
+              organizaciones dedicadas a actividades delictivas, y que tampoco
+              contribuye a la financiación, mantenimiento o realización de
+              conductas al margen de la ley y/o terroristas y por lo tanto los
+              recursos que se deriven de la presente relación comercial no serán
+              destinados para tales fines; (ii) que dentro del Sistema de
+              Cumplimiento (cuando aplique) se cuenta con altos estándares para
+              la prevención y detección del lavado de activos y la financiación
+              del terrorismo, la lucha contra la corrupción, el soborno y el
+              conflicto de interés a través de prácticas adecuadas para limitar
+              el relacionamiento con funcionarios públicos y/o de gobierno;
+              (iii) que la compañía, ni sus representantes legales o directivos
+              han estado sujetos a penas o sanciones relacionadas a los delitos
+              mencionados en el punto anterior; (iv) que cumplimos a cabalidad
+              con estas obligaciones, y que, de estar obligado a la
+              implementación de un Sistema de Cumplimiento, enviará a SAMSUNG
+              una certificación sobre dicha implementación firmada por un
+              Representante Legal y el Oficial de Cumplimiento. Cuando exista
+              cualquier indicio de la comisión de delitos relacionados
+              anteriormente, SAMSUNG se reserva la facultad de terminar de
+              manera anticipada cualquier relación comercial con el tercero sin
+              que haya indemnización a favor de este. Si hay evidencia de una
+              posible mala conducta por parte de los empleados de SAMSUNG, el
+              tercero deberá informarlo por correo electrónico (local)
+              compliance.co&#64;samsung.com, ethics.co&#64;samsung.com
+              (regional) compliancela&#64;samsung.com (global)
+              cp.wb.sec&#64;samsung.com, página web:
+              https://www.sec-compliance.net/gcc/gcc.do?method=gccReport&langCd=es_ES
+              o línea telefónica: 01 800-9136740
+            </li>
+            <li>
+              <b>CERTIFICACIÓN DE CUMPLIMIENTO DE REQUERIMIENTOS DE
+                IMPORTACIÓN:</b>
+              <ul>
+                <li>
+                  Al firmar el presente documento manifiesto de manera
+                  voluntaria y expresa que la empresa que represento está
+                  comprometida con el cumplimiento de los requerimientos de
+                  importación exigidos por los diferentes entes certificadores
+                  en seguridad de la cadena de suministro y comercio
+                  internacional a la empresa SAMSUNG ELECTRONICS COLOMBIA S.A.
+                  Así mismo, manifiesto que todas las actividades de la empresa
+                  que represento son lícitas y se ejercen dentro de los marcos
+                  legales que corresponden. Igualmente, mi representada está
+                  comprometida a prevenir actividades ilícitas en la cadena de
+                  suministro de las operaciones logísticas de la empresa
+                  SAMSUNG, mediante el establecimiento de controles en las
+                  actividades desarrolladas.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>AUTORIZACIÓN PARA PAGOS:</b>
+              <ul>
+                <li>
+                  <b>Autorizo</b> a SAMSUNG ELECTRONICS COLOMBIA S.A. para
+                  realizar el pago
+                  <strong>a través de transferencia electrónica a la cuenta bancaria
+                    descrita en el presente documento.</strong>
+                  Igualmente, autorizo expresa e irrevocablemente a la entidad
+                  SAMSUNG y/o a quien ella autorice para consultar, reportar,
+                  procesar, solicitar y divulgar ante las centrales de
+                  informacion de la Asociacion Bancaria o cualquier otra entidad
+                  encargada del manejo de datos, información y riesgos sobre mis
+                  relaciones comerciales, el comportamiento comercial, datos
+                  personales económicos, análisis de estados financieros de la
+                  empresa que represento.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>CONDICIONES GENERALES:</b>
+              <ul>
+                <li>
+                  Ordenes de Pedido / Recibo de Mercancia: Expediremos órdenes
+                  de pedido individuales por cada despacho de mercancía
+                  solicitada por cualquier medio probatorio adecuado que sirva
+                  de soporte documentario a las partes (fax, correo electrónico,
+                  comunicación escrita, EDI). 2. Las partes de buena fe
+                  aceptarán que tales órdenes de pedido han sido suscritas por
+                  persona delegada por el cliente para tal efecto. 3. Recibo de
+                  Facturas: El recibo de facturas por cualquier dependencia de
+                  la empresa implica aceptación de las mismas. 4. El pago de las
+                  facturas es de acuerdo al plazo de crédito otorgado por
+                  SAMSUNG. 5. No efectuarán pagos en efectivos ni de cuentas de
+                  terceros.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <b>ORIGEN DE FONDOS:</b><br />
+              <!-- Para Persona Natural -->
+             <strong> 1.</strong> El origen de fondos y recursos de la Sociedad que represento provienen del desarrollo del objeto
+              social, y/o del financiamiento otorgado por una entidad financiera nacional o extranjera debidamente
+              registrada ante entidad competente, y/o rendimientos percibidos por inversiones operacionales y no
+              operacionales, y en general, de actividades lícitas.<br/>
+            <strong> 2.</strong> El origen de los fondos y recursos con los que se ejecutará o se está ejecutando el contrato/relación
+              provienen del desarrollo del objeto social, y/o del financiamiento otorgado por una entidad financiera
+              nacional o extranjera debidamente registrada ante entidad competente, y/o rendimientos percibidos por
+              inversiones operacionales y no operacionales, y en general, de actividades lícitas.<br/>
+             <strong> 3.</strong> El origen de recursos y fondos de los accionistas de la Sociedad que represento, tanto directos como
+              indirectos, controlantes y beneficiarios finales provienen en su 100% de actividades comerciales o civiles
+              lícitas.<br/>
+             <strong> 4.</strong> La fuente de fondos en ningún caso involucra actividades ilícitas propias o de terceras personas, dado
+              que, en todos los casos, son fondos propios, por lo tanto, no hemos prestado nuestro nombre para que
+              terceras personas, con recursos obtenidos ilícitamente, efectúen inversiones a nombre nuestro.
+              Así mismo, en nombre de la Sociedad/Entidad declaro que conozco la necesidad de suscribir la presente
+              declaración, de conformidad con las normas locales que regulan la gestión y prevención de LA/FT/FPADM y
+              corrupción, principalmente el Capítulo X y el XIII de la Circular Básica Jurídica emitida por la
+              Superintendencia de Sociedades y las Leyes 1474 de 2011, Ley 1778 de 2016 y 2195 de 2022, por lo que dejo
+              constancia de que la misma no va en contra de las normas que regulan el habeas data ni la Ley de
+              Protección de Datos Personales.
+              Por lo anterior, declaro que la información aquí suministrada corresponde a la realidad y autorizo su
+              verificación ante cualquier persona pública o privada, sin limitación alguna, desde ahora y mientras
+              subsista un vínculo entre la Sociedad/entidad y SAMSUNG. Igualmente, autorizo que, durante dicho vínculo
+              SAMSUNG lleve a cabo el monitoreo a sus contrapartes, tal como lo exige la regulación aplicable en temas
+              de gestión y prevención de LA/FT/FPADM, PTEE y las leyes anticorrupción vigentes en Colombia.
+              Igualmente, declaro que conozco las consecuencias de que las declaraciones incorporadas en la presente
+              certificación no concuerden con la realidad, siendo estas: (i) reporte de actividad sospechosa ante la
+              UIAF; (ii) denuncia ante la Fiscalía General de la Nación y demás autoridades competentes, si es del caso,
+              (iii) suspensión y/ terminación del vínculo comercial y (iv) solicitud de indemnización de perjuicios a
+              SAMSUNG, sus accionistas directos e indirectos, como controlantes y beneficiarios finales, en el evento de
+              generar cualquier tipo de perjuicio en contra de SAMSUNG, sus accionistas, filiales, subsidiarias,
+              sucursales, directivos, empleados y demás contratistas.
+              Por último, acepto expresamente mantener indemne a SAMSUNG, sus accionistas, filiales, subsidiarias,
+              sucursales, directivos, empleados y demás contratistas, de toda responsabilidad, daño y/o perjuicios que
+              se derive por información errónea, falsa o inexacta que se hubiere proporcionado en este certificado, sin
+              perjuicios de las indemnidades que nazcan con ocasión al vínculo comercial o jurídico de cualquier índole,
+              la cual se entenderá parte del contrato o acuerdo que perfeccione el vínculo de la Sociedad que represento
+              con SAMSUNG.
+            </li>
+            <li>
+              <b>AUTORIZACIÓN DE TRATAMIENTO DE DATOS PERSONALES:</b><br />
+              <div class="authorization-checkboxes">
+                <label>
+                  <input type="checkbox" id="authorize-treatment" [(ngModel)]="authorizeTreatment" />
+                  Autorizo el tratamiento de datos personales
+                </label>
+                <label>
+                  <input type="checkbox" id="authorize-commercial" [(ngModel)]="authorizeCommercial" />
+                  Autorizo la utilización de mis datos personales para los
+                  siguientes fines comerciales
+                </label>
+              </div>
+              <p>
+                Encuentre nuestra política de tratamiento de datos personales y
+                los fines comerciales en el siguiente link:
+                <a href="https://www.samsung.com/co/info/privacy/"
+                  target="_blank">https://www.samsung.com/co/info/privacy/</a>
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="accept-terms" [(ngModel)]="acceptTerms" />
+          <label for="accept-terms">He leído y acepto los términos y condiciones.</label>
+        </div>
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal()" id="btn-cerrar-modal">
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="CrearFormulario()" id="btn-aceptar-modal" [disabled]="
+            !authorizeTreatment || !authorizeCommercial || !acceptTerms
+          ">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

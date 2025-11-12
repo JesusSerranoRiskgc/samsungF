@@ -1,0 +1,322 @@
+<div class="min-vh-100 d-flex flex-column" style="background: #f5f7fa;">
+
+
+  <div class="py-4 px-3 text-center mb-4" style="
+      background: linear-gradient(82deg, #1428a000 0%, #2a2f4f21 100%);
+      color: #000000;
+    ">
+    <div class="container">
+
+      <h2 class="fw-bold mb-2">Formulario N° {{ IdFormulario }}</h2>
+
+
+      <p class="mb-0">
+        {{ 'Estado' | translate }}:
+        <strong>{{ Estado }}</strong>
+        <a href="javascript:void(0)" *ngIf="IdEstadoFormulario === 6" (click)="abrirModalVerFormulario()"
+          class="text-decoration-underline text-white ms-2" style="font-weight: 500;">
+          {{ 'VerMotivoRechazo' | translate }}
+        </a>
+      </p>
+
+    </div>
+  </div>
+
+
+  <div class="container flex-grow-1 mb-5">
+
+    <div class="row mb-3">
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-outline-primary me-2" (click)="submit()"
+          *ngIf="IdEstadoFormulario === 1 || IdEstadoFormulario === 6" [disabled]="isGuardando">
+          <span *ngIf="isGuardando" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ 'Guardar' | translate }}
+        </button>
+        <button type="button" class="btn btn-outline-success me-2"
+          *ngIf="IdEstadoFormulario === 1 || IdEstadoFormulario === 2" (click)="Enviar()" [disabled]="isGuardando">
+          <span *ngIf="isGuardando" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ 'Enviar' | translate }}
+        </button>
+        <button type="submit" class="btn btn-outline-success me-2" *ngIf="IdEstadoFormulario === 6"
+          (click)="Reenviar()" [disabled]="isGuardando">
+          <span *ngIf="isGuardando" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ 'Reenviar' | translate }}
+        </button>
+        <!-- Botón imprimir (opcional)
+        <button
+          type="submit"
+          class="btn btn-outline-danger"
+          *ngIf="IdEstadoFormulario !== 1"
+          (click)="downloadfile()"
+        >
+          imprimir
+        </button>
+        -->
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <br>
+
+
+        <ul class="nav nav-tabs mx-3" id="myTab" role="tablist" #myTab>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="DatosGenerales-tab" data-bs-toggle="tab"
+              data-bs-target="#DatosGenerales" type="button" role="tab" aria-controls="DatosGenerales"
+              aria-selected="true">
+              {{ 'Datos_Generales' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabRepresentanteLegal">
+            <button class="nav-link" id="RepresentanteLegal-tab" data-bs-toggle="tab"
+              data-bs-target="#RepresentanteLegal" type="button" role="tab" aria-controls="RepresentanteLegal"
+              aria-selected="false">
+              {{ 'Representante_Legal' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabJuntaDirectiva">
+            <button class="nav-link" id="JuantaDirectiva-tab" data-bs-toggle="tab" data-bs-target="#JuantaDirectiva"
+              type="button" role="tab" aria-controls="JuantaDirectiva" aria-selected="false">
+              {{ 'Junta_Directiva' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabAccionistas">
+            <button class="nav-link" id="Accionistas-tab" data-bs-toggle="tab" data-bs-target="#Accionistas"
+              type="button" role="tab" aria-controls="Accionistas" aria-selected="false">
+              {{ 'Accionistas' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabInformacionTriburaria">
+            <button class="nav-link" id="InformacionTributaria-tab" data-bs-toggle="tab"
+              data-bs-target="#InformacionTributaria" type="button" role="tab" aria-controls="InformacionTributaria"
+              aria-selected="false">
+              {{ 'Informaciontributaria' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabDatosRevisorFiscal">
+            <button class="nav-link" id="DatosdeContacto-tab" data-bs-toggle="tab" data-bs-target="#DatosdeContacto"
+              type="button" role="tab" aria-controls="DatosdeContacto" aria-selected="false">
+              {{ 'Datos_Contacto' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabDatosRevisorFiscal">
+            <button class="nav-link" id="DatosRevisorFiscal-tab" data-bs-toggle="tab"
+              data-bs-target="#DatosRevisorFiscal" type="button" role="tab" aria-controls="DatosRevisorFiscal"
+              aria-selected="false">
+              Datos Revisor Fiscal
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabInfoFinanciera">
+            <button class="nav-link" id="InformacionFinanciera-tab" data-bs-toggle="tab"
+              data-bs-target="#InformacionFinanciera" type="button" role="tab" aria-controls="InformacionFinanciera"
+              aria-selected="false">
+              Información Financiera
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabInformacionComplementaria">
+            <button class="nav-link" id="InformacionComplementaria-tab" data-bs-toggle="tab"
+              data-bs-target="#InformacionComplementaria" type="button" role="tab"
+              aria-controls="InformacionComplementaria" aria-selected="false">
+              Información Complementaria
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabConflictoInteres">
+            <button class="nav-link" id="ConflictoInteres-tab" data-bs-toggle="tab" data-bs-target="#ConflictoInteres"
+              type="button" role="tab" aria-controls="ConflictoInteres" aria-selected="false">
+              Conflicto de Interés
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabReferenciasBancarias">
+            <button class="nav-link" id="ReferenciasBancarias-tab" data-bs-toggle="tab"
+              data-bs-target="#ReferenciasBancarias" type="button" role="tab" aria-controls="ReferenciasBancarias"
+              aria-selected="false">
+              {{ 'Referencias_comerciales_bancarias' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabDatosdeContacto">
+            <button class="nav-link" id="DatosdeContacto-tab" data-bs-toggle="tab"
+              data-bs-target="#DatosdeContacto" type="button" role="tab" aria-controls="DatosdeContacto"
+              aria-selected="false">
+              {{ 'Datos_Contacto' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabDatosdepagos">
+            <button class="nav-link" id="Datosdepagos-tab" data-bs-toggle="tab" data-bs-target="#Datosdepagos"
+              type="button" role="tab" aria-controls="Datosdepagos" aria-selected="false">
+              {{ 'Datos_de_Pago' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation"
+          *ngIf="mostrarTabDespachos">
+            <button class="nav-link" id="Despachodemercancia-tab" data-bs-toggle="tab"
+              data-bs-target="#Despachodemercancia" type="button" role="tab" aria-controls="Despachodemercancia"
+              aria-selected="false">
+              {{ 'Despacho_de_Mercancia' | translate }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabCumplimientoNormativo">
+            <button class="nav-link" id="CumplimientoNormativo-tab" data-bs-toggle="tab"
+              data-bs-target="#CumplimientoNormativo" type="button" role="tab" aria-controls="CumplimientoNormativo"
+              aria-selected="false">
+              {{ 'Cumplimiento_Normativo' | translate }}
+            </button>
+          </li>
+
+          <li class="nav-item" role="presentation" *ngIf="mostrarTabDeclaraciones">
+            <button class="nav-link" id="Declaraciones-tab" data-bs-toggle="tab" data-bs-target="#Declaraciones"
+              type="button" role="tab" aria-controls="Declaraciones" aria-selected="false">
+              {{ 'Declaraciones' | translate }}
+            </button>
+          </li>
+            <li class="nav-item" role="presentation" *ngIf="mostrarTabAdjuntos">
+            <button class="nav-link" id="Adjuntos-tab" data-bs-toggle="tab" data-bs-target="#Adjuntos" type="button"
+              role="tab" aria-controls="Adjuntos" aria-selected="false">
+              {{ 'Datos_Adjuntos' | translate }}
+            </button>
+          </li>
+        </ul>
+
+        <!-- Contenido de los tabs (sin cambios de lógica) -->
+        <div class="tab-content" id="myTabContent">
+          <!-- #region DatosGenerales -->
+          <div class="tab-pane fade show active" id="DatosGenerales" role="tabpanel"
+            aria-labelledby="DatosGenerales-tab">
+            <app-datos-generales #componenteDatosGenerales [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [FechaFormulario]="FechaFormulario" [Lang]="Lang"
+              [Listatiposolicitud]="Listatiposolicitud" [ListaClaseTerceros]="ListaClaseTerceros"
+              [ListaTipoDocumentos]="ListaTipoDocumentos" [ListaSino]="ListaSino" [ListaPaises]="ListaPaises"
+              [ListaTamanoterceros]="ListaTamanoterceros" [ListaActividadesEco]="ListaActividadesEco"
+              [ListaCategoriaTerceros]="ListaCategoriaTerceros" [editable]="editable"
+              (tabVisibilityChange)="onTabVisibilityChange($event)">
+            </app-datos-generales>
+          </div>
+          <!-- #endregion -->
+
+          <!-- #region RepresentanteLegal -->
+          <div class="tab-pane fade" id="RepresentanteLegal" role="tabpanel" aria-labelledby="RepresentanteLegal-tab">
+            <app-representante-legal #DatosRepresentantes [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [Listatiposolicitud]="Listatiposolicitud"
+              [ListaClaseTerceros]="ListaClaseTerceros" [ListaTipoDocumentos]="ListaTipoDocumentos"
+              [ListaSino]="ListaSino" [ListaPaises]="ListaPaises" [ListaTamanoterceros]="ListaTamanoterceros"
+              [ListaCategoriaTerceros]="ListaCategoriaTerceros" [editable]="editable">
+            </app-representante-legal>
+          </div>
+          <!-- #endregion -->
+
+          <div class="tab-pane fade" id="JuantaDirectiva" role="tabpanel" aria-labelledby="JuantaDirectiva-tab">
+            <app-junta-directiva #DatosJuntaDirectiva [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [Listatiposolicitud]="Listatiposolicitud"
+              [ListaClaseTerceros]="ListaClaseTerceros" [ListaTipoDocumentos]="ListaTipoDocumentos"
+              [ListaSino]="ListaSino" [ListaPaises]="ListaPaises" [ListaTamanoterceros]="ListaTamanoterceros"
+              [ListaCategoriaTerceros]="ListaCategoriaTerceros" [editable]="editable">
+            </app-junta-directiva>
+          </div>
+          <div class="tab-pane fade" id="Accionistas" role="tabpanel" aria-labelledby="Accionistas-tab">
+            <app-accionistas #DatosAccionistas [IdEstadoFormulario]="IdEstadoFormulario" [IdFormulario]="IdFormulario"
+              [Listatiposolicitud]="Listatiposolicitud" [ListaClaseTerceros]="ListaClaseTerceros"
+              [ListaTipoDocumentos]="ListaTipoDocumentos" [ListaSino]="ListaSino" [ListaPaises]="ListaPaises"
+              [ListaTamanoterceros]="ListaTamanoterceros" [editable]="editable">
+            </app-accionistas>
+          </div>
+
+          <!-- Tab DatosRevisorFiscal-->
+          <div class="tab-pane fade" id="DatosRevisorFiscal" role="tabpanel" aria-labelledby="DatosRevisorFiscal-tab" *ngIf="mostrarTabDatosRevisorFiscal && categoriaActual !== '3'">
+            <app-datos-revisorfiscal #DatosRevisorFiscalComponent [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [ListaSino]="ListaSino" [editable]="editable" [ListaTipoDocumentos]="ListaTipoDocumentos">
+            </app-datos-revisorfiscal>
+          </div>
+          <!-- Tab Informacion financiera-->
+          <div class="tab-pane fade" id="InformacionFinanciera" role="tabpanel"
+            aria-labelledby="InformacionFinanciera-tab">
+            <app-informacion-financiera #InformacionFinancieraComponent [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [ListaSino]="ListaSino" [editable]="editable">
+            </app-informacion-financiera>
+          </div>
+
+          <!-- Tab Informacion Complementaria-->
+          <div class="tab-pane fade" id="InformacionComplementaria" role="tabpanel"
+            aria-labelledby="InformacionComplementaria-tab">
+            <app-informacion-complementaria #InformacionComplementariaComponent
+              [IdEstadoFormulario]="IdEstadoFormulario" [IdFormulario]="IdFormulario" [ListaSino]="ListaSino"
+              [editable]="editable">
+            </app-informacion-complementaria>
+          </div>
+
+          <!-- Tab Conflicto de Interes-->
+          <div class="tab-pane fade" id="ConflictoInteres" role="tabpanel" aria-labelledby="ConflictoInteres-tab">
+            <app-conflicto-interes #ConflictoInteresComponent [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [ListaSino]="ListaSino" [editable]="editable">
+            </app-conflicto-interes>
+          </div>
+
+          <div class="tab-pane fade" id="InformacionTributaria" role="tabpanel" aria-labelledby="Accionistas-tab">
+            <app-informacion-tributaria #InformacionFinancieraComponent [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [FechaFormulario]="FechaFormulario" [Lang]="Lang" [ListaSino]="ListaSino"
+              [editable]="editable">
+            </app-informacion-tributaria>
+          </div>
+
+          <div class="tab-pane fade" id="DatosdeContacto" role="tabpanel" aria-labelledby="DatosdeContacto-tab">
+            <app-datos-contacto #componenteDatosContacto [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [editable]="editable">
+            </app-datos-contacto>
+          </div>
+          <div class="tab-pane fade" id="ReferenciasBancarias" role="tabpanel"
+            aria-labelledby="ReferenciasBancarias-tab">
+            <app-referencias-comerciales-bancarias #componenteReferenciasComBn [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [ListaTipoReferencia]="ListaTipoReferencia" [editable]="editable">
+            </app-referencias-comerciales-bancarias>
+          </div>
+          <div class="tab-pane fade" id="Datosdepagos" role="tabpanel" aria-labelledby="Datosdepagos-tab">
+            <app-datos-de-pago #DatosDePagos [IdEstadoFormulario]="IdEstadoFormulario" [IdFormulario]="IdFormulario"
+              [ListaPaises]="ListaPaises" [ListaTipoCuentaBancaria]="ListaTipoCuentaBancaria" [editable]="editable">
+            </app-datos-de-pago>
+          </div>
+          <div class="tab-pane fade" id="Despachodemercancia" role="tabpanel" aria-labelledby="Despachodemercancia-tab"
+        >
+            <app-despacho-de-mercancia #DespachoDeMercancia [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [ListaPaises]="ListaPaises" [editable]="editable">
+            </app-despacho-de-mercancia>
+          </div>
+          <div class="tab-pane fade" id="CumplimientoNormativo" role="tabpanel"
+            aria-labelledby="CumplimientoNormativo-tab">
+            <app-cumplimiento-normativo #CumplimientoNormativo [IdEstadoFormulario]="IdEstadoFormulario"
+              [IdFormulario]="IdFormulario" [ListaSino]="ListaSino" [editable]="editable">
+            </app-cumplimiento-normativo>
+          </div>
+          <div class="tab-pane fade" id="Adjuntos" role="tabpanel" aria-labelledby="Adjuntos-tab">
+            <app-datos-adjuntos #DatosAduntos [IdFormulario]="IdFormulario" [IdEstadoFormulario]="IdEstadoFormulario"
+              [editable]="editable" (formReady)="onAdjuntosFormReady($event)" [classClient]="classClient"
+              [classProveedor]="classProveedor" [classAliado]="classAliado" [esPersonaNatural]="esPersonaNatural"
+              [esPersonaJuridica]="esPersonaJuridica">
+            </app-datos-adjuntos>
+          </div>
+          <div class="tab-pane fade" id="Declaraciones" role="tabpanel" aria-labelledby="Declaraciones-tab">
+            <app-declaraciones #Declaraciones [IdFormulario]="IdFormulario" [editable]="editable"
+              [IdEstadoFormulario]="IdEstadoFormulario">
+            </app-declaraciones>
+          </div>
+        </div>
+        <!-- Fin tab-content -->
+      </div>
+      <!-- Fin card-body -->
+    </div>
+    <!-- Fin card -->
+  </div>
+  <!-- Fin container principal -->
+
+  <!-- Modal Loading -->
+  <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+            <span>Loading..</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

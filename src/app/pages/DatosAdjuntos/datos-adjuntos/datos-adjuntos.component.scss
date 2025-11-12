@@ -1,0 +1,151 @@
+.upload-content {
+    text-align: center;
+
+    .upload-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: #6c9aff;
+    }
+}
+
+.file-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f8f8;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+
+    .file-name {
+        margin: 0;
+        color: #555;
+        word-break: break-all;
+    }
+}
+
+.drop-zone {
+    border: 2px dashed #b2b2b2;
+    border-radius: 8px;
+    padding: 10px;
+    color: #666;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+        border-color: #6c9aff;
+        background-color: #f3f7ff;
+    }
+
+    &.active {
+        border-color: #007bff;
+    }
+}
+
+.card {
+    font-size: 0.9rem;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+.card-header.bg-primary.text-white {
+    background: linear-gradient(135deg, #1428A0 0%, #2A2F4F 100%);
+}
+
+.btn-outline-light {
+    color: #333;
+    border-color: #999;
+}
+
+.btn-outline-light:hover {
+    background-color: #eee;
+    border-color: #999;
+}
+
+.text-white-50 {
+    opacity: 0.8;
+    font-size: 0.8em;
+  }
+
+.btn-upload {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+
+    &:hover {
+        background-color: #004a9e;
+    }
+}
+
+
+.btn-download {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+
+    &:hover {
+        background-color: #138496;
+    }
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+
+    &:hover {
+        background-color: #c82333;
+    }
+}
+
+// Estilos para validaciones
+.text-danger {
+    color: #dc3545 !important;
+    font-size: 0.875rem;
+
+    small {
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+}
+
+// Indicador de campos obligatorios
+.text-warning {
+    color: #ffc107 !important;
+    font-weight: bold;
+}
+
+// Estilo para campos inválidos
+.ng-invalid.ng-touched {
+    .card-header {
+        border-left: 4px solid #dc3545;
+    }
+
+    .drop-zone {
+        border-color: #dc3545 !important;
+        background-color: #fff5f5;
+    }
+}
+
+// Estilo para campos válidos con archivos
+.has-file {
+    .card-header {
+        border-left: 4px solid #28a745;
+    }
+}
+
+// Información adicional en headers
+.card-header {
+    small {
+        opacity: 0.9;
+        font-size: 0.75rem;
+
+        &.text-white-50 {
+            opacity: 0.7;
+        }
+    }
+}
+

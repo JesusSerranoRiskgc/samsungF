@@ -1,0 +1,516 @@
+<div class="container">
+  <div id="JuntaDirDiv" style="margin-top: 30px; margin-bottom: 50px;">
+    <h3>{{ 'Junta_Directiva' | translate }}</h3>
+
+    <form [formGroup]="JuntaDirectiva">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label>{{ 'FiguraJunta' | translate }}</label>
+          <select formControlName="TieneFigura" class="form-control">
+            <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+            <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+          </select>
+          <span *ngIf="JuntaDirectiva.get('TieneFigura')?.invalid && JuntaDirectiva.get('TieneFigura')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+      </div>
+      <div formArrayName="Directivos" *ngIf="JuntaDirectiva.get('TieneFigura')?.value === '1'">
+        <div *ngFor="let directivo of directivo.controls; let i = index" [formGroupName]="i" class="border p-3 mb-2">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5>Directivo #{{ i + 1 }}</h5>
+            <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeRepresentante(i)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>{{ 'NombreCompleto' | translate }}</label>
+              <input type="text" formControlName="nombre" class="form-control" (keypress)="allowOnlyLetters($event)" />
+              <span *ngIf="directivo.get('nombre')?.invalid && directivo.get('nombre')?.touched" class="text-danger">
+                <!-- Mensaje de error general -->
+                <ng-container *ngIf="directivo.get('nombre')?.errors?.['required']">
+                  {{ 'CampoRequerido' | translate }}
+                </ng-container>
+                <!-- Mensaje cuando hay un error de patrón -->
+                <ng-container *ngIf="directivo.get('nombre')?.errors?.['pattern']">
+                  {{ 'Solo SePermite Texto' | translate }}
+                </ng-container>
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Tipo_Identificacion' | translate }}:</label>
+              <select formControlName="tipoDocumento" class="form-control">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let tipo of documentosFiltrados" [value]="tipo.id">{{ tipo.nombre }}</option>
+              </select>
+              <span *ngIf="directivo.get('tipoDocumento')?.invalid && directivo.get('tipoDocumento')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Numero_Identificacion' | translate }}:</label>
+              <input type="text" formControlName="NumeroIdentificacion" class="form-control"
+                (keypress)="allowOnlyNumbers($event, i)" (input)="validateNumeroIdentificacionInput($event, i)" />
+              <span
+                *ngIf="directivo.get('NumeroIdentificacion')?.invalid && directivo.get('NumeroIdentificacion')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Nacionalidad' | translate }}:</label>
+              <select formControlName="Nacionalidad" class="form-control">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+              </select>
+              <span *ngIf="directivo.get('Nacionalidad')?.invalid && directivo.get('Nacionalidad')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3"> <label>{{ 'Telefono' | translate }}:</label>
+              <input type="text" formControlName="Telefono" class="form-control"
+                (keypress)="allowOnlyNumbersForPhone($event)"
+                (input)="validatePhoneInput($event, directivo.get('Telefono'))" />
+              <span *ngIf="directivo.get('Telefono')?.invalid && directivo.get('Telefono')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Ciudad' | translate }}:</label>
+              <input type="text" formControlName="Ciudad" class="form-control" />
+              <span *ngIf="directivo.get('Ciudad')?.invalid && directivo.get('Ciudad')?.touched" class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'Direccion' | translate }}:</label>
+              <input type="text" formControlName="Direccion" class="form-control" />
+              <span *ngIf="directivo.get('Direccion')?.invalid && directivo.get('Direccion')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'vinculadoPep' | translate }}</label>
+              <select formControlName="vinculadoPep" class="form-control">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+              </select>
+              <span *ngIf="directivo.get('vinculadoPep')?.invalid && directivo.get('vinculadoPep')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+          </div>
+          <div class="row" *ngIf="directivo.get('vinculadoPep')?.value === '1'">
+            <div class="col-12">
+              <div class="alert alert-info-custom" role="alert" style="white-space: pre-line;">
+                <h5 class="fw-bold">Definición de Persona Expuesta Políticamente (PEP)</h5>
+                <p style="white-space: pre-line;">
+                  De conformidad con la Ley 830 de 2021 se considerarán como Personas Expuestas
+                  Políticamente (PEP) los
+                  servidores públicos de cualquier sistema de nomenclatura y clasificación de empleos
+                  de la
+                  administración pública nacional y territorial, cuando tengan asignadas o delegadas
+                  funciones de:
+                  Expedición de normas o regulaciones, dirección general, formulación de políticas
+                  institucionales y
+                  adopción de planes, programas y proyectos, manejo directo de bienes, dineros o
+                  valores del Estado,
+                  administración de justicia o facultades administrativas sancionatorias, y los
+                  particulares que tengan
+                  a su cargo la dirección o manejo de recursos en los movimientos o partidos
+                  políticos.
+                </p>
+                <p class="mb-1">
+                  Estas funciones podrán ser ejercidas a través de ordenación de gasto, contratación
+                  pública, gerencia
+                  de proyectos de inversión, pagos, liquidaciones, administración de bienes muebles e
+                  inmuebles.
+
+                  La calidad de Personas Expuestas Políticamente (PEP) se mantendrá en el tiempo
+                  durante el ejercicio
+                  del cargo y por dos (2) años más desde la dejación, renuncia, despido o declaración
+                  de insubsistencia
+                  del nombramiento, o de cualquier otra forma de desvinculación, o terminación del
+                  contrato.
+                </p>
+                <p class="mb-1">
+                  Se entienden como Personas Expuestas Políticamente Extranjeras: (i) jefes de Estado,
+                  jefes de
+                  Gobierno, Ministros, subsecretarios o secretarios de Estado; (ii) congresistas o
+                  parlamentarios; (iii)
+                  miembros de tribunales supremos, tribunales constitucionales u otras altas
+                  instancias judiciales cuyas
+                  decisiones no admitan normalmente recurso, salvo en circunstancias excepcionales;
+                  (iv) miembros de
+                  tribunales o de las juntas directivas de bancos centrales; (v) embajadores,
+                  encargados de negocios
+                  altos funcionarios de las fuerzas armadas; (vi) miembros de los órganos
+                  administrativos, de gestión o
+                  de supervisión de empresas de propiedad estatal y (vii) representantes legales,
+                  directores,
+                  subdirectores y/o miembros de las juntas directivas de organizaciones
+                  internacionales.
+                  <br>
+                  Se entienden como Personas Expuestas Políticamente de Organizaciones Internacionales
+                  como aquellas
+                  personas naturales que ejercen funciones directivas en una organización
+                  internacional, tales como la
+                  Organización de Naciones Unidas, Organización para la Cooperación y el Desarrollo
+                  Económicos, el Fondo
+                  de las Naciones Unidas para la Infancia (UNICEF) y la Organización de Estados
+                  Americanos, entre otros
+                  (vr.gr. directores, subdirectores, miembros de junta directiva o cualquier persona
+                  que ejerza una
+                  función equivalente). De acuerdo con lo anterior, declaro:
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label>{{ 'ManejaRecursos' | translate }}</label>
+                <select formControlName="ManejaRecursos" class="form-control">
+                  <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                  <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                </select>
+                <span *ngIf="directivo.get('ManejaRecursos')?.invalid && directivo.get('ManejaRecursos')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+              </div>
+
+              <div *ngIf="directivo.get('ManejaRecursos')?.value === '1'" class="col-md-4 mb-3">
+                <label>{{ 'CualesRecursos' | translate }}</label>
+                <input type="text" formControlName="CualesRecursos" class="form-control" />
+                <span *ngIf="directivo.get('CualesRecursos')?.invalid && directivo.get('CualesRecursos')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label>{{ 'PoderPolitico' | translate }}</label>
+                <select formControlName="PoderPolitico" class="form-control">
+                  <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                  <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                </select>
+                <span *ngIf="directivo.get('PoderPolitico')?.invalid && directivo.get('PoderPolitico')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+              </div>
+
+              <div *ngIf="directivo.get('PoderPolitico')?.value === '1'" class="col-md-4 mb-3">
+                <label>{{ 'RamaPoderPublico' | translate }}</label>
+                <input type="text" formControlName="RamaPoderPublico" class="form-control" />
+                <span *ngIf="directivo.get('RamaPoderPublico')?.invalid && directivo.get('RamaPoderPublico')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label>{{ 'CargoPublico' | translate }} </label>
+                <select formControlName="CargoPublico" class="form-control">
+                  <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                  <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                </select>
+                <span *ngIf="directivo.get('CargoPublico')?.invalid && directivo.get('CargoPublico')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+
+              </div>
+
+              <div *ngIf="directivo.get('CargoPublico')?.value === '1'" class="col-md-4 mb-3">
+                <label>{{ 'CualCargoPublico' | translate }}</label>
+                <input type="text" formControlName="CualCargoPublico" class="form-control" />
+                <span *ngIf="directivo.get('CualCargoPublico')?.invalid && directivo.get('CualCargoPublico')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label>{{ 'hasidoPep2' | translate }} </label>
+                <select formControlName="hasidoPep2" class="form-control">
+                  <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                  <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                </select>
+                <span *ngIf="directivo.get('hasidoPep2')?.invalid && directivo.get('hasidoPep2')?.touched"
+                  class="text-danger">
+                  {{ 'CampoRequerido' | translate }}
+                </span>
+              </div>
+
+              <div class="col-md-12">
+                <div formArrayName="cargosPublicos" *ngIf="directivo.get('hasidoPep2')?.value === '1'"
+                  class="border border-3  p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>{{ 'cargosPublicos' | translate }}</h6>
+                    <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addCargoPublico(i)">{{
+                      'AgregarCargoPublico' | translate }}<i class="bi bi-plus"></i>
+                    </button>
+                  </div>
+                  <div *ngFor="let cargo of getCargosPublicos(i).controls; let j = index" [formGroupName]="j"
+                    class="border p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6>{{ 'cargoPublico' | translate }} {{j+1}}</h6>
+                      <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeCargoPublico(i, j)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'NombreEntidad' | translate }}</label>
+                      <input type="text" formControlName="NombreEntidad" class="form-control" />
+                      <span *ngIf="cargo.get('NombreEntidad')?.invalid && cargo.get('NombreEntidad')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'FechaIngreso' | translate }}</label>
+                      <input type="date" formControlName="FechaIngreso" class="form-control" />
+                      <span *ngIf="cargo.get('FechaIngreso')?.invalid && cargo.get('FechaIngreso')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'FechaDesvinculacion' | translate }}</label>
+                      <input type="date" formControlName="FechaDesvinculacion" class="form-control" />
+                    </div>
+                  </div>
+                  <!-- Botón para agregar otro cargo -->
+                  <span *ngIf="getCargosPublicos(i)?.controls?.length === 0" class="text-danger">
+                    {{ 'DebeDilCargoPublico' | translate }}
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12">
+
+                <div formArrayName="Vinculosmas" *ngIf="directivo.get('Tienevinculosmas5')?.value === '1'"
+                  class="border border-3 p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>{{ 'Vinculos' | translate }}</h6>
+                    <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addVinculomas5(i)">{{
+                      'AgregarVinculo' | translate }}<i class="bi bi-plus"></i>
+                    </button>
+                  </div>
+                  <div *ngFor="let cargo of getVinculomas5(i).controls; let j = index" [formGroupName]="j"
+                    class="border p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6>{{ 'Vinculo' | translate }} {{j+1}}</h6>
+                      <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeVinculomas5(i, j)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Nombre_o_Razon_Social' | translate }}:</label>
+                      <input type="text" formControlName="NombreCompleto" class="form-control" />
+                      <span *ngIf="cargo.get('NombreCompleto')?.invalid && cargo.get('NombreCompleto')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Tipo_Identificacion' | translate }}:</label>
+                      <select formControlName="TipoIdentificacion" class="form-control">
+                        <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let documento of documentosFiltrados" [value]="documento.id">{{ documento.nombre
+                          }}</option>
+                      </select>
+                      <span *ngIf="cargo.get('TipoIdentificacion')?.invalid && cargo.get('TipoIdentificacion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Numero_Identificacion' | translate }}:</label>
+                      <input type="text" formControlName="NumeroIdentificacion" class="form-control"
+                        (keypress)="allowOnlyNumbersVinculo($event, i, j)"
+                        (input)="validateNumeroIdentificacionInputVinculo($event, i, j)" />
+                      <span
+                        *ngIf="cargo.get('NumeroIdentificacion')?.invalid && cargo.get('NumeroIdentificacion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Pais' | translate }}</label>
+                      <select formControlName="Pais" class="form-control">
+                        <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+                      </select>
+                      <span *ngIf="cargo.get('Pais')?.invalid && cargo.get('Pais')?.touched" class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'PorcParti' | translate }}</label>
+                      <input type="number" formControlName="PorcentajeParticipacion" class="form-control" in="0"
+                        max="100" />
+                      <span
+                        *ngIf="cargo.get('PorcentajeParticipacion')?.invalid && cargo.get('PorcentajeParticipacion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                  </div>
+                  <!-- Botón para agregar otro cargo -->
+
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div formArrayName="InfoFamiliaPep" style="margin-top: 10px;" class="border border-3 p-3">
+
+                  <h6>{{ 'InfomacionFamiliar' | translate }}</h6>
+                  <!-- Enlace tipo texto con icono -->
+                  <a href="#" class="text-danger d-inline-flex align-items-center" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalLong">
+                    <i class="bi bi-info-circle-fill me-1"></i> Más información
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Asociado Cercano:</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Son las personas jurídicas que tengan como administradores, accionistas, controlantes o
+                          gestores alguno de los PEP enlistados en el artículo 2.1.4.2.3. del decreto 830 de 2021
+                          (Departamento administrativo de la Presidencia de la República) o que hayan constituido
+                          patrimonios autónomos o fiducias en beneficio de estos, o con quienes se mantengan relaciones
+                          comerciales.
+                          Dentro de este campo también se debe incluir: (i) los nombres e identificación de las personas
+                          con las que tengan sociedad conyugal, de hecho, o de derecho; (ii) los nombres e
+                          identificación de sus familiares hasta segundo grado de consanguinidad, primero afinidad y
+                          primero civil.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Asociado Cercano -->
+                  <div class="alert alert-info-custom" role="alert">
+                    <h6 class="fw-bold">{{ 'AsociadoCercanoInfo' | translate }}</h6>
+
+                  </div>
+                  <div *ngFor="let cargo of getInfoFamiliar(i).controls; let j = index" [formGroupName]="j"
+                    class="border p-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6>{{ 'Vinculo' | translate }} {{j+1}}</h6>
+                      <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeInfoFamilia(i, j)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>{{ 'Nombre_o_Razon_Social' | translate }}:</label>
+                        <input type="text" formControlName="NombreCompleto" class="form-control" />
+                        <span *ngIf="cargo.get('NombreCompleto')?.invalid && cargo.get('NombreCompleto')?.touched"
+                          class="text-danger">
+                          {{ 'CampoRequerido' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'Tipo_Identificacion' | translate }}:</label>
+                        <select formControlName="TipoIdentificacion" class="form-control">
+                          <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                          <option *ngFor="let documento of documentosFiltrados" [value]="documento.id">{{
+                            documento.nombre }}</option>
+                        </select>
+                        <span
+                          *ngIf="cargo.get('TipoIdentificacion')?.invalid && cargo.get('TipoIdentificacion')?.touched"
+                          class="text-danger">
+                          {{ 'CampoRequerido' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'Numero_Identificacion' | translate }}:</label>
+                        <input type="text" formControlName="NumeroIdentificacion" class="form-control"
+                          (keypress)="allowOnlyNumbersInfoFamilia($event, i, j)"
+                          (input)="validateNumeroIdentificacionInputInfoFamilia($event, i, j)" />
+                        <span
+                          *ngIf="cargo.get('NumeroIdentificacion')?.invalid && cargo.get('NumeroIdentificacion')?.touched"
+                          class="text-danger">
+                          {{ 'CampoRequerido' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'CargoContacto' | translate }}:</label>
+                        <input type="text" formControlName="CargoContacto" class="form-control" />
+                        <span *ngIf="cargo.get('CargoContacto')?.invalid && cargo.get('CargoContacto')?.touched"
+                          class="text-danger">
+                          {{ 'CampoRequerido' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'Nacionalidad' | translate }}</label>
+                        <select formControlName="Nacionalidad" class="form-control">
+                          <option value="">Seleccione</option>
+                          <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+                        </select>
+                        <span *ngIf="cargo.get('Nacionalidad')?.invalid && cargo.get('Nacionalidad')?.touched"
+                          class="text-danger">
+                          {{ 'CampoRequerido' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'VinculoFamiliar' | translate }}</label>
+                        <input type="text" formControlName="VinculoFamiliar" class="form-control" />
+                        <span *ngIf="cargo.get('VinculoFamiliar')?.invalid && cargo.get('VinculoFamiliar')?.touched"
+                          class="text-danger">
+                          {{ 'CampoRequerido' | translate }}
+                        </span>
+                      </div>
+                      <!--===============
+                        AGREGAR CAMPOS AL BACKEND
+                        =====================-->
+                      <div class="col-md-4">
+                        <label>{{ 'UltimoCargo' | translate }}</label>
+                        <input type="text" formControlName="VinculoFamiliar" class="form-control" />
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'FechaNombramiento' | translate }}<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" formControlName="FechaNombramiento">
+                      </div>
+                      <div class="col-md-4">
+                        <label>{{ 'FechaFinalizacion' | translate }}<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" formControlName="FechaFinalizacion">
+                      </div>
+                      <!--===============
+                    FIN
+                    =====================-->
+                    </div>
+                  </div>
+                  <!-- Botón para agregar otro cargo -->
+                  <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addInfoFamilia(i)">{{
+                    'AgregarFamiliar' | translate }}</button>
+                </div>
+                <span *ngIf="getInfoFamiliar(i)?.controls?.length === 0" class="text-danger">
+                  {{ 'DebeFamilia' | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="editable && JuntaDirectiva.get('TieneFigura')?.value === '1'" type="button"
+        class="btn btn-primary mt-2" (click)="addRepresentante()">{{ 'AgregarDirectivo' | translate }}</button>
+      <!--button type="submit" class="btn btn-success mt-2" (click)="submit()">Enviar</button-->
+    </form>
+  </div>
+</div>

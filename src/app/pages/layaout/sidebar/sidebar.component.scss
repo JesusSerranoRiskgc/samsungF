@@ -1,0 +1,274 @@
+// Samsung Brand Colors
+$samsung-blue: #1428a0;
+$samsung-light-blue: #4dabf7;
+$samsung-dark-blue: #2a2f4f;
+$samsung-gray: #f8f9fa;
+$sidebar-width: 280px;
+
+.modern-sidebar {
+  width: $sidebar-width;
+  min-height: 100vh;
+  background: linear-gradient(135deg, $samsung-blue 0%, $samsung-dark-blue 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000;
+
+  // Header Section
+  .sidebar-header {
+    padding: 1.5rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .sidebar-logo-icon {
+        font-size: 1.5rem;
+        color: $samsung-light-blue;
+      }
+
+      .sidebar-title {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.25rem;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  // Navigation Section
+  .sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+    overflow-y: auto;
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .nav-item {
+        margin-bottom: 0.25rem;
+
+        // Single navigation link
+        .nav-link {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.875rem 1.25rem;
+          color: rgba(255, 255, 255, 0.85);
+          text-decoration: none;
+          transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+          border-radius: 0;
+          position: relative;
+          font-weight: 500;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding-left: 1.5rem;
+
+            .nav-icon {
+              color: $samsung-light-blue;
+              transform: scale(1.1);
+            }
+          }
+
+          &.active {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            color: white;
+            border-left: 3px solid $samsung-light-blue;
+            font-weight: 600;
+
+            .nav-icon {
+              color: $samsung-light-blue;
+            }
+          }
+
+          .nav-icon {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+          }
+
+          .nav-text {
+            flex: 1;
+            font-size: 0.9rem;
+          }
+
+          .expand-icon {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+            opacity: 0.7;
+          }
+        }
+
+        // Parent menu items with children
+        .nav-parent {
+          cursor: pointer;
+
+          &.expanded {
+            .expand-icon {
+              transform: rotate(180deg);
+            }
+          }
+
+          .parent-link {
+            &:hover {
+              background: rgba(255, 255, 255, 0.08);
+            }
+          }
+        }
+
+        // Children navigation
+        .nav-children {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          background: rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+          &:not(.show) {
+            height: 0;
+            opacity: 0;
+          }
+
+          &.show {
+            height: auto;
+            opacity: 1;
+          }
+
+          .nav-child-item {
+            .child-link {
+              padding-left: 2.5rem;
+              font-size: 0.85rem;
+              color: rgba(255, 255, 255, 0.75);
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.08);
+                padding-left: 2.75rem;
+              }
+
+              &.active {
+                background: rgba(255, 255, 255, 0.12);
+                border-left: 3px solid $samsung-light-blue;
+                color: white;
+              }
+            }
+
+            // Nested children (grandchildren)
+            .child-parent {
+              .parent-link {
+                padding-left: 2.5rem;
+              }
+            }
+          }
+        }
+
+        // Grandchildren navigation
+        .nav-grandchildren {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          background: rgba(0, 0, 0, 0.15);
+          overflow: hidden;
+
+          &:not(.show) {
+            height: 0;
+            opacity: 0;
+          }
+
+          &.show {
+            height: auto;
+            opacity: 1;
+          }
+
+          .nav-grandchild-item {
+            .grandchild-link {
+              padding-left: 3.5rem;
+              font-size: 0.8rem;
+              color: rgba(255, 255, 255, 0.7);
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.06);
+                padding-left: 3.75rem;
+              }
+
+              &.active {
+                background: rgba(255, 255, 255, 0.1);
+                border-left: 3px solid $samsung-light-blue;
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Footer Section
+  .sidebar-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+
+    .footer-info {
+      text-align: center;
+
+      small {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .modern-sidebar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Animation overrides
+.nav-children, .nav-grandchildren {
+  transition: height 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+}
+
+// Scrollbar styling
+.sidebar-nav {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+}

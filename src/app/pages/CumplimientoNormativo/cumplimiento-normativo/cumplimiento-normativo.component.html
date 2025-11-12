@@ -1,0 +1,573 @@
+<div class="container" style="margin-top: 10px">
+  <div id="CumplimientoNormDiv" style="margin-top: 30px; margin-bottom: 50px">
+    <h3 class="mb-3 text-center">CERTIFICACIÓN DE CUMPLIMIENTO</h3>
+
+    <p>En mi calidad de representante legal, certifico que:</p>
+
+    <div class="accordion" id="accordionCumplimiento">
+      <form [formGroup]="formulario" class="mt-3">
+        <!-- ACCORDION 1 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <!-- I. PREVENCIÓN LAFT/FPADM -->
+              I. PREVENCIÓN AL LAVADO DE ACTIVOS, FINANCIAMIENTO DEL TERRORISMO
+              (LAFT), FINANCIAMIENTO DE LA PROLIFERACIÓN DE ARMAS DE DESTRUCCIÓN
+              MASIVA (FPADM)
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+            <div class="accordion-body">
+              <!-- <li>
+                Que tanto mis recursos como los de la Compañía provienen de actividades lícitas y están ligados
+                al curso normal del objeto social.
+              </li> -->
+              <li>
+                Que no se tiene ningún tipo de relación con organizaciones
+                vinculadas al LAFTFPADM u otros delitos como contrabando,
+                tráfico de migrantes, trata de personas, extorsión,
+                enriquecimiento ilícito, secuestro extorsivo, rebelión, tráfico
+                de armas, tráfico de menores de edad, financiación del
+                terrorismo y administración de recursos relacionados con
+                actividades terroristas, tráfico de drogas tóxicas,
+                estupefacientes o sustancias psicotrópicas; como reza en el
+                Artículo 323 del Código Penal Colombiano.
+              </li>
+              <li>
+                La Sociedad declara que conoce y acepta que SAMSUNG ELECTRONICS
+                COLOMBIA S.A. está obligada a implementar y dar aplicación al
+                Sistema de Autocontrol y Gestión del Riesgo Integral de Lavado
+                de Activos, Financiamiento al Terrorismo y Financiamiento de la
+                Proliferación de Armas de Destrucción Masiva (“SAGRILAFT”). Como
+                consecuencia se hace necesario suscribir la presente
+                certificación bajo juramento y en los siguientes términos:
+                <br />
+                <div class="row">
+                  <br />
+                  <!-- a) sometida_sagrilaft -->
+                  <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      a. En mi calidad de representante legal declaro que la
+                      Sociedad está sometida a un sistema sistema de gestión,
+                      prevención y control de riesgos contra el lavado de
+                      activos, financiación al terrorismo y financiamiento de la
+                      proliferación de armas de destrucción masiva LA/FT/FPADM,
+                      como también gestiona, previene y controla las prácticas
+                      anticompetitivas, de anticorrupción, soborno y conflictos
+                      de interés, los cuales fueron adoptados de manera autónoma
+                      como buena práctica empresarial.
+                    </label>
+                    <select formControlName="sometida_sagrilaft" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">
+                        {{ sino.nombre }}
+                      </option>
+                    </select>
+                    <span *ngIf="
+                        formulario.get('sometida_sagrilaft')?.invalid &&
+                        formulario.get('sometida_sagrilaft')?.touched
+                      " class="text-danger">
+                      Campo requerido
+                    </span>
+                  </div>
+
+                  <!-- b) sometida_otro_sistema -->
+                  <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      b. En el evento que la respuesta al punto anterior haya
+                      sido negativa, me comprometo en nombre de la sociedad a
+                      adherirnos a las Políticas de Cumplimiento, de SAMSUNG
+                      ELECTRONICS COLOMBIA S.A. especialmente SAGRILAFT, Código
+                      de Conducta y políticas y procedimientos asociados, las
+                      cuales están publicadas en la página web y/o ir anexo a
+                      los contratos u órdenes de servicio.
+                    </label>
+                    <select formControlName="sometida_otro_sistema" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">
+                        {{ sino.nombre }}
+                      </option>
+                    </select>
+                    <span *ngIf="
+                        formulario.get('sometida_otro_sistema')?.invalid &&
+                        formulario.get('sometida_otro_sistema')?.touched
+                      " class="text-danger">
+                      Campo requerido
+                    </span>
+                  </div>
+
+                  <!-- c) adhesion_politicas_samsung -->
+                  <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      c. Para el día de la firma del presente certificado
+                      declaro que la Sociedad, sus filiales, subsidiarias,
+                      accionistas, directivos, empleados, contratistas y demás
+                      asociados y vinculados no han sido registrados ni
+                      presentan coincidencias en Listas Restrictivas (Lista de
+                      la ONU, OFAC, entre otras), no hacen ni han hecho parte de
+                      investigaciones y procesos judiciales relacionados con
+                      delitos LA/FT/FPADM y sus delitos conexos, como los
+                      delitos de corrupción y soborno y sus conexos, ni han sido
+                      condenados ni sancionados por los mismos. En caso de
+                      tener, o haber tenido, cualquier tipo de investigación
+                      penal (no solo relacionada con de Lavado de Activos y
+                      Financiación del Terrorismo), sea cual sea el delito,
+                      pondré en conocimiento de SAMSUNG ELECTRONICS COLOMBIA
+                      S.A. la información necesaria para que pueda determinar si
+                      constituye un impedimento para continuar con el vínculo o
+                      relación jurídica vigente o futura y evitar un daño
+                      reputacional. Igualmente, durante la vigencia del vínculo
+                      comercial con SAMSUNG ELECTRONICS COLOMBIA S.A., nos
+                      comprometemos a notificar a aquella si se llegara a
+                      presentar un registro o coincidencia en listas o son
+                      incluidos dentro una investigación relacionada con delitos
+                      LA/FT/FPADM y sus delitos conexos, como los delitos de
+                      corrupción y soborno y sus conexos, otros delitos,
+                      investigación administrativa, fiscal u operaciones
+                      consistentes o destinadas a la ejecución delictiva.
+                    </label>
+                    <select formControlName="adhesion_politicas_samsung" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">
+                        {{ sino.nombre }}
+                      </option>
+                    </select>
+                    <span *ngIf="
+                        formulario.get('adhesion_politicas_samsung')?.invalid &&
+                        formulario.get('adhesion_politicas_samsung')?.touched
+                      " class="text-danger">
+                      Campo requerido
+                    </span>
+                  </div>
+
+                  <!-- d) no_invest_sancion_laftfpadm -->
+                  <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      d. Mediante la firma del presente certificado, se entiende
+                      que tanto yo como la Sociedad que represento, otorgamos
+                      nuestro consentimiento informado y autorizamos a SAMSUNG
+                      ELECTRONICS COLOMBIA S.A., a comunicar a las autoridades
+                      nacionales competentes, sobre cualquiera de las
+                      situaciones en este documento descritas, así como en
+                      relación con toda la información personal, pública,
+                      privada o semiprivada que hemos suministrado sobre mí o
+                      sobre la Sociedad que represento. Así mismo, autorizo a
+                      SAMSUNG ELECTRONICS COLOMBIA S.A. para efectuar los
+                      reportes a las autoridades competentes, siempre en el
+                      marco de la legalidad y de conformidad con las políticas
+                      de cumplimiento (SAGRILAFT y el PTEE), exonerándola de
+                      toda responsabilidad por tal hecho.
+                    </label>
+                    <!-- <select formControlName="no_invest_sancion_laftfpadm" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                    </select>
+                    <span *ngIf="
+                            formulario.get('no_invest_sancion_laftfpadm')?.invalid &&
+                            formulario.get('no_invest_sancion_laftfpadm')?.touched
+                          " class="text-danger">
+                      Campo requerido
+                    </span> -->
+                  </div>
+
+                  <!-- e) no_transacciones_ilicitas -->
+                  <!-- <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      e. La Sociedad, sus filiales, subsidiarias, sucursales, establecimientos, así como sus directivos,
+                      empleados, accionistas y demás asociados y vinculados no han efectuado directa o indirectamente,
+                      transacciones u operaciones consistentes o destinadas a la financiación y/o ejecución de
+                      actividad(es)
+                      ilícita(s) prohibida(s) o punible(s) de acuerdo con la legislación Colombiana, en especial la
+                      normatividad
+                      Penal o a favor de terceras personas que ejecuten o estén involucradas con la ejecución de dichas
+                      actividades.
+                    </label>
+                    <select formControlName="no_transacciones_ilicitas" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                    </select>
+                    <span *ngIf="
+                            formulario.get('no_transacciones_ilicitas')?.invalid &&
+                            formulario.get('no_transacciones_ilicitas')?.touched
+                          " class="text-danger">
+                      Campo requerido
+                    </span>
+                  </div> -->
+
+                  <!-- f) acepta_monitoreo_info -->
+                  <!-- <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      f. La Sociedad, sus filiales, subsidiarias, sucursales, establecimientos, así como sus directivos,
+                      empleados, accionistas y demás asociados y vinculados declaran que aceptan que SAMSUNG ELECTRONICS
+                      COLOMBIA S.A. lleve a cabo un monitoreo de la información de la Sociedad y de las personas que la
+                      conforman, por lo que se entiende que dicha búsqueda de información no configura una violación del
+                      habeas
+                      data ni la infracción a las normas de protección a los datos personales, dado que la misma se
+                      obtiene con
+                      previa autorización y/o de manera voluntaria cuando la misma sea requerida por cualquier medio
+                      directamente a la Sociedad, a través de su representante legal.
+                    </label>
+                    <select formControlName="acepta_monitoreo_info" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                    </select>
+                    <span *ngIf="
+                            formulario.get('acepta_monitoreo_info')?.invalid &&
+                            formulario.get('acepta_monitoreo_info')?.touched
+                          " class="text-danger">
+                      Campo requerido
+                    </span>
+                  </div> -->
+
+                  <!-- g) no_listas_restrictivas -->
+                  <!-- <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      g. Para el día de la firma del presente certificado declaro que la Sociedad, sus filiales,
+                      subsidiarias,
+                      accionistas, directivos, empleados, contratistas y demás asociados y vinculados no han sido
+                      registrados ni
+                      presentan coincidencias en Listas Restrictivas (Lista de la ONU, OFAC, entre otras), no hacen
+                      parte de
+                      investigaciones y procesos judiciales relacionados con delitos LA/FT/FPADM y sus delitos conexos,
+                      como los
+                      delitos de corrupción y soborno y sus conexos, ni han sido condenados ni sancionados por los
+                      mismos. En
+                      caso de tener cualquier tipo de investigación penal (no solo relacionada con de Lavado de Activos
+                      y
+                      Financiación del Terrorismo), sea cual sea el delito, pondré en conocimiento de SAMSUNG
+                      ELECTRONICS
+                      COLOMBIA S.A. la información necesaria para que pueda determinar si constituye un impedimento para
+                      continuar con el vínculo o relación jurídica vigente o futura y evitar un daño reputacional.
+                      Igualmente,
+                      durante la vigencia del vínculo comercial con SAMSUNG ELECTRONICS COLOMBIA S.A., nos comprometemos
+                      a
+                      notificar a aquella si se llegara a presentar un registro o coincidencia en listas o son incluidos
+                      dentro
+                      una investigación relacionada con delitos LA/FT/FPADM y sus delitos conexos, como los delitos de
+                      corrupción y soborno y sus conexos.
+                    </label>
+                    <select formControlName="no_listas_restrictivas" class="form-control">
+                      <option value="" disabled>Seleccione</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                    </select>
+                    <span *ngIf="
+                            formulario.get('no_listas_restrictivas')?.invalid &&
+                            formulario.get('no_listas_restrictivas')?.touched
+                          " class="text-danger">
+                      Campo requerido
+                    </span>
+                  </div> -->
+                  <!-- <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      h. Mediante la firma del presente certificado, se entiende que tanto yo como la Sociedad que
+                      represento,
+                      otorgamos nuestro consentimiento informado y autorizamos a SAMSUNG ELECTRONICS COLOMBIA S.A., a
+                      comunicar
+                      a las autoridades nacionales competentes, sobre cualquiera de las situaciones en este documento
+                      descritas,
+                      así como a suministrarles toda la información personal, pública, privada o semiprivada que sobre
+                      mí o
+                      sobre la Sociedad que represento requieran. Así mismo, autorizo a SAMSUNG ELECTRONICS COLOMBIA
+                      S.A. para
+                      efectuar los reportes a las autoridades competentes, siempre en el marco de la legalidad de
+                      conformidad
+                      con las políticas de cumplimiento (SAGRILAFT y el PTEE), exonerándola de toda responsabilidad por
+                      tal
+                      hecho.
+                    </label>
+                    <select formControlName="firma_autoriza_reportes" class="form-control">
+                          <option value="" disabled>Seleccione</option>
+                          <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                        </select>
+                  </div> -->
+
+                  <!-- <div class="col-md-12 mb-3">
+                    <label class="fw-bold">
+                      i. Así mismo, declaro que la Sociedad, los empleados y/o contratistas que estén relacionados con
+                      las
+                      actividades u operaciones que adelantará con SAMSUNG ELECTRONICS COLOMBIA S.A. cumplirán
+                      estrictamente las
+                      disposiciones sobre normas LA/FT/FPADM y corrupción, y el Código de Conducta implementado por
+                      SAMSUNG
+                      ELECTRONICS COLOMBIA S.A..
+                    </label>
+                    <select formControlName="declara_cumplir_normas" class="form-control">
+                          <option value="" disabled>Seleccione</option>
+                          <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+                        </select>
+                  </div> -->
+                </div>
+              </li>
+              <!-- <li>
+                Que sus accionistas, asociados o socios, representantes legales y miembros de la Junta Directiva,
+                no somos sujeto de investigación de tipo administrativo, penal, fiscal u otros; ni hemos ejercido
+                operaciones consistentes o destinadas a la ejecución delictiva.
+              </li> -->
+            </div>
+          </div>
+        </div>
+        <!-- ACCORDION 2 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+              <!-- II. COMPROMISO ANTI-SOBORNO Y ANTI-CORRUPCIÓN -->
+              II. COMPROMISO ANTI-SOBORNO Y ANTI-CORRUPCIÓN
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+            <div class="accordion-body">
+              <ol style="list-style: decimal">
+                <li>
+                  Declaro y asevero que toda la actividad de la presente
+                  relación contractual, comercial o de cualquier índole será
+                  desarrollada dentro del marco jurídico, la diligencia de un
+                  buen hombre de negocios, la ética y la integridad, y me obligo
+                  a no pagar y no dar dinero o ninguna otra ventaja con valor
+                  económico o de incentivos personales, o favores a funcionarios
+                  o empleados públicos, del gobierno o privados, con el fin de
+                  afectar o influir en cualquier acto o decisión de tal
+                  gobierno, organismo o compañía; o dirigir un negocio hacia
+                  cualquier persona.
+                </li>
+                <li>
+                  No tengo conocimiento que otras personas vinculadas a la
+                  sociedad/entidad realicen de forma directa o indirecta pagos,
+                  dádivas, regalos, incentivos o gastos de entretenimiento; con
+                  el fin de obtener un beneficio para sí o para terceros, y que
+                  cumplo con toda regulación vigente en relación con los delitos
+                  y prevención de los riesgos de soborno y corrupción. Asimismo,
+                  me obligo a no realizar ninguna práctica considerada como
+                  corrupta o indebida conforme lo establece el PTEE de SAMSUNG
+                  ELECTRONICS COLOMBIA S.A.
+                </li>
+                <p>
+                  <strong>PARÁGRAFO:</strong> Se aclara frente al numeral 2
+                  anterior que SAMSUNG ELECTRONICS COLOMBIA S.A., cuenta con una
+                  Política restrictiva sobre el manejo de entrega y/o recepción
+                  de regalos, atenciones y hospitalidad; desde y hacia los
+                  colaboradores directos que: “Se prohíbe a los Colaboradores,
+                  salvo en casos especiales previamente aprobados, solicitar o
+                  recibir a título de gratificación o regalo, dinero, bonos,
+                  honorarios, comisiones, anticipos, viáticos, cheques, tarjetas
+                  débito, entretenimiento, títulos valores o cualquier otro
+                  documento que pueda ser convertible en dinero, así como
+                  cualquier otra cosa de valor de un tercero con el que se
+                  tengan negocios o vínculo de cualquier índole”.
+                </p>
+                <li>
+                  Fundamentado en lo anterior, libero a SAMSUNG ELECTRONICS
+                  COLOMBIA S.A. de toda la responsabilidad derivada de cualquier
+                  incumplimiento de la Ley en tal sentido y me obligo a cumplir
+                  con lo previsto en las mencionadas políticas, absteniéndome de
+                  entregar o recibir, regalos, dádivas, hospitalidad y todo
+                  aquello relacionado anteriormente, en relación con empleados,
+                  directores y partes relacionadas que representen o apoderen a
+                  SAMSUNG ELECTRONICS COLOMBIA S.A.
+                </li>
+                <li>
+                  Que cualquier indicio o violación material a las obligaciones
+                  contenidas en el presente documento o cualquiera que haga
+                  parte integral de la relación contractual o de cualquier
+                  índole con SAMSUNG ELECTRONICS COLOMBIA S.A., relacionada con
+                  los delitos de soborno y/o corrupción, genera el derecho a
+                  terminarla con efecto inmediato y sin perjuicio de cualquier
+                  otro derecho o reparación.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <!-- ACCORDION 3 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+              <!-- III. LÍNEA ÉTICA -->
+              III. LÍNEA ÉTICA
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+            <div class="accordion-body">
+              <p>
+                La línea ética es un canal receptor de denuncias para reportar
+                situaciones o indicios de fraude, malas prácticas corporativas,
+                soborno, corrupción, conflictos de interés, lavado de activos,
+                financiamiento del terrorismo, financiamiento de la
+                proliferación de armas de destrucción masiva, o cualquier otra
+                situación inusual o sospechosa. Funciona bajo estrictos
+                parámetros de seguridad que garantizan la confidencialidad de la
+                información suministrada y protegen la identidad de quien hace
+                la denuncia.
+              </p>
+              <p>
+                SAMSUNG ELECTRONICS COLOMBIA S.A. cuenta con canales de
+                comunicación para realizar este tipo de denuncias y están a
+                disposición de sus clientes, colaboradores, proveedores y demás
+                partes interesadas, con el propósito de incentivar el
+                cumplimiento del PTEE, SAGRILAFT y Código de Conducta y evitar
+                la materialización de los riesgos asociados y malas prácticas al
+                interior de SAMSUNG ELECTRONICS COLOMBIA S.A. Los canales
+                habilitados son:
+                <br />
+                <strong>- Correo electrónico:</strong> (local)
+                compliance.co&#64;samsung.com, (regional)
+                compliancela&#64;samsung.com, (global) cp.wb.sec&#64;samsung.com
+                <br />
+                <strong>- Página web (global):</strong>
+                <a href="https://www.sec-compliance.net/gcc/gcc.do?method=gccReport&amp;langCd=es_ES" target="_blank">
+                  https://www.sec-compliance.net/gcc/gcc.do?method=gccReport&amp;langCd=es_ES
+                </a>
+                <br />
+                <strong>- Línea telefónica de denuncias (Helpline):</strong> 01
+                800-9136740
+                <br />
+                <strong>- Whistleblow (Solo colaboradores):</strong> Portal Knox
+                &gt; Compliance &gt; Report Violation Law
+              </p>
+              <p>
+                Que en caso de tener conocimiento de eventos que configuren
+                incumplimientos por parte de la Sociedad/Entidad con personal de
+                SAMSUNG ELECTRONICS COLOMBIA S.A., sobre los lineamientos
+                contenidos en esta certificación y otros que lo ameriten,
+                presentaré la respectiva denuncia a través de los canales
+                habilitados para tal fin.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- ACCORDION 4 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+              <!-- IV. SEGURIDAD DE LA INFORMACIÓN -->
+              IV. SEGURIDAD DE LA INFORMACIÓN
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour">
+            <div class="accordion-body">
+              Que conozco y entiendo los siguientes controles:<br /><br />
+              <ol style="list-style: decimal">
+
+                <li>
+                  La información de SAMSUNG ELECTRONICS COLOMBIA S.A. que los
+                  colaboradores administran en cumplimiento de los acuerdos
+                  contractuales, o vínculo de cualquier índole, es tratada de
+                  forma confidencial y no será divulgada a quien no corresponda,
+                  ni modificada sin previa autorización formal, ni discutida en
+                  lugares públicos.
+                </li>
+                <li>
+                  Cada vez que se requiera compartir información de SAMSUNG
+                  ELECTRONICS COLOMBIA S.A. a través de correo electrónico, o
+                  cualquier otro medio existente, se protegerá con mecanismos de
+                  cifrado para preservar su confidencialidad (p.ej. herramientas
+                  de cifrado automático, archivos comprimidos y con contraseña,
+                  transferencia de información a través de canales seguros como
+                  SFTP, entre otros).
+                </li>
+                <li>
+                  En el caso en que la Sociedad/Entidad tenga acceso a los
+                  repositorios lógicos en donde se almacene información de
+                  SAMSUNG ELECTRONICS COLOMBIA S.A., este acceso debe estar
+                  protegido mediante usuario y contraseña, bloqueo de pantalla
+                  cada vez que el colaborador se retire del puesto de trabajo,
+                  etiquetado de la información para distinguir que su acceso es
+                  controlado, realización de backups periódicos y monitoreo
+                  contra fuga de información.
+                </li>
+                <li>
+                  Toda contraseña de acceso a la información de SAMSUNG
+                  ELECTRONICS COLOMBIA S.A. es confidencial y debe cumplir con
+                  parámetros de longitud, complejidad, combinación de caracteres
+                  alfanuméricos y especiales; no se debe compartir ni divulgar
+                  con otras personas.
+                </li>
+                <li>
+                  En el caso en que la Sociedad/Entidad cuente con usuarios de
+                  acceso a los aplicativos de SAMSUNG ELECTRONICS COLOMBIA S.A.,
+                  se reportará oportunamente a SAMSUNG ELECTRONICS COLOMBIA S.A.
+                  las novedades de personal (retiros, vacaciones, licencias,
+                  otros) y se tramitará el reemplazo de los usuarios que se
+                  encuentren ausentes para evitar afectación en la operación; no
+                  se compartirán con otros usuarios las credenciales de acceso a
+                  los sistemas tecnológicos.
+                </li>
+                <li>
+                  Si eventualmente colaboradores de la Sociedad/Entidad son
+                  designados para ejecutar actividades en SAMSUNG ELECTRONICS
+                  COLOMBIA S.A., a nombre del cliente, deben hacer uso
+                  únicamente de equipos de cómputo corporativo y/o autorizado
+                  para tal fin; Uso de licencias legales, permanentes y
+                  actualizadas; Uso de software antivirus, en las máquinas, que
+                  sea funcional que esté actualizado y que escanee
+                  permanentemente; Restricción de privilegios de administrador
+                  en las máquinas; Instalación de agentes de herramientas de
+                  seguridad; Restricción de escritura en medios extraíbles
+                  (según aplique); Restringirse de publicar información de
+                  SAMSUNG ELECTRONICS COLOMBIA S.A. en redes sociales o
+                  transmitirla a través de correos personales u otros medios; Se
+                  restringirá de tomar videos o fotografías o grabaciones en las
+                  instalaciones de SAMSUNG ELECTRONICS COLOMBIA S.A.
+                </li>
+                <li>
+                  Si el personal de la Sociedad/Entidad requiere acceder
+                  físicamente a las instalaciones de SAMSUNG ELECTRONICS
+                  COLOMBIA S.A. debe: Solicitar acompañamiento de un colaborador
+                  interno de SAMSUNG ELECTRONICS COLOMBIA S.A. durante toda la
+                  visita; Si es un acceso permanente solicitar un distintivo que
+                  permita identificarlo como visitante; Se restringirá de tomar
+                  videos o fotografías o grabaciones de cualquier tipo en las
+                  instalaciones de SAMSUNG ELECTRONICS COLOMBIA S.A.; Tener en
+                  cuenta que con la firma del presente acepta que en una visita
+                  puede estar siendo monitoreado por circuito cerrado de
+                  televisión.
+                </li>
+                <li>
+                  En cuanto a la información física que pueda llegar a
+                  administrar el personal de la Sociedad/Entidad, en
+                  cumplimiento de los acuerdos contractuales o cualquier otro
+                  tipo de vínculo: No se dejará información confidencial de
+                  SAMSUNG ELECTRONICS COLOMBIA S.A. sobre los escritorios, o
+                  expuesta cada vez que se imprima, escanee o se saquen copias;
+                  No será compartida con personal no autorizado; Durante las
+                  ausencias prolongadas de los colaboradores mantendrá los
+                  documentos físicos bajo llave y con restricción de acceso.
+                </li>
+                <li>
+                  Cualquier incidente con la seguridad de SAMSUNG ELECTRONICS
+                  COLOMBIA S.A. será reportado al correo
+                  <span style="display: inline-block; width: auto">
+                    <input type="email" formControlName="correo_reportar_incidentes" class="form-control"
+                      style="display: inline-block; width: 300px; margin: 0 5px" placeholder="Ingrese correo"
+                      [class.is-invalid]="
+                        formulario.get('correo_reportar_incidentes')?.invalid &&
+                        formulario.get('correo_reportar_incidentes')?.touched
+                      " />
+                    <div *ngIf="
+                        formulario.get('correo_reportar_incidentes')?.invalid &&
+                        formulario.get('correo_reportar_incidentes')?.touched
+                      " class="text-danger" style="font-size: 12px; margin-top: 2px">
+                      <span *ngIf="formulario.get('correo_reportar_incidentes')?.errors?.['required']">
+                        {{ "CampoRequerido" | translate }}
+                      </span>
+                      <span *ngIf="formulario.get('correo_reportar_incidentes')?.errors?.['email']">
+                        Formato de correo electrónico inválido
+                      </span>
+                    </div>
+                  </span>
+                  o el que definan (por ejemplo, correos fraudulentos, préstamos
+                  de usuario y contraseña, personas no autorizadas tomando fotos
+                  o videos de los productos, divulgación de información
+                  confidencial a personal externo o no autorizado, etc.).
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

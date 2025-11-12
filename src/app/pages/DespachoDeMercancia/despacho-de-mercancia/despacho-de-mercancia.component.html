@@ -1,0 +1,71 @@
+<div class="container" style="margin-top: 10px;">
+<div id="DespachoMercanciaDiv" style="margin-top: 30px; margin-bottom: 50px;">
+ <h3>{{ 'Despacho_de_Mercancia' | translate }}</h3>
+    <form [formGroup]="formulario">
+        <div class="p-20">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>{{ 'DireccionDespago' | translate }}:</label>
+                    <input type="text" formControlName="DireccionDespacho" class="form-control" />
+                    <span *ngIf="formulario.get('DireccionDespacho')?.invalid && formulario.get('DireccionDespacho')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4">
+                    <label>{{ 'Pais' | translate }}:<b class="text-error">*</b></label>
+                    <select class="form-control" formControlName="Pais">
+                      <option  value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+                    </select>
+                    <span *ngIf="formulario.get('Pais')?.invalid && formulario.get('Pais')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                    </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Ciudad' | translate }}:</label>
+                    <input type="text" formControlName="Cuidad" class="form-control" />
+                    <span *ngIf="formulario.get('Cuidad')?.invalid && formulario.get('Cuidad')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'CodPostalEnvio' | translate }}:</label>
+
+                    <input type="text" formControlName="CodigoPostalEnvio" class="form-control" />
+                    <span *ngIf="formulario.get('CodigoPostalEnvio')?.invalid && formulario.get('CodigoPostalEnvio')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">                    <label>{{ 'Telefono' | translate }}:</label>
+                    <input type="text" formControlName="Telefono" class="form-control"
+                      (keypress)="allowOnlyNumbersForPhone($event)"
+                      (input)="validatePhoneInput($event, formulario.get('Telefono'))" />
+                    <span *ngIf="formulario.get('Telefono')?.invalid && formulario.get('Telefono')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'EmailCorporativo' | translate }}:</label>
+                    <input
+                      type="email"
+                      formControlName="EmailCorporativo"
+                      class="form-control" />
+
+                      <span
+                      *ngIf="formulario.get('EmailCorporativo')?.invalid && formulario.get('EmailCorporativo')?.touched"
+                      class="text-danger">
+                      <span *ngIf="formulario.get('EmailCorporativo')?.errors?.['required']">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                      <span *ngIf="formulario.get('EmailCorporativo')?.errors?.['emailWithCom']">
+                        El email debe tener un formato válido y terminar en .com
+                      </span>
+                    </span>
+                  </div>
+
+
+            </div>
+        </div>
+    </form>
+  </div>
+</div>

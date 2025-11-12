@@ -1,0 +1,93 @@
+<div class="modern-sidebar">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+        <div class="logo-container">
+            <i class="bi bi-grid-3x3-gap sidebar-logo-icon"></i>
+            <h5 class="sidebar-title">Menú</h5>
+        </div>
+    </div>
+
+
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            <ng-container *ngFor="let item of menuItems; trackBy: trackByLabel">
+                <li class="nav-item" [class.has-children]="item.children && item.children.length > 0">
+
+                    <ng-container *ngIf="!item.children || item.children.length === 0; else nestedMenu">
+                        <a class="nav-link"
+                           [routerLink]="item.link"
+                           routerLinkActive="active"
+                           [routerLinkActiveOptions]="{exact: false}">
+                            <i class="nav-icon {{ item.icon }}" *ngIf="item.icon"></i>
+                            <span class="nav-text">{{ item.label }}</span>
+                        </a>
+                    </ng-container>
+
+
+                    <ng-template #nestedMenu>
+                        <div class="nav-parent"
+                             [class.expanded]="item.isOpen"
+                             (click)="toggle(item, $event)">
+                            <div class="nav-link parent-link">
+                                <i class="nav-icon {{ item.icon }}" *ngIf="item.icon"></i>
+                                <span class="nav-text">{{ item.label }}</span>
+                                <i class="expand-icon bi bi-chevron-down"></i>
+                            </div>
+                        </div>
+
+                        <ul class="nav-children" [class.show]="item.isOpen">
+                            <ng-container *ngFor="let child of item.children; trackBy: trackByLabel">
+                                <li class="nav-child-item">
+
+                                    <ng-container *ngIf="!child.children || child.children.length === 0; else nestedChildMenu">
+                                        <a class="nav-link child-link"
+                                           [routerLink]="child.link"
+                                           routerLinkActive="active"
+                                           [routerLinkActiveOptions]="{exact: false}">
+                                            <i class="nav-icon {{ child.icon }}" *ngIf="child.icon"></i>
+                                            <span class="nav-text">{{ child.label }}</span>
+                                        </a>
+                                    </ng-container>
+
+
+                                    <ng-template #nestedChildMenu>
+                                        <div class="nav-parent child-parent"
+                                             [class.expanded]="child.isOpen"
+                                             (click)="toggle(child, $event)">
+                                            <div class="nav-link child-link parent-link">
+                                                <i class="nav-icon {{ child.icon }}" *ngIf="child.icon"></i>
+                                                <span class="nav-text">{{ child.label }}</span>
+                                                <i class="expand-icon bi bi-chevron-down"></i>
+                                            </div>
+                                        </div>
+
+                                        <ul class="nav-grandchildren" [class.show]="child.isOpen">
+                                            <ng-container *ngFor="let grandChild of child.children; trackBy: trackByLabel">
+                                                <li class="nav-grandchild-item">
+                                                    <a class="nav-link grandchild-link"
+                                                       [routerLink]="grandChild.link"
+                                                       routerLinkActive="active"
+                                                       [routerLinkActiveOptions]="{exact: false}">
+                                                        <i class="nav-icon {{ grandChild.icon }}" *ngIf="grandChild.icon"></i>
+                                                        <span class="nav-text">{{ grandChild.label }}</span>
+                                                    </a>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </ng-template>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </ng-template>
+                </li>
+            </ng-container>
+        </ul>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <div class="footer-info">
+            <small class="text-muted">Samsung © 2025</small>
+        </div>
+    </div>
+</div>

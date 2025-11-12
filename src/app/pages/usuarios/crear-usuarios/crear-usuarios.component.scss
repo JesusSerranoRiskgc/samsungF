@@ -1,0 +1,53 @@
+.custom-ng-select {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+  
+  .custom-ng-select .ng-select-container {
+    background-color: white;
+    border-color: #ced4da;
+  }
+  
+  .custom-ng-select .ng-select-container .ng-select {
+    border-color: #ced4da;
+    background-color: white;
+  }
+  
+  .custom-ng-select .ng-select-container .ng-value-container {
+    color: #495057;
+  }
+  
+  .custom-ng-select .ng-select-container .ng-value-container .ng-value {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .custom-ng-select .ng-select-container .ng-input {
+    color: #495057;
+  }
+  
+  .custom-ng-select .ng-select-container .ng-clear-wrapper {
+    color: #495057;
+  }
+  
+  .custom-ng-select .ng-select-container .ng-arrow-wrapper {
+    color: #495057;
+  }
+
+  /* Ajustar el color de fondo del menú desplegable */
+.custom-ng-select .ng-dropdown-panel {
+    background-color: white;
+  }
+  
+  /* Ajustar el estilo de los elementos de la lista */
+  .custom-ng-select .ng-dropdown-panel .ng-option {
+    color: #495057;
+  }
+  
+  /* Ajustar el estilo de los elementos seleccionados en la lista */
+  .custom-ng-select .ng-dropdown-panel .ng-option-selected {
+    background-color: #e9ecef;
+    color: #495057;
+  }

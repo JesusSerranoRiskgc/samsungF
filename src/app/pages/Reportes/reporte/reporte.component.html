@@ -1,0 +1,77 @@
+<div class="container" >
+    <div class="row">
+      <!-- Gráfica de Áreas -->
+      <div class="col-md-6">
+        <h3>Gráfica de Áreas</h3>
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="colorSchemeAreas"
+          [results]="areas"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+      </div>
+      
+      <!-- Gráfica de Usuarios -->
+      <div class="col-md-6">
+        <h3>Gráfica de Usuarios</h3>
+        <ngx-charts-pie-chart
+          [view]="view"
+          [scheme]="colorSchemeUsuarios"
+          [results]="usuarios"
+          [gradient]="gradient"
+          [legend]="showLegend"
+          [labels]="true"
+          [doughnut]="false"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Gráfica de Clientes -->
+      <div class="col-md-6">
+        <h3>Gráfica de Clientes</h3>
+        <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorSchemeClientes"
+        [results]="cliente"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabelClientes"
+        [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+      </div>
+      
+      <!-- Gráfica de Servicios -->
+      <div class="col-md-6">
+        <h3>Gráfica de Servicios</h3>
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="colorSchemeServicios"
+          [results]="servicio"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabelServicios"
+          [yAxisLabel]="yAxisLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+      </div>
+    </div>
+  </div>

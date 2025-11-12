@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center align-items-center" *ngIf="isLoading">
+  <div class="spinner-border text-primary" role="status">
+    <span ></span>
+  </div> &nbsp;
+  <span >Loading..</span>
+</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-dark" >
+                <div class="card-header text-center">
+                    <h5 class="card-title">Editar Área</h5>
+                </div>                
+                    <div class="card-body d-flex flex-column align-items-center">
+                      <form (ngSubmit)="onSubmit()" style="width: 70%;"> 
+                          <div class="row">
+                            <div class="col-md-10">
+                              <label for="nombreArea" class="form-label">Nombre Área</label>
+                              <input type="text" class="form-control" id="nombreArea" placeholder="Nombre Área" [(ngModel)]="area.NombreArea" name="NombreArea" required>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-10">
+                              <label for="descripcion" class="form-label">Descripción</label>
+                              <input type="text" class="form-control" id="descripcion" placeholder="Descripción" [(ngModel)]="area.Descripcion" name="Descripcion">
+                            </div>
+                          </div>
+                          <div class="row" style="margin-top: 2%;">
+                          <div class="col-md-10">
+                            <button type="submit" class="btn btn-primary">Guardar</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                          </div>
+                        </div>
+                        </form>
+                      </div>
+              
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
+  
+    
+  

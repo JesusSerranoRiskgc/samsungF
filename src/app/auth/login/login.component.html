@@ -1,0 +1,111 @@
+<div class="body">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-md-6 d-none d-md-block login-side"
+        style="background: linear-gradient(135deg, rgba(20,40,160,0.9) 0%, rgba(42,47,79,0.9) 100%),
+                  url('https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/360_197_1.png') center/contain no-repeat;">
+        <div class="side-content text-white p-5">
+          <h2 class="display-4 mb-4">{{ 'BIENVENIDO' | translate }}</h2>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 d-flex align-items-center justify-content-start">
+        <div class="login-card p-5" style="transform: translateX(-30px);">
+
+          <div class="language-selector d-flex justify-content-center mb-3">
+            <img src="assets/images/spain.jpg" alt="Spanish" class="flag-icon mx-1" (click)="changeLanguage('es')">
+            <img src="assets/images/english.jpg" alt="English" class="flag-icon mx-1" (click)="changeLanguage('en')">
+          </div>
+
+          <!-- <div class="brand-logo mb-5">
+            <img src="assets/images/Samsung_Logo.png" class="logo">
+          </div> -->
+
+          <form [formGroup]="form" class="auth-form">
+            <h5 class="form-title text-center mb-4">{{ 'SIGN_IN' | translate }}</h5>
+
+
+            <div class="loading-indicator d-flex justify-content-center align-items-center" *ngIf="isLoading">
+              <div class="spinner-border text-primary" role="status">
+                <span>😕</span>
+              </div>
+              <span class="ms-2">Loading..</span>
+            </div>
+
+
+            <div class="form-group mb-3">
+              <input type="text" class="form-control" placeholder="{{ 'Usuario' | translate }}"
+                formControlName="username">
+            </div>
+
+            <div class="form-group mb-3">
+              <input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}"
+                formControlName="password">
+            </div>
+
+
+            <div class="password-actions d-flex justify-content-end mb-4">
+              <a routerLink="/auth/RecuperarCuenta" class="forgot-password">
+                <i class="bi bi-file-lock2 me-1"></i>
+                {{ 'FORGOT_PASSWORD' | translate }}
+              </a>
+            </div>
+
+
+            <div class="captcha-section form-group mb-4">
+              <div class="captcha-controls d-flex justify-content-between align-items-center mb-2">
+                <canvas id="captchaCanvas" width="200" height="50"></canvas>
+                <button type="button" class="btn btn-refresh-captcha" (click)="refreshCaptcha()">
+                  {{ 'RefrescarCaptcha' | translate }}
+                </button>
+              </div>
+              <input type="text" class="form-control" placeholder="{{ 'IngreseCaptcha' | translate }}"
+                formControlName="captcha">
+              <span *ngIf="form.get('captcha')?.invalid && form.get('captcha')?.touched"
+                class="validation-error text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="!form.valid" (click)="login()">
+              {{ 'LOGIN' | translate }}
+            </button>
+            <br/>
+            <h6 class="form-title text-center mb-4">{{ 'NOTACCOUNT' | translate }}</h6>
+            <p class="registration-link text-center mt-4">
+              <a routerLink="/auth/registrarse" class="register-cta">
+                {{ 'REGISTER' | translate }}
+              </a>
+            </p>
+          </form>
+        </div>
+        <!-- Modales -->
+        <!-- <div class="modal" id="terminos-condiciones" #modal>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{ 'ProteccionDatos' | translate }}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="cerrarModal()">
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body">
+                <p id="terminos-content">{{ 'leyEstatutaria' | translate }}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="cerrarModal()">
+                  Aceptar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="cerrarModal()">
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

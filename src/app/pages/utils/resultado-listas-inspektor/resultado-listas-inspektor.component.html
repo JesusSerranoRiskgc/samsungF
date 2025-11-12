@@ -1,0 +1,111 @@
+<div class="card">
+    <div class="card-body">
+        <div class="mb-3 row d-flex align-items-center">
+            <div class="col-auto d-flex align-items-center">
+                <label for="table-complete-search" class="col-form-label me-2">Buscar:</label>
+                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchTerm"
+                    (input)="applyFilter()">
+            </div>
+        </div>
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Tipo Persona</th>
+                    <th scope="col">Tipo Identificacion</th>
+                    <th scope="col">Numero Identificacion</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Numero Consulta</th>
+                    <th scope="col">Coincidencias</th>
+                    <th scope="col">Fecha Consulta</th>
+                    <th scope="col" style="width: 100px;">Pdf</th>
+
+                    <th scope="col">Consulta Procuraduria</th>
+                    <th scope="col" >Consulta Rama Judicial</th>
+                    <th scope="col" >Consulta Ejecucion Penas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let element of getPagedData()">
+                    <td>{{ element.tipo_Tercero }}</td> <!-- Asumiendo que tu modelo tiene la propiedad 'id' en minúsculas -->
+                    <td>{{ element.tipoIdentificacion }}</td>
+                    <td>{{ element.numero_Identificacion }}</td>
+                    <td>{{ element.nombre }}</td>
+                    <td>{{ element.numero_Consulta }}</td>
+                    <td>{{ element.coincidencias }}</td>
+                    <td>{{ element.fecha_Consulta }}</td>
+                    <td><button type="button" class="btn btn-primary" (click)="DescargarInformeInspektor(element.numero_Consulta)">
+                        <i class="bi bi-file-pdf"></i>
+                    </button>
+                    </td>
+
+                    <td><button type="button" class="btn btn-primary" (click)="DescargarresultadosProcuraduria(element)">
+                        <i class="bi bi-file-pdf"></i>
+                    </button>
+                    </td>
+
+                    <td><button type="button" class="btn btn-primary" (click)="DescargarRamaJudicial(element)">
+                        <i class="bi bi-file-pdf"></i>
+                    </button>
+                    </td>
+
+                    <td><button type="button" class="btn btn-primary" (click)="DescargarEjeccionPenas(element)">
+                        <i class="bi bi-file-pdf"></i>
+                    </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ngb-pagination [collectionSize]="filteredDataSource.length" [(page)]="currentPage" [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)" [maxSize]="5" [ellipses]="true" [rotate]="true">
+        </ngb-pagination>
+        <button class="btn btn-primary" (click)="exportToExcel2()">Exportar a Excel</button>
+<br>
+<div class="container" style="margin-top: 20px;margin-bottom: 20px;">
+    <h3>Adjunto Debida Diligencia</h3>
+    <form [formGroup]="adjuntosForm">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-5" style="margin-top: 10px;">
+                <label><h5>Adjunto</h5></label>
+                <div>
+                    <ngx-file-drop *ngIf="!disableDebidaDiligencia" [dropZoneLabel]="'Arrastra archivo aquí'" (onFileDrop)="onFilesDropped('DebidaDiligencia', $event)">
+                      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                        <p>{{ 'ArrastraSuelta' | translate }}</p>
+                        <button type="button" (click)="openFileSelector()">{{ 'SeleccionarArvhivo' | translate }}</button>
+                      </ng-template>
+                    </ngx-file-drop>
+                    </div>      
+                    <div *ngIf="files['DebidaDiligencia']">
+                      <p>{{ files['DebidaDiligencia'].name }}</p>
+                      <a (click)="downloadfile('DebidaDiligencia',files['DebidaDiligencia'].name)" class="btn btn-primary">{{ 'Descargar' | translate }}</a>
+                      <button type="button" class="btn btn-danger" (click)="removeFile('DebidaDiligencia')">{{ 'Eliminar' | translate }}</button>
+                    </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+          </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div  class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+            <span >Loading..</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

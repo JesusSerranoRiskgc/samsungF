@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center align-items-center" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span></span>
+    </div> &nbsp;
+    <span>Loading..</span>
+  </div>           
+  
+  <div style="text-align: center;" *ngIf="!isLoading">
+    <h5>Lista de Registros</h5>
+  </div>
+  
+  <div class="container" style="width: 80%;" *ngIf="!isLoading">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="filterForm" (ngSubmit)="onSearch()">
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label for="idUsuario" class="form-label">Usuario</label>
+              <select id="idUsuario" class="form-select mx-auto" formControlName="idUsuario">
+                <option  value="0">---</option>
+                <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{usuario.nombre}}</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="Estado" class="form-label">Estado</label>
+              <select id="idUsuario" class="form-select mx-auto" formControlName="idUsuario">
+                <option  value="0">---</option>
+                <option *ngFor="let estado of estados" [value]="estado.id">{{estado.nombre}}</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+                <label for="fechaDe" class="form-label">Fecha de</label>
+                <div class="input-group">
+                  <input id="fechaDe" class="form-control" formControlName="fechaDe" ngbDatepicker #dpFrom="ngbDatepicker">
+                  <button class="btn btn-outline-secondary" (click)="dpFrom.toggle()" type="button">
+                    <i class="bi bi-calendar"></i>
+                  </button>
+                </div>                
+              </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="fechaHasta" class="form-label">Fecha hasta</label>
+                  <div class="input-group">
+                    <input id="fechaHasta" class="form-control" formControlName="fechaHasta" ngbDatepicker #dpTo="ngbDatepicker">
+                    <button class="btn btn-outline-secondary" (click)="dpTo.toggle()" type="button">
+                      <i class="bi bi-calendar"></i>                     
+                    </button>
+                  </div>            
+                </div>
+              </div>
+
+          <br>
+          <button type="submit" class="btn btn-primary">Buscar</button>
+          <button type="button" class="btn btn-secondary" (click)="onReset()">Limpiar</button>
+        </form>      
+      </div>
+    </div>
+  </div>

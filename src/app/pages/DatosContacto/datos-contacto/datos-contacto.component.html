@@ -1,0 +1,91 @@
+<div class="container">
+  <div id="DatosContactoDiv" style="margin-top: 30px; margin-bottom: 50px;">
+    <h3>{{ 'Datos_Contacto' | translate }} <span class="text-danger">*</span></h3>
+    <form [formGroup]="DatosContactos" >
+      <div formArrayName="contactos">
+        <div *ngFor="let contacto of contacto.controls; let i = index" [formGroupName]="i"
+        class="border p-3 mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5>{{ 'Contacto' | translate }} {{ i + 1 }}</h5>
+          <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeDirectivo(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label>{{ 'NombreContacto' | translate }}:</label>
+            <input type="text" formControlName="NombreContacto" class="form-control" />
+            <span *ngIf="contacto.get('NombreContacto')?.invalid && contacto.get('NombreContacto')?.touched" class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'CargoContacto' | translate }}:</label>
+            <input type="text" formControlName="CargoContacto" class="form-control" />
+            <span *ngIf="contacto.get('CargoContacto')?.invalid && contacto.get('CargoContacto')?.touched" class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>{{ 'AreaContacto' | translate }}:</label>
+            <input type="text" formControlName="AreaContacto" class="form-control" />
+            <span *ngIf="contacto.get('AreaContacto')?.invalid && contacto.get('AreaContacto')?.touched" class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Telefono' | translate }}:</label>            <input
+              type="text"
+              formControlName="TelefonoContacto"
+              class="form-control"
+              (keypress)="allowOnlyNumbersForPhone($event)"
+              (input)="validatePhoneInput($event, contacto.get('TelefonoContacto'))"
+              [class.is-invalid]="contacto.get('TelefonoContacto')?.invalid && contacto.get('TelefonoContacto')?.touched" />
+            <span *ngIf="contacto.get('TelefonoContacto')?.invalid && contacto.get('TelefonoContacto')?.touched" class="text-danger">
+              <span *ngIf="contacto.get('TelefonoContacto')?.errors?.['required']">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+              <span *ngIf="contacto.get('TelefonoContacto')?.errors?.['pattern']">
+                {{ 'SoloNumerosPermitidos' | translate }}
+              </span>
+            </span>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Ciudad' | translate }}:</label>
+            <input type="text" formControlName="Ciudad" class="form-control" />
+            <span *ngIf="contacto.get('Ciudad')?.invalid && contacto.get('Ciudad')?.touched" class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Direccion' | translate }}:</label>
+            <input type="text" formControlName="Direccion" class="form-control" />
+            <span *ngIf="contacto.get('Direccion')?.invalid && contacto.get('Direccion')?.touched" class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Email' | translate }}:</label>
+            <input type="email" formControlName="CorreoElectronico" class="form-control"
+                [class.is-invalid]="contacto.get('CorreoElectronico')?.invalid && contacto.get('CorreoElectronico')?.touched" />            <span *ngIf="contacto.get('CorreoElectronico')?.invalid && contacto.get('CorreoElectronico')?.touched" class="text-danger">
+                <span *ngIf="contacto.get('CorreoElectronico')?.errors?.['required']">
+                    {{ 'CampoRequerido' | translate }}
+                </span>
+                <span *ngIf="contacto.get('CorreoElectronico')?.errors?.['emailWithCom']">
+                    El email debe tener un formato válido y terminar en .com
+                </span>
+            </span>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+    <button *ngIf="editable" type="button" class="btn btn-primary mt-2"  (click)="addcontacto()">Agregar Contacto</button>
+  </form>
+</div>
+  </div>

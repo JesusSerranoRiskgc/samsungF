@@ -1,0 +1,70 @@
+<div class="container" style="margin-top: 10px; font-size: 0.9rem;">
+  <br />
+  <h5>Información Financiera</h5>
+
+  <form [formGroup]="formulario">
+    <div class="alert alert-info-custom" role="alert" style="white-space: pre-line;">
+      <p class="mb-1">
+        La información aquí diligenciada debe coincidir con los estados financieros.
+        <br>
+
+      </p>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <table class="table table-bordered mb-4">
+          <thead>
+            <tr>
+              <th>Pregunta</th>
+              <th style="width: 60px;">Sí</th>
+              <th style="width: 60px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>i.</strong> ¿Mantiene operaciones con activos virtuales?</td>
+              <td>
+                <input type="radio" [value]="true" formControlName="ActivosVirtuales" />
+              </td>
+              <td>
+                <input type="radio" [value]="false" formControlName="ActivosVirtuales" />
+              </td>
+            </tr>
+            <tr>
+              <td><strong>ii.</strong> ¿Mantiene operaciones en efectivo?</td>
+              <td>
+                <input type="radio" [value]="true" formControlName="GrandesCantidadesEfectivo" />
+              </td>
+              <td>
+                <input type="radio" [value]="false" formControlName="GrandesCantidadesEfectivo" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>Patrimonio:</label>
+        <input type="number" class="form-control" formControlName="patrimonio" />
+      </div>
+      <div class="col-md-6">
+        <label>Activos:</label>
+        <input type="number" class="form-control" formControlName="activos" />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label>Ingresos mensuales:</label>
+        <input type="number" class="form-control" formControlName="ingresosMensuales" />
+      </div>
+      <div class="col-md-6">
+        <label>Egresos mensuales:</label>
+        <input type="number" class="form-control" formControlName="egresosMensuales" />
+      </div>
+    </div>
+
+  </form>
+</div>

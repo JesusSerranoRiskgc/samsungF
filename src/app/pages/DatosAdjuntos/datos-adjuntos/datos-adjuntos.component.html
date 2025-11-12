@@ -1,0 +1,1484 @@
+<div class="container">
+  <div id="DatosAjuntosDiv" style="margin-top: 30px; margin-bottom: 50px;">
+    <!-- <h3 *ngIf="classAliado || classClient || classProveedor">
+      {{ 'Datos_Adjuntos' | translate }}
+    </h3> -->
+
+    <br />
+    <form [formGroup]="adjuntosForm">
+
+      <!--    CLIENTES  -->
+      <div *ngIf="classClient">
+        <!--=JURIDICA=-->
+        <div *ngIf="classClient && esPersonaJuridica">
+          <div class="row mt-3">
+            <!--IdRepresentanteLegalCliente -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Representante Legal' | translate }}
+                  <!-- <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small> -->
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableIdRepresentanteLegalCliente && !files['IdRepresentanteLegalCliente']"
+                    (onFileDrop)="onFilesDropped('IdRepresentanteLegalCliente', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['IdRepresentanteLegalCliente']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['IdRepresentanteLegalCliente'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('IdRepresentanteLegalCliente', files['IdRepresentanteLegalCliente'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('IdRepresentanteLegalCliente')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--CamaraComercioCliente -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Cámara Comercio' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableCamaraComercioDrop && !files['CamaraComercioCliente']"
+                    (onFileDrop)="onFilesDropped('CamaraComercioCliente', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['CamaraComercioCliente']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['CamaraComercioCliente'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CamaraComercioCliente', files['CamaraComercioCliente'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('CamaraComercioCliente')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--2-->
+          <div class="row">
+            <!--DeclaracionRentaJuridica-->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Declaración Renta' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableDeclaracionRentaJuridica && !files['DeclaracionRentaJuridica']"
+                    (onFileDrop)="onFilesDropped('DeclaracionRentaJuridica', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['DeclaracionRentaJuridica']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['DeclaracionRentaJuridica'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('DeclaracionRentaJuridica', files['DeclaracionRentaJuridica'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('DeclaracionRentaJuridica')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- RUTCliente  -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'RUT' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRUTCliNat && !files['RUTCliente']"
+                    (onFileDrop)="onFilesDropped('RUTCliente', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['RUTCliente']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['RUTCliente'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('RUTCliente', files['RUTCliente'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('RUTCliente')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!--EstadosFinancierosJuridica-->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Estados Financieros del Último Año.' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableEstadosFinancierosJuridica && !files['EstadosFinancierosJuridica']"
+                    (onFileDrop)="onFilesDropped('EstadosFinancierosJuridica', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['EstadosFinancierosJuridica']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['EstadosFinancierosJuridica'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('EstadosFinancierosJuridica', files['EstadosFinancierosJuridica'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('EstadosFinancierosJuridica')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--CertificacionBancaria -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Certificación Bancaria' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificacionBancariaJuridica && !files['CertificacionBancariaJuridica']"
+                    (onFileDrop)="onFilesDropped('CertificacionBancariaJuridica', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['CertificacionBancariaJuridica']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['CertificacionBancariaJuridica'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificacionBancariaJuridica', files['CertificacionBancariaJuridica'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificacionBancariaJuridica')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!--ReferenciaComercialBancariaJuridica-->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Referencia Comercial Bancaria' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableReferenciaComercialBancariaJuridica && !files['ReferenciaComercialBancariaJuridica']"
+                    (onFileDrop)="onFilesDropped('ReferenciaComercialBancariaJuridica', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['ReferenciaComercialBancariaJuridica']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['ReferenciaComercialBancariaJuridica'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('ReferenciaComercialBancariaJuridica', files['ReferenciaComercialBancariaJuridica'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('ReferenciaComercialBancariaJuridica')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--=NATURAL=-->
+        <div *ngIf="classClient && esPersonaNatural">
+          <div class="row mt-3">
+            <!-- IdPersonaNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Copia documento identificación persona natural' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableIdPersonaNatural && !files['IdPersonaNatural']"
+                    (onFileDrop)="onFilesDropped('IdPersonaNatural', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['IdPersonaNatural']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['IdPersonaNatural'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('IdPersonaNatural', files['IdPersonaNatural'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('IdPersonaNatural')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- DeclaracionRentaNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Declaración de renta (de los dos (2) últimos períodos gravables disponibles)' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableDeclaracionRentaNatural && !files['DeclaracionRentaNatural']"
+                    (onFileDrop)="onFilesDropped('DeclaracionRentaNatural', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['DeclaracionRentaNatural']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['DeclaracionRentaNatural'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('DeclaracionRentaNatural', files['DeclaracionRentaNatural'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('DeclaracionRentaNatural')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--2-->
+          <div class="row">
+            <!-- CertificacionBancaria  -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Certificación Bancaria' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableCertificacionBancaria && !files['CertificacionBancaria']"
+                    (onFileDrop)="onFilesDropped('CertificacionBancaria', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['CertificacionBancaria']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['CertificacionBancaria'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificacionBancaria', files['CertificacionBancaria'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('CertificacionBancaria')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- RUTAliado  -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'RUT' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRUTCliNat && !files['RUTCliNat']"
+                    (onFileDrop)="onFilesDropped('RUTCliNat', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['RUTCliNat']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['RUTCliNat'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('RUTCliNat', files['RUTCliNat'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('RUTCliNat')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- EstadosFinancierosNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Estados Financieros' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableEstadosFinancierosNatural && !files['EstadosFinancierosNatural']"
+                    (onFileDrop)="onFilesDropped('EstadosFinancierosNatural', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['EstadosFinancierosNatural']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['EstadosFinancierosNatural'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('EstadosFinancierosNatural', files['EstadosFinancierosNatural'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('EstadosFinancierosNatural')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- CamaraComercioNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Cámara Comercio' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableCamaraComercioNatural && !files['CamaraComercioNatural']"
+                    (onFileDrop)="onFilesDropped('CamaraComercioNatural', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['CamaraComercioNatural']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['CamaraComercioNatural'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CamaraComercioNatural', files['CamaraComercioNatural'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('CamaraComercioNatural')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- ReferenciaComercialBancariaNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Referencia Comercial Bancaria' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableReferenciaComercialBancariaNatural && !files['ReferenciaComercialBancariaNatural']"
+                    (onFileDrop)="onFilesDropped('ReferenciaComercialBancariaNatural', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['ReferenciaComercialBancariaNatural']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['ReferenciaComercialBancariaNatural'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('ReferenciaComercialBancariaNatural', files['ReferenciaComercialBancariaNatural'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('ReferenciaComercialBancariaNatural')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!--    PROVEEDORES  -->
+      <div *ngIf="classProveedor">
+        <div *ngIf="classProveedor && esPersonaJuridica">
+          <!--= Persona Jurídica Proveedor =-->
+          <div class="row">
+            <!-- 1. IdRepresentanteLegalProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Representante Legal <span class="text-warning">*</span>
+
+                  <small class="d-block text-white-50">Documento de identificación del representante legal</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableIdRepresentanteLegalProveedor && !files['IdRepresentanteLegalProveedor']"
+                    (onFileDrop)="onFilesDropped('IdRepresentanteLegalProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['IdRepresentanteLegalProveedor']" class="file-actions mt-2">
+                    <span>{{ files['IdRepresentanteLegalProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('IdRepresentanteLegalProveedor', files['IdRepresentanteLegalProveedor'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('IdRepresentanteLegalProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('IdRepresentanteLegalProveedor')?.invalid && adjuntosForm.get('IdRepresentanteLegalProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. CamaraComercioProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Cámara de Comercio <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  <small class="d-block text-white-50">Certificado de existencia y representación legal</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCamaraComercioProveedor && !files['CamaraComercioProveedor']"
+                    (onFileDrop)="onFilesDropped('CamaraComercioProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CamaraComercioProveedor']" class="file-actions mt-2">
+                    <span>{{ files['CamaraComercioProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CamaraComercioProveedor', files['CamaraComercioProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CamaraComercioProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('CamaraComercioProveedor')?.invalid && adjuntosForm.get('CamaraComercioProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 2 -->
+          <div class="row">
+            <!-- 3. RUTProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'RUT / ID Tributario' | translate }} <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Registro Único Tributario vigente</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRUTProveedor && !files['RUTProveedor']"
+                    (onFileDrop)="onFilesDropped('RUTProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['RUTProveedor']" class="file-actions mt-2">
+                    <span>{{ files['RUTProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('RUTProveedor', files['RUTProveedor'].name)">Descargar</button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('RUTProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('RUTProveedor')?.invalid && adjuntosForm.get('RUTProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. DeclaracionRentaProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Declaración de Renta <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Últimos 2 años presentados ante la DIAN</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableDeclaracionRentaProveedor && !files['DeclaracionRentaProveedor']"
+                    (onFileDrop)="onFilesDropped('DeclaracionRentaProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['DeclaracionRentaProveedor']" class="file-actions mt-2">
+                    <span>{{ files['DeclaracionRentaProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('DeclaracionRentaProveedor', files['DeclaracionRentaProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('DeclaracionRentaProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('DeclaracionRentaProveedor')?.invalid && adjuntosForm.get('DeclaracionRentaProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 3 -->
+          <div class="row">
+            <!-- 5. CertificacionBancariaProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificación Bancaria <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                  <small class="d-block text-white-50">Certificación de cuentas bancarias vigente</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificacionBancariaProveedor && !files['CertificacionBancariaProveedor']"
+                    (onFileDrop)="onFilesDropped('CertificacionBancariaProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificacionBancariaProveedor']" class="file-actions mt-2">
+                    <span>{{ files['CertificacionBancariaProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificacionBancariaProveedor', files['CertificacionBancariaProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificacionBancariaProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('CertificacionBancariaProveedor')?.invalid && adjuntosForm.get('CertificacionBancariaProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. CertificadoLibertadProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificado Libertad/Tradición (Inmueble) <small class="text-white-50">(Opcional)</small>
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  <small class="d-block text-white-50">Certificado de libertad y tradición de bienes inmuebles (si aplica)</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificadoLibertadProveedor && !files['CertificadoLibertadProveedor']"
+                    (onFileDrop)="onFilesDropped('CertificadoLibertadProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificadoLibertadProveedor']" class="file-actions mt-2">
+                    <span>{{ files['CertificadoLibertadProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificadoLibertadProveedor', files['CertificadoLibertadProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificadoLibertadProveedor')">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 4 -->
+          <div class="row">
+            <!-- 7. EstadosFinancierosProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Estados Financieros <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Estados financieros auditados de los últimos 2 años</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableEstadosFinancierosProveedor && !files['EstadosFinancierosProveedor']"
+                    (onFileDrop)="onFilesDropped('EstadosFinancierosProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['EstadosFinancierosProveedor']" class="file-actions mt-2">
+                    <span>{{ files['EstadosFinancierosProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('EstadosFinancierosProveedor', files['EstadosFinancierosProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('EstadosFinancierosProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('EstadosFinancierosProveedor')?.invalid && adjuntosForm.get('EstadosFinancierosProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. PortafolioServiciosProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Portafolio de Servicios <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Catálogo detallado de productos y/o servicios ofrecidos</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disablePortafolioServiciosProveedor && !files['PortafolioServiciosProveedor']"
+                    (onFileDrop)="onFilesDropped('PortafolioServiciosProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['PortafolioServiciosProveedor']" class="file-actions mt-2">
+                    <span>{{ files['PortafolioServiciosProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('PortafolioServiciosProveedor', files['PortafolioServiciosProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('PortafolioServiciosProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('PortafolioServiciosProveedor')?.invalid && adjuntosForm.get('PortafolioServiciosProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 5 -->
+          <div class="row">
+            <!-- 9. CertificacionComercialProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificación Comercial <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 60 días' | translate }}</small>
+                  <small class="d-block text-white-50">Referencias comerciales y bancarias</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificacionComercialProveedor && !files['CertificacionComercialProveedor']"
+                    (onFileDrop)="onFilesDropped('CertificacionComercialProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificacionComercialProveedor']" class="file-actions mt-2">
+                    <span>{{ files['CertificacionComercialProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificacionComercialProveedor', files['CertificacionComercialProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificacionComercialProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('CertificacionComercialProveedor')?.invalid && adjuntosForm.get('CertificacionComercialProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 10. PremiosReconocimientosProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Premios / Reconocimientos <small class="text-white-50">(Opcional)</small>
+                  <small class="d-block text-white-50">Certificaciones, premios y reconocimientos obtenidos</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disablePremiosReconocimientosProveedor && !files['PremiosReconocimientosProveedor']"
+                    (onFileDrop)="onFilesDropped('PremiosReconocimientosProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['PremiosReconocimientosProveedor']" class="file-actions mt-2">
+                    <span>{{ files['PremiosReconocimientosProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('PremiosReconocimientosProveedor', files['PremiosReconocimientosProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('PremiosReconocimientosProveedor')">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 6 -->
+          <div class="row">
+            <!-- 11. CertificadoInmuebleProveedor -->
+     <!--        <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificado Inmueble <small class="text-white-50">(Opcional)</small>
+                  <small class="d-block text-white-50">Certificaciones de propiedades inmobiliarias (si aplica)</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificadoInmuebleProveedor && !files['CertificadoInmuebleProveedor']"
+                    (onFileDrop)="onFilesDropped('CertificadoInmuebleProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificadoInmuebleProveedor']" class="file-actions mt-2">
+                    <span>{{ files['CertificadoInmuebleProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificadoInmuebleProveedor', files['CertificadoInmuebleProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificadoInmuebleProveedor')">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- 12. AcuerdoConfidencialidadProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Acuerdo de Confidencialidad <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Acuerdo firmado de confidencialidad y protección de datos</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableAcuerdoConfidencialidadProveedor && !files['AcuerdoConfidencialidadProveedor']"
+                    (onFileDrop)="onFilesDropped('AcuerdoConfidencialidadProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['AcuerdoConfidencialidadProveedor']" class="file-actions mt-2">
+                    <span>{{ files['AcuerdoConfidencialidadProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('AcuerdoConfidencialidadProveedor', files['AcuerdoConfidencialidadProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('AcuerdoConfidencialidadProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('AcuerdoConfidencialidadProveedor')?.invalid && adjuntosForm.get('AcuerdoConfidencialidadProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 7 -->
+          <div class="row">
+            <!-- 13. CertificadoARLProveedor -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificado ARL (SGSST) <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Certificado de afiliación a ARL y cumplimiento del SGSST</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificadoARLProveedor && !files['CertificadoARLProveedor']"
+                    (onFileDrop)="onFilesDropped('CertificadoARLProveedor', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificadoARLProveedor']" class="file-actions mt-2">
+                    <span>{{ files['CertificadoARLProveedor'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificadoARLProveedor', files['CertificadoARLProveedor'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificadoARLProveedor')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('CertificadoARLProveedor')?.invalid && adjuntosForm.get('CertificadoARLProveedor')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==========NATURAL PROVEEDOR ========== -->
+        <div *ngIf="classProveedor && esPersonaNatural">
+
+          <!-- Fila 1 -->
+          <div class="row">
+            <!-- 15. IdProveedorNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Documento de Identificación <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Cédula de ciudadanía o documento de identificación vigente</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableIdProveedorNatural && !files['IdProveedorNatural']"
+                    (onFileDrop)="onFilesDropped('IdProveedorNatural', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['IdProveedorNatural']" class="file-actions mt-2">
+                    <span>{{ files['IdProveedorNatural'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('IdProveedorNatural', files['IdProveedorNatural'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('IdProveedorNatural')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('IdProveedorNatural')?.invalid && adjuntosForm.get('IdProveedorNatural')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 16. DeclaracionRentaProveedorNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Declaración de Renta <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Últimos 2 años presentados ante la DIAN o documento aplicable para extranjeros”</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableDeclaracionRentaProveedorNatural && !files['DeclaracionRentaProveedorNatural']"
+                    (onFileDrop)="onFilesDropped('DeclaracionRentaProveedorNatural', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['DeclaracionRentaProveedorNatural']" class="file-actions mt-2">
+                    <span>{{ files['DeclaracionRentaProveedorNatural'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('DeclaracionRentaProveedorNatural', files['DeclaracionRentaProveedorNatural'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('DeclaracionRentaProveedorNatural')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('DeclaracionRentaProveedorNatural')?.invalid && adjuntosForm.get('DeclaracionRentaProveedorNatural')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 2 -->
+          <div class="row">
+            <!-- 17. CertificacionBancariaProveedorNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificación Bancaria <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificacionBancariaProveedorNatural && !files['CertificacionBancariaProveedorNatural']"
+                    (onFileDrop)="onFilesDropped('CertificacionBancariaProveedorNatural', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificacionBancariaProveedorNatural']" class="file-actions mt-2">
+                    <span>{{ files['CertificacionBancariaProveedorNatural'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificacionBancariaProveedorNatural', files['CertificacionBancariaProveedorNatural'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificacionBancariaProveedorNatural')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('CertificacionBancariaProveedorNatural')?.invalid && adjuntosForm.get('CertificacionBancariaProveedorNatural')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- CertificadoLibertadProveedorNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Certificado Libertad o documento equivalente en el caso en que el inmueble se encuentre ubicado en el exterior <small class="text-white-50">(Opcional)</small>
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  <small class="d-block text-white-50">Certificado de libertad y tradición de bienes inmuebles (si aplica)</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableCertificadoLibertadProveedorNatural && !files['CertificadoLibertadProveedorNatural']"
+                    (onFileDrop)="onFilesDropped('CertificadoLibertadProveedorNatural', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['CertificadoLibertadProveedorNatural']" class="file-actions mt-2">
+                    <span>{{ files['CertificadoLibertadProveedorNatural'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CertificadoLibertadProveedorNatural', files['CertificadoLibertadProveedorNatural'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('CertificadoLibertadProveedorNatural')">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- AcuerdoConfidencialidadProveedorNatural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  Acuerdo Confidencialidad <span class="text-warning">*</span>
+                  <small class="d-block text-white-50">Acuerdo firmado de confidencialidad y protección de datos</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop
+                    *ngIf="editable && !disableAcuerdoConfidencialidadProveedorNatural && !files['AcuerdoConfidencialidadProveedorNatural']"
+                    (onFileDrop)="onFilesDropped('AcuerdoConfidencialidadProveedorNatural', $event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <p>Arrastra o haz clic para subir tu archivo.</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          Seleccionar Archivo
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+                  <div *ngIf="files['AcuerdoConfidencialidadProveedorNatural']" class="file-actions mt-2">
+                    <span>{{ files['AcuerdoConfidencialidadProveedorNatural'].name }}</span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('AcuerdoConfidencialidadProveedorNatural', files['AcuerdoConfidencialidadProveedorNatural'].name)">
+                      Descargar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('AcuerdoConfidencialidadProveedorNatural')">Eliminar</button>
+                  </div>
+                  <div *ngIf="adjuntosForm.get('AcuerdoConfidencialidadProveedorNatural')?.invalid && adjuntosForm.get('AcuerdoConfidencialidadProveedorNatural')?.touched"
+                       class="text-danger mt-2">
+                    <small>Este documento es obligatorio</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALIADOS -->
+      <div *ngIf="classAliado">
+        <div *ngIf="classAliado && esPersonaJuridica">
+          <div class="row mt-3">
+            <!-- Representante Legal -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  copia del documento de identificación del representante legal
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRepLegDrop && !files['IdRepresentanteLegalAliado']"
+                    (onFileDrop)="onFilesDropped('IdRepresentanteLegalAliado', $event)"
+                    (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['IdRepresentanteLegalAliado']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['IdRepresentanteLegalAliado'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('IdRepresentanteLegalAliado', files['IdRepresentanteLegalAliado'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete"
+                      (click)="removeFile('IdRepresentanteLegalAliado')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cámara de Comercio Aliado -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Cámara Comercio' | translate }}
+                  <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableCamComer && !files['CamaraComercioAliado']"
+                    (onFileDrop)="onFilesDropped('CamaraComercioAliado', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['CamaraComercioAliado']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['CamaraComercioAliado'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('CamaraComercioAliado', files['CamaraComercioAliado'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('CamaraComercioAliado')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--2==> -->
+          <div class="row">
+            <!-- RUT Aliado -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'RUT' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRUTAliado && !files['RUTAliado']"
+                    (onFileDrop)="onFilesDropped('RUTAliado', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['RUTAliado']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['RUTAliado'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('RUTAliado', files['RUTAliado'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('RUTAliado')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==========NATURAL ALIADO ========== -->
+        <div *ngIf="classAliado && esPersonaNatural">
+          <div class="row mt-3">
+            <!-- Documento de Identificación Aliado Natural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'Copia documento identificación persona natural' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRepLegDrop && !files['IdRepresentanteLegalAliado']"
+                    (onFileDrop)="onFilesDropped('IdRepresentanteLegalAliado', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['IdRepresentanteLegalAliado']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['IdRepresentanteLegalAliado'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('IdRepresentanteLegalAliado', files['IdRepresentanteLegalAliado'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('IdRepresentanteLegalAliado')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RUT Aliado Natural -->
+            <div class="col-md-5 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                  {{ 'RUT' | translate }}
+                </div>
+                <div class="card-body">
+                  <ngx-file-drop *ngIf="editable && !disableRUTAliado && !files['RUTAliado']"
+                    (onFileDrop)="onFilesDropped('RUTAliado', $event)" (onFileOver)="fileOverActive = true"
+                    (onFileLeave)="fileOverActive = false"
+                    [dropZoneClassName]="fileOverActive ? 'drop-zone active' : 'drop-zone'">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">{{ 'Arrastra o haz clic para subir tu archivo.' | translate }}</p>
+                        <button type="button" class="btn btn-sm btn-upload" (click)="openFileSelector()">
+                          <i class="fas fa-upload"></i> {{ 'Seleccionar Archivo' | translate }}
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-file-drop>
+
+                  <div class="file-actions mt-2" *ngIf="files['RUTAliado']">
+                    <span class="file-name">
+                      <i class="fas fa-file-alt"></i> {{ files['RUTAliado'].name }}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-download mx-1"
+                      (click)="downloadfile('RUTAliado', files['RUTAliado'].name)">
+                      <i class="fas fa-download"></i> {{ 'Descargar' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-delete" (click)="removeFile('RUTAliado')">
+                      <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

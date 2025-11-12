@@ -1,0 +1,268 @@
+<div class="container" style="margin-top: 10px; font-size: 0.9rem;">
+  <br />
+  <h4 class="text-center mb-3">INFORMACIÓN COMPLEMENTARIA</h4>
+
+  <form [formGroup]="formulario">
+    <div class="accordion" id="accordionGeneral">
+
+      <!-- Acordeón 1: INFORMACIÓN ACTIVOS VIRTUALES Y DE EFECTIVO -->
+      <!-- <div class="accordion-item">
+        <h2 class="accordion-header" id="heading1">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
+            aria-expanded="true" aria-controls="collapse1">
+            INFORMACIÓN ACTIVOS VIRTUALES Y DE EFECTIVO
+          </button>
+        </h2>
+        <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1"
+          data-bs-parent="#accordionGeneral">
+          <div class="accordion-body">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th style="width: 60px;">Sí</th>
+                  <th style="width: 60px;">No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>i.</strong> ¿Mantiene operaciones con activos virtuales?</td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="ActivosVirtuales" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="ActivosVirtuales" />
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>ii.</strong> ¿Mantiene operaciones en efectivo?</td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="GrandesCantidadesEfectivo" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="GrandesCantidadesEfectivo" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
+            aria-expanded="false" aria-controls="collapse2">
+            ANTICORRUPCIÓN & ANTISOBORNO
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+          data-bs-parent="#accordionGeneral">
+          <div class="accordion-body">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Sí</th>
+                  <th>No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>i.</strong> ¿Ha sido investigado o procesado por violar leyes anticorrupción?
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="InvestigadoViolacionLeyesAnticorrupcion" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="InvestigadoViolacionLeyesAnticorrupcion" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong> ii.</strong> ¿Cuenta con una declaración explícita de cero tolerancia a la
+                    corrupción dentro de su política anticorrupción o Código de Conducta?
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="DeclaracionNoToleranciaCorrupcion" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="DeclaracionNoToleranciaCorrupcion" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>iii.</strong> ¿Hace extensiva el cumplimiento de la política anticorrupción
+                    a sus terceras partes?
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="ExtensionColaboradoresPolitica" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="ExtensionColaboradoresPolitica" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>iv.</strong> ¿Cuenta con una política o lineamientos sobre regalos,
+                    entretenimiento, hospitalidad, donaciones y gastos de
+                    representación?
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="PoliticaAportesDonaciones" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="PoliticaAportesDonaciones" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>v.</strong> ¿Cuenta con una política o lineamientos sobre con una política
+                    sobre conflictos de interés?
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="ContratadoTercerosOrganizacion" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="ContratadoTercerosOrganizacion" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Fin acordeón 2 -->
+
+      <!-- Acordeón 3: PREVENCIÓN DE LAVADO DE ACTIVOS... -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
+            aria-expanded="false" aria-controls="collapse3">
+            PREVENCIÓN DE LAVADO DE ACTIVOS FINANCIACIÓN DEL TERRORISMO (LAFTFPADM) Y
+            CORRUPCIÓN Y SOBORNO TRANSNACIONAL (C/ST)
+          </button>
+        </h2>
+        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+          data-bs-parent="#accordionGeneral">
+          <div class="accordion-body">
+            <!-- Tabla 3 -->
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Sí</th>
+                  <th>No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>i.</strong> Obligada a tener un sistema de prevención del riesgo de LAFTFPADM
+                    y S/CT (de acuerdo con la normatividad vigente al momento de firmar
+                    el presente formato)
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="ObligadaSistemaPrevencionLAFT" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="ObligadaSistemaPrevencionLAFT" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>ii.</strong> Tiene sistema de prevención del riesgo de LAFTFPADM y C/ST
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="TieneSistemaPrevencionLAFT" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="TieneSistemaPrevencionLAFT" />
+                  </td>
+                </tr>
+                <ng-container *ngIf="formulario.get('TieneSistemaPrevencionLAFT')?.value === true">
+                <tr>
+                  <td>
+                    <strong>iii.</strong> En caso que su respuesta a la anterior pregunta haya sido
+                    afirmativa, favor responder las siguientes preguntas:
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>
+                    <strong>a.</strong> Adopción de políticas por parte del máximo órgano de dirección de
+                    la sociedad.
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="AdopcionPoliticasLAFT" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="AdopcionPoliticasLAFT" />
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>b.</strong> Nombramiento de Oficial de Cumplimiento.</td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="NombramientoOficialCumplimiento" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="NombramientoOficialCumplimiento" />
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>c.</strong> Establecimiento de medidas de debida diligencia</td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="MedidasDebidaDiligencia" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="MedidasDebidaDiligencia" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>d.</strong> Identificación, medición y control de riesgos LAFTFPADM y C/ST
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="IdentificacionEvaluacionRiesgos" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="IdentificacionEvaluacionRiesgos" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>e.</strong> Identificación y reportes de operaciones sospechosas, sean éstas
+                    consumadas o intentadas
+                  </td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="IdentificacionReporteSospechosas" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="IdentificacionReporteSospechosas" />
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>f.</strong> Políticas de capacitación</td>
+                  <td>
+                    <input type="radio" [value]="true" formControlName="PoliticasCapacitacionLAFT" />
+                  </td>
+                  <td>
+                    <input type="radio" [value]="false" formControlName="PoliticasCapacitacionLAFT" />
+                  </td>
+                </tr>
+
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Fin acordeón 3 -->
+
+      <!-- Acordeón 4: SISTEMA DE AUTOCONTROL... -->
+
+    </div>
+
+  </form>
+</div>

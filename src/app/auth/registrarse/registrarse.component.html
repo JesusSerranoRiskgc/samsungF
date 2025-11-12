@@ -1,0 +1,113 @@
+<!-- registrarse.component.html -->
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="login-card p-4">
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+      <h3 class="text-center mb-4">{{ 'Registrarse' | translate }}</h3>
+
+
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" formControlName="nombres" placeholder="{{ 'Nombre' | translate }}" />
+      </div>
+
+    
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" formControlName="apellidos"
+          placeholder="{{ 'Apellidos' | translate }}" />
+      </div>
+
+      <div class="form-group mb-3">
+        <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" />
+      </div>
+
+
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" formControlName="identificacion"
+          placeholder="{{ 'NumeroDocumento' | translate }}" />
+      </div>
+
+      <div class="form-group mb-3">
+        <input type="email" class="form-control" formControlName="email" placeholder="{{ 'Correo' | translate }}" />
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-12">
+          <div class="row">
+         
+            <div class="col-md-6">
+     
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="registroForm.invalid">
+        {{ 'REGISTER' | translate }}
+      </button>
+
+      <p class="text-center mt-3">
+        <a routerLink="/auth/login">{{ 'Regresar' | translate }}</a>
+      </p>
+
+      <!-- Modal success -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" #successModal>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ 'Exito' | translate }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeSuccessModal()"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ 'RegistroExitosoMensaje' | translate }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="closeSuccessModal()">
+              {{ 'Aceptar' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="terminos-condiciones" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="terminos-header">{{ 'ProteccionDatos' | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: justify;">
+        <p id="terminos-content">{{ 'leyEstatutaria' | translate }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="cerrarModal()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="terminos-condiciones" #modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="terminos-header">{{ 'ProteccionDatos' | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: justify;">
+        <p id="terminos-content">{{ 'leyEstatutaria' | translate }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="cerrarModal()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

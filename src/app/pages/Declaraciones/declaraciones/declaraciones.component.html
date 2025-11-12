@@ -1,0 +1,62 @@
+<div class="container">
+  <div id="declaraciones"  style="margin-top: 30px; margin-bottom: 50px;">
+    <h3>{{ 'Declaracion' | translate }}</h3>
+      <div class="p-0">
+        <div class="row">
+          <br>
+          <br>
+          <form [formGroup]="formulario">
+            <div class="row ">
+              <div class="col-md-4">
+                <div>
+                  <label>{{ 'DeclaracionNombre' | translate }} <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="NombreRepresentanteFirma">
+                  <span *ngIf="formulario.get('NombreRepresentanteFirma')?.invalid && formulario.get('NombreRepresentanteFirma')?.touched" class="text-danger">
+                    {{ 'CampoRequerido' | translate }}
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-1">
+                &nbsp;&nbsp;
+              </div>
+              <div class="col-md-5" style="margin-top: 60px;">
+                &nbsp;&nbsp;
+              </div>
+              <div class="col-md-1">
+                &nbsp;&nbsp;
+              </div>
+
+            </div>
+            <br>
+            <div class="row">
+
+              <div class="col-md-4">
+                <label>{{ 'DeclaracionCorreo' | translate }}<span class="text-danger">*</span></label>
+                <input type="email" class="form-control" formControlName="CorreoRepresentante"
+                    [class.is-invalid]="formulario.get('CorreoRepresentante')?.invalid && formulario.get('CorreoRepresentante')?.touched" />
+                    <span *ngIf="formulario.get('CorreoRepresentante')?.invalid && formulario.get('CorreoRepresentante')?.touched" class="text-danger">
+                    <span *ngIf="formulario.get('CorreoRepresentante')?.errors?.['required']">
+                        {{ 'CampoRequerido' | translate }}
+                    </span>
+                    <span *ngIf="formulario.get('CorreoRepresentante')?.errors?.['emailWithCom']">
+                        El email debe tener un formato válido y terminar en .com
+                    </span>
+                </span>
+            </div>
+              <div class="col-md-1">
+                &nbsp;&nbsp;
+              </div>
+              <div  class="col-md-5" style="margin-top: 60px;" >
+                <div class="signature-wrapper">
+                  <div class="signature-line"></div>
+                  <div class="signature-label">{{ 'Firma' | translate }}</div>
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+  </div>
+</div>

@@ -1,0 +1,474 @@
+<div>
+  <h3>{{ 'BeneficiariosFinales' | translate }}<span class="text-danger">*</span></h3>
+  <form [formGroup]="Beneficiarios">
+    <div formArrayName="Beneficiario">
+      <!--  exceeding 100% participation -->
+      <div *ngIf="isTotalPercentageInvalid()" class="alert alert-danger" role="alert">
+        {{ 'SumaPorcentajeExcede100' | translate }}: {{ getTotalPercentage() }}%
+      </div>
+      <!-- <div class="alert alert-info" role="alert">
+        {{ 'TotalPorcentaje' | translate }}: {{ getTotalPercentage() }}%
+      </div> -->
+      <div *ngFor="let beneficiario of beneficiario.controls; let i = index" [formGroupName]="i"
+        class="border p-3 mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5>{{ 'Beneficiario' | translate }} {{ i + 1 }}</h5>
+          <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeBeneficiario(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label>{{ 'NombreCompleto' | translate }}:</label>
+            <input type="text" formControlName="NombreCompleto" class="form-control"
+              [class.is-invalid]="beneficiario.get('NombreCompleto')?.invalid && beneficiario.get('NombreCompleto')?.touched" />
+            <span *ngIf="beneficiario.get('NombreCompleto')?.invalid && beneficiario.get('NombreCompleto')?.touched"
+              class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Tipo_Identificacion' | translate }}:</label>
+            <select formControlName="tipoDocumento" class="form-control"
+              [class.is-invalid]="beneficiario.get('tipoDocumento')?.invalid && beneficiario.get('tipoDocumento')?.touched">
+              <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+              <option *ngFor="let tipo of filteredListaTipoDocumentos" [value]="tipo.id">{{ tipo.nombre }}</option>
+            </select>
+            <span *ngIf="beneficiario.get('tipoDocumento')?.invalid && beneficiario.get('tipoDocumento')?.touched"
+              class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Numero_Identificacion' | translate }}:</label>
+            <input type="text" formControlName="NumeroIdentificacion" class="form-control" (keypress)="allowOnlyNumbers($event, i)" (input)="validateNumeroIdentificacionInput($event, i)"
+              [class.is-invalid]="beneficiario.get('NumeroIdentificacion')?.invalid && beneficiario.get('NumeroIdentificacion')?.touched" />
+            <span
+              *ngIf="beneficiario.get('NumeroIdentificacion')?.invalid && beneficiario.get('NumeroIdentificacion')?.touched"
+              class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'Nacionalidad' | translate }}:</label>
+            <select formControlName="Nacionalidad" class="form-control"
+              [class.is-invalid]="beneficiario.get('Nacionalidad')?.invalid && beneficiario.get('Nacionalidad')?.touched">
+              <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+              <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+            </select>
+            <span *ngIf="beneficiario.get('Nacionalidad')?.invalid && beneficiario.get('Nacionalidad')?.touched"
+              class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'PorcParti' | translate }}:</label>
+            <input type="number" formControlName="Porcentajeparticipacion" class="form-control" min="0" max="100"
+              [class.is-invalid]="beneficiario.get('Porcentajeparticipacion')?.invalid && beneficiario.get('Porcentajeparticipacion')?.touched" />
+            <span
+              *ngIf="beneficiario.get('Porcentajeparticipacion')?.invalid && beneficiario.get('Porcentajeparticipacion')?.touched"
+              class="text-danger">
+              <span *ngIf="beneficiario.get('Porcentajeparticipacion')?.errors?.['required']">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+              <span
+                *ngIf="beneficiario.get('Porcentajeparticipacion')?.errors?.['min'] || beneficiario.get('Porcentajeparticipacion')?.errors?.['max']">
+                {{ 'PorcentajeEntre0y100' | translate }}
+              </span>
+            </span>
+          </div>
+          <div class="col-md-4 mb-3" *ngIf="beneficiario.get('tipoDocumento')?.value === '3'">
+            <label>{{ 'CotizaEnBolsa' | translate }}</label>
+            <select formControlName="CotizaEnBolsa" class="form-control"
+              [class.is-invalid]="beneficiario.get('CotizaEnBolsa')?.invalid && beneficiario.get('CotizaEnBolsa')?.touched">
+              <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+              <option *ngFor="let sino of ListaSino" [value]="sino.id">
+                {{ sino.nombre }}
+              </option>
+            </select>
+            <span *ngIf="beneficiario.get('CotizaEnBolsa')?.invalid && beneficiario.get('CotizaEnBolsa')?.touched"
+              class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>{{ 'vinculadoPep' | translate }}</label>
+            <select formControlName="vinculadoPep" class="form-control"
+              [class.is-invalid]="beneficiario.get('vinculadoPep')?.invalid && beneficiario.get('vinculadoPep')?.touched">
+              <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+              <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+            </select>
+            <span *ngIf="beneficiario.get('vinculadoPep')?.invalid && beneficiario.get('vinculadoPep')?.touched"
+              class="text-danger">
+              {{ 'CampoRequerido' | translate }}
+            </span>
+          </div>
+        </div>
+        <div class="row" *ngIf="beneficiario.get('vinculadoPep')?.value === '1'">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label>{{ 'ManejaRecursos' | translate }}</label>
+              <select formControlName="ManejaRecursos" class="form-control"
+                [class.is-invalid]="beneficiario.get('ManejaRecursos')?.invalid && beneficiario.get('ManejaRecursos')?.touched">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+              </select>
+              <span *ngIf="beneficiario.get('ManejaRecursos')?.invalid && beneficiario.get('ManejaRecursos')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3" *ngIf="beneficiario.get('ManejaRecursos')?.value === '1'">
+              <label>{{ 'CualesRecursos' | translate }}</label>
+              <input type="text" formControlName="CualesRecursos" class="form-control"
+                [class.is-invalid]="beneficiario.get('CualesRecursos')?.invalid && beneficiario.get('CualesRecursos')?.touched" />
+              <span *ngIf="beneficiario.get('CualesRecursos')?.invalid && beneficiario.get('CualesRecursos')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'PoderPolitico' | translate }}</label>
+              <select formControlName="PoderPolitico" class="form-control"
+                [class.is-invalid]="beneficiario.get('PoderPolitico')?.invalid && beneficiario.get('PoderPolitico')?.touched">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+              </select>
+              <span *ngIf="beneficiario.get('PoderPolitico')?.invalid && beneficiario.get('PoderPolitico')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3" *ngIf="beneficiario.get('PoderPolitico')?.value === '1'">
+              <label>{{ 'RamaPoderPublico' | translate }}</label>
+              <input type="text" formControlName="RamaPoderPublico" class="form-control"
+                [class.is-invalid]="beneficiario.get('RamaPoderPublico')?.invalid && beneficiario.get('RamaPoderPublico')?.touched" />
+              <span
+                *ngIf="beneficiario.get('RamaPoderPublico')?.invalid && beneficiario.get('RamaPoderPublico')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'CargoPublico' | translate }} </label>
+              <select formControlName="CargoPublico" class="form-control"
+                [class.is-invalid]="beneficiario.get('CargoPublico')?.invalid && beneficiario.get('CargoPublico')?.touched">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+              </select>
+              <span *ngIf="beneficiario.get('CargoPublico')?.invalid && beneficiario.get('CargoPublico')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3" *ngIf="beneficiario.get('CargoPublico')?.value === '1'">
+              <label>{{ 'CualCargoPublico' | translate }}</label>
+              <input type="text" formControlName="CualCargoPublico" class="form-control"
+                [class.is-invalid]="beneficiario.get('CualCargoPublico')?.invalid && beneficiario.get('CualCargoPublico')?.touched" />
+              <span
+                *ngIf="beneficiario.get('CualCargoPublico')?.invalid && beneficiario.get('CualCargoPublico')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label>{{ 'hasidoPep2' | translate }}</label>
+              <select formControlName="hasidoPep2" class="form-control"
+                [class.is-invalid]="beneficiario.get('hasidoPep2')?.invalid && beneficiario.get('hasidoPep2')?.touched">
+                <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+              </select>
+              <span *ngIf="beneficiario.get('hasidoPep2')?.invalid && beneficiario.get('hasidoPep2')?.touched"
+                class="text-danger">
+                {{ 'CampoRequerido' | translate }}
+              </span>
+            </div>
+            <div class="col-md-12">
+              <div formArrayName="cargosPublicos" *ngIf="beneficiario.get('hasidoPep2')?.value === '1'"
+                class="border border-3 p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h6>{{ 'cargosPublicos' | translate }}</h6>
+                  <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addCargoPublico(i)">
+                    {{ 'AgregarCargoPublico' | translate }}<i class="bi bi-plus"></i>
+                  </button>
+                </div>
+                <div *ngFor="let cargo of getCargosPublicos(i).controls; let j = index" [formGroupName]="j"
+                  class="border p-2">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>{{ 'cargoPublico' | translate }} {{j+1}}</h6>
+                    <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeCargoPublico(i, j)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'NombreEntidad' | translate }}</label>
+                    <input type="text" formControlName="NombreEntidad" class="form-control"
+                      [class.is-invalid]="cargo.get('NombreEntidad')?.invalid && cargo.get('NombreEntidad')?.touched" />
+                    <span *ngIf="cargo.get('NombreEntidad')?.invalid && cargo.get('NombreEntidad')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'FechaIngreso' | translate }}</label>
+                    <input type="date" formControlName="FechaIngreso" class="form-control"
+                      [class.is-invalid]="cargo.get('FechaIngreso')?.invalid && cargo.get('FechaIngreso')?.touched" />
+                    <span *ngIf="cargo.get('FechaIngreso')?.invalid && cargo.get('FechaIngreso')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'FechaDesvinculacion' | translate }}</label>
+                    <input type="date" formControlName="FechaDesvinculacion" class="form-control" />
+                  </div>
+                </div>
+                <!-- Botón para agregar otro cargo -->
+                <span *ngIf="getCargosPublicos(i)?.controls?.length === 0" class="text-danger">
+                  {{ 'DebeDilCargoPublico' | translate }}
+                </span>
+              </div>
+            </div>
+            <br>
+            <div class="col-md-12">
+              <div formArrayName="Vinculosmas" *ngIf="beneficiario.get('Tienevinculosmas5')?.value === '1'"
+                class="border border-3 p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h6>{{ 'Vinculos' | translate }}</h6>
+                  <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addVinculomas5(i)">
+                    {{ 'AgregarVinculo' | translate }}<i class="bi bi-plus"></i>
+                  </button>
+                </div>
+                <div *ngFor="let cargo of getVinculomas5(i).controls; let j = index" [formGroupName]="j"
+                  class="border p-2">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>{{ 'Vinculo' | translate }} {{j+1}}</h6>
+                    <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeVinculomas5(i, j)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Nombre_o_Razon_Social' | translate }}:</label>
+                    <input type="text" formControlName="NombreCompleto" class="form-control"
+                      [class.is-invalid]="cargo.get('NombreCompleto')?.invalid && cargo.get('NombreCompleto')?.touched" />
+                    <span *ngIf="cargo.get('NombreCompleto')?.invalid && cargo.get('NombreCompleto')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Tipo_Identificacion' | translate }}:</label>
+                    <select formControlName="TipoIdentificacion" class="form-control"
+                      [class.is-invalid]="cargo.get('TipoIdentificacion')?.invalid && cargo.get('TipoIdentificacion')?.touched">
+                      <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                      <option *ngFor="let documento of ListaTipoDocumentos" [value]="documento.id">{{ documento.nombre
+                        }}</option>
+                    </select>
+                    <span *ngIf="cargo.get('TipoIdentificacion')?.invalid && cargo.get('TipoIdentificacion')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Numero_Identificacion' | translate }}:</label>
+                    <input type="text" formControlName="NumeroIdentificacion" class="form-control" (keypress)="allowOnlyNumbersVinculo($event, i, j)" (input)="validateNumeroIdentificacionInputVinculo($event, i, j)"
+                      [class.is-invalid]="cargo.get('NumeroIdentificacion')?.invalid && cargo.get('NumeroIdentificacion')?.touched" />
+                    <span
+                      *ngIf="cargo.get('NumeroIdentificacion')?.invalid && cargo.get('NumeroIdentificacion')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'Pais' | translate }}</label>
+                    <select formControlName="Pais" class="form-control"
+                      [class.is-invalid]="cargo.get('Pais')?.invalid && cargo.get('Pais')?.touched">
+                      <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                      <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+                    </select>
+                    <span *ngIf="cargo.get('Pais')?.invalid && cargo.get('Pais')?.touched" class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label>{{ 'PorcParti' | translate }}</label>
+                    <input type="text" formControlName="PorcentajeParticipacion" class="form-control"
+                      [class.is-invalid]="cargo.get('PorcentajeParticipacion')?.invalid && cargo.get('PorcentajeParticipacion')?.touched" />
+                    <span
+                      *ngIf="cargo.get('PorcentajeParticipacion')?.invalid && cargo.get('PorcentajeParticipacion')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-md-4 mb-3" *ngIf="cargo.get('TipoIdentificacion')?.value === '3'">
+                    <label>{{ 'CotizaEnBolsa' | translate }}</label>
+                    <select formControlName="CotizaEnBolsa" class="form-control"
+                      [class.is-invalid]="cargo.get('CotizaEnBolsa')?.invalid && cargo.get('CotizaEnBolsa')?.touched">
+                      <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                      <option *ngFor="let sino of ListaSino" [value]="sino.id">
+                        {{ sino.nombre }}
+                      </option>
+                    </select>
+                    <span *ngIf="cargo.get('CotizaEnBolsa')?.invalid && cargo.get('CotizaEnBolsa')?.touched"
+                      class="text-danger">
+                      {{ 'CampoRequerido' | translate }}
+                    </span>
+                  </div>
+                </div>
+                <span *ngIf="getVinculomas5(i)?.controls?.length === 0" class="text-danger">
+                  {{ 'DebeDilVinculo' | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div formArrayName="InfoFamiliaPep" style="margin-top: 10px;" class="border border-3 p-3">
+                <h6>{{ 'InfomacionFamiliar' | translate }}</h6>
+
+                <!-- Asociado Cercano -->
+                <div class="alert alert-info-custom" role="alert">
+                  <h6 class="fw-bold">{{ 'AsociadoCercanoInfo' | translate }}</h6>
+                                    <a href="#" class="text-danger d-inline-flex align-items-center" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalLong">
+                    <i class="bi bi-info-circle-fill me-1"></i> Más información
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Asociado Cercano:</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Son las personas jurídicas que tengan como administradores, accionistas, controlantes o
+                          gestores alguno de los PEP enlistados en el artículo 2.1.4.2.3. del decreto 830 de 2021
+                          (Departamento administrativo de la Presidencia de la República) o que hayan constituido
+                          patrimonios autónomos o fiducias en beneficio de estos, o con quienes se mantengan relaciones
+                          comerciales.
+                          Dentro de este campo también se debe incluir: (i) los nombres e identificación de las personas
+                          con las que tengan sociedad conyugal, de hecho, o de derecho; (ii) los nombres e
+                          identificación de sus familiares hasta segundo grado de consanguinidad, primero afinidad y
+                          primero civil.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div *ngFor="let cargo of getInfoFamiliar(i).controls; let j = index" [formGroupName]="j"
+                  class="border p-2">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>{{ 'Vinculo' | translate }} {{j+1}}</h6>
+                    <button *ngIf="editable" type="button" class="btn btn-danger" (click)="removeInfoFamilia(i, j)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'NombreCompleto' | translate }}</label>
+                      <input type="text" formControlName="NombreCompleto" class="form-control"
+                        [class.is-invalid]="cargo.get('NombreCompleto')?.invalid && cargo.get('NombreCompleto')?.touched" />
+                      <span *ngIf="cargo.get('NombreCompleto')?.invalid && cargo.get('NombreCompleto')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Tipo_Identificacion' | translate }}</label>
+                      <select formControlName="TipoIdentificacion" class="form-control"
+                        [class.is-invalid]="cargo.get('TipoIdentificacion')?.invalid && cargo.get('TipoIdentificacion')?.touched">
+                        <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let tipo of ListaTipoDocumentos" [value]="tipo.id">{{ tipo.nombre }}</option>
+                      </select>
+                      <span *ngIf="cargo.get('TipoIdentificacion')?.invalid && cargo.get('TipoIdentificacion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Numero_Identificacion' | translate }}</label>
+                      <input type="text" formControlName="NumeroIdentificacion" class="form-control" (keypress)="allowOnlyNumbersInfoFamilia($event, i, j)" (input)="validateNumeroIdentificacionInputInfoFamilia($event, i, j)"
+                        [class.is-invalid]="cargo.get('NumeroIdentificacion')?.invalid && cargo.get('NumeroIdentificacion')?.touched" />
+                      <span
+                        *ngIf="cargo.get('NumeroIdentificacion')?.invalid && cargo.get('NumeroIdentificacion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'CargoContacto' | translate }}:</label>
+                      <input type="text" formControlName="CargoContacto" class="form-control"
+                        [class.is-invalid]="cargo.get('CargoContacto')?.invalid && cargo.get('CargoContacto')?.touched" />
+                      <span *ngIf="cargo.get('CargoContacto')?.invalid && cargo.get('CargoContacto')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'Nacionalidad' | translate }}</label>
+                      <select formControlName="Nacionalidad" class="form-control"
+                        [class.is-invalid]="cargo.get('Nacionalidad')?.invalid && cargo.get('Nacionalidad')?.touched">
+                        <option value="-1" disabled selected>{{ 'Seleccione' | translate }}</option>
+                        <option *ngFor="let pais of ListaPaises" [value]="pais.id">{{ pais.nombre }}</option>
+                      </select>
+                      <span *ngIf="cargo.get('Nacionalidad')?.invalid && cargo.get('Nacionalidad')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label>{{ 'VinculoFamiliar' | translate }}</label>
+                      <input type="text" formControlName="VinculoFamiliar" class="form-control"
+                        [class.is-invalid]="cargo.get('VinculoFamiliar')?.invalid && cargo.get('VinculoFamiliar')?.touched" />
+                      <span *ngIf="cargo.get('VinculoFamiliar')?.invalid && cargo.get('VinculoFamiliar')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4">
+                      <label>{{ 'UltimoCargo' | translate }}</label>
+                      <input type="text" formControlName="VinculoFamiliar" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                      <label>{{ 'FechaNombramiento' | translate }}<span class="text-danger">*</span></label>
+                      <input type="date" class="form-control" formControlName="FechaNombramiento"
+                        [class.is-invalid]="cargo.get('FechaNombramiento')?.invalid && cargo.get('FechaNombramiento')?.touched" />
+                      <span *ngIf="cargo.get('FechaNombramiento')?.invalid && cargo.get('FechaNombramiento')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                    <div class="col-md-4">
+                      <label>{{ 'FechaFinalizacion' | translate }}<span class="text-danger">*</span></label>
+                      <input type="date" class="form-control" formControlName="FechaFinalizacion"
+                        [class.is-invalid]="cargo.get('FechaFinalizacion')?.invalid && cargo.get('FechaFinalizacion')?.touched" />
+                      <span *ngIf="cargo.get('FechaFinalizacion')?.invalid && cargo.get('FechaFinalizacion')?.touched"
+                        class="text-danger">
+                        {{ 'CampoRequerido' | translate }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addInfoFamilia(i)">
+                  {{ 'AgregarFamiliar' | translate }}
+                </button>
+              </div>
+              <span *ngIf="getInfoFamiliar(i)?.controls?.length === 0" class="text-danger">
+                {{ 'DebeFamilia' | translate }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="editable" type="button" class="btn btn-primary mt-2" (click)="addBeneficiario()"
+      [disabled]="!canAddBeneficiario()">
+      {{ 'AgregarBeneficiario' | translate }}
+    </button>
+  </form>
+</div>

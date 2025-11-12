@@ -1,0 +1,178 @@
+<div class="container" style="margin-top: 10px;">
+  <br>
+  <div id="informacionTriburaria" style="margin-top: 30px; margin-bottom: 50px;">
+    <h3>{{ 'Informaciontributaria' | translate }}</h3>
+
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <!-- ======== PRIMERA FILA ========= -->
+      <div class="row">
+        <div class="col-md-4">
+          <label>{{ 'granContribuyente' | translate }}<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="granContribuyente">
+            <option value="-1" disabled>{{ 'Seleccione' | translate }}</option>
+            <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+          </select>
+          <span *ngIf="formulario.get('granContribuyente')?.invalid && formulario.get('granContribuyente')?.touched"
+            class="text-danger">
+            {{ 'DebeSeleccionarOpcion' | translate }}
+          </span>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'numResolucionGranContribuyente' | translate }}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="numResolucionGranContribuyente"
+            (keypress)="allowOnlyNumbers($event)">
+          <span
+            *ngIf="formulario.get('numResolucionGranContribuyente')?.invalid && formulario.get('numResolucionGranContribuyente')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'fechaResolucionGranContribuyente' | translate }}<span class="text-danger">*</span></label>
+          <input type="date" class="form-control" formControlName="fechaResolucionGranContribuyente">
+          <span
+            *ngIf="formulario.get('fechaResolucionGranContribuyente')?.invalid && formulario.get('fechaResolucionGranContribuyente')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <!-- ======== SEGUNDA FILA ========= -->
+      <div class="row">
+        <div class="col-md-4">
+          <label>{{ 'autorretenedor' | translate }}<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="autorretenedor">
+            <option value="-1" disabled>{{ 'Seleccione' | translate }}</option>
+            <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+          </select>
+          <span *ngIf="formulario.get('autorretenedor')?.invalid && formulario.get('autorretenedor')?.touched"
+            class="text-danger">
+            {{ 'DebeSeleccionarOpcion' | translate }}
+          </span>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'numResolucionAutorretenedor' | translate }}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="numResolucionAutorretenedor">
+          <span
+            *ngIf="formulario.get('numResolucionAutorretenedor')?.invalid && formulario.get('numResolucionAutorretenedor')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'fechaResolucionAutorretenedor' | translate }}<span class="text-danger">*</span></label>
+          <input type="date" class="form-control" formControlName="fechaResolucionAutorretenedor">
+          <span
+            *ngIf="formulario.get('fechaResolucionAutorretenedor')?.invalid && formulario.get('fechaResolucionAutorretenedor')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <!-- ======== TERCERA FILA ========= -->
+      <div class="row">
+        <div class="col-md-4">
+          <label>{{ 'responsableICA' | translate }}<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="responsableICA">
+            <option value="-1" disabled>{{ 'Seleccione' | translate }}</option>
+            <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+          </select>
+          <span *ngIf="formulario.get('responsableICA')?.invalid && formulario.get('responsableICA')?.touched"
+            class="text-danger">
+            {{ 'DebeSeleccionarOpcion' | translate }}
+          </span>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'municipioRetener' | translate }}<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="municipioRetener" (keypress)="allowOnlyLetters($event)">
+          <span *ngIf="formulario.get('municipioRetener')?.invalid && formulario.get('municipioRetener')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'tarifa' | translate }}<span class="text-danger">*</span></label>
+          <input type="number" class="form-control" formControlName="tarifa" (keypress)="allowOnlyNumbers($event)">
+          <span *ngIf="formulario.get('tarifa')?.invalid && formulario.get('tarifa')?.touched"
+            class="text-danger">
+            {{ 'CampoRequerido' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <!-- ======== CUARTA FILA ========= -->
+      <div class="row">
+        <div class="col-md-4">
+          <label>{{ 'responsableIVA' | translate }}<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="responsableIVA">
+            <option value="-1" disabled>{{ 'Seleccione' | translate }}</option>
+            <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'agenteRetenedorIVA' | translate }}<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="agenteRetenedorIVA">
+            <option value="-1" disabled>{{ 'Seleccione' | translate }}</option>
+            <option *ngFor="let sino of ListaSino" [value]="sino.id">{{ sino.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label>{{ 'regimenTributario' | translate }}<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="regimenTributario">
+            <option value="-1" disabled>{{ 'Seleccione' | translate }}</option>
+            <option value="SIMPLE">Régimen Simple</option>
+            <option value="ORDINARIO">Régimen Ordinario</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-4">
+          <label>{{ 'Sucursal' | translate }}:</label>
+          <input type="text" formControlName="Sucursal" class="form-control" />
+        </div>
+      </div>
+
+      <!-- ======== RETENCIONES ========= -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <h5>Retención en la Fuente</h5>
+        </div>
+
+        <div class="col-12" formArrayName="retenciones">
+          <div *ngFor="let retencion of getRetenciones().controls; let i = index" [formGroupName]="i" class="border p-2 mb-2">
+            <div class="row">
+              <div class="col-md-5 mb-2">
+                <label>Concepto</label>
+                <input type="number" class="form-control" formControlName="concepto" (keypress)="allowOnlyNumbers($event)" />
+              </div>
+              <div class="col-md-5 mb-2">
+                <label>Tarifa</label>
+                <input type="number" class="form-control" formControlName="porcentaje" (keypress)="allowOnlyNumbers($event)" />
+              </div>
+              <div class="col-md-2 d-flex align-items-center" *ngIf="this.editable">
+                <button type="button" class="btn btn-danger" (click)="deleteRetencion(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12"*ngIf="this.editable">
+          <button type="button" class="btn btn-primary" (click)="addRetencion()">Agregar Retención</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
