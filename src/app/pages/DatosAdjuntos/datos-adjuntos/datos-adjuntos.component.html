@@ -151,8 +151,7 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Fotocopia del RUT
-                  <small class="d-block text-white">O ID tributario en caso que aplique para personas jurídicas extranjeras.</small>
+                  {{ 'RUT' | translate }}
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTCliente' }"></ng-container>
@@ -450,8 +449,7 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Fotocopia del RUT
-                  <small class="d-block text-white">O ID tributario en caso que aplique para personas jurídicas extranjeras.</small>
+                  {{ 'RUT' | translate }}
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTCliNat' }"></ng-container>
@@ -534,8 +532,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  {{ 'Cámara Comercio' | translate }}
-                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  Certificado de existencia y representación legal (vigencia no superior a tres meses expedido por la Cámara de Comercio)
+                  <small class="d-block text-white">En caso de ser sociedad extranjera, documento de incorporación o estatutos de la sociedad.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioNatural' }"></ng-container>
@@ -1375,7 +1373,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  {{ 'RUT' | translate }}
+                  Fotocopia del RUT
+                  <small class="d-block text-white">O ID tributario en caso que aplique para personas jurídicas extranjeras.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTAliado' }"></ng-container>
