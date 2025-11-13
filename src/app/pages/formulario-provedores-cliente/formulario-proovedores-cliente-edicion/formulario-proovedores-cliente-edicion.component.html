@@ -42,7 +42,7 @@
     </div>
     <!--ver indicadores-->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Launch demo modal
+      Factores de riesgo
     </button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -52,55 +52,98 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-
             <div class="card card-body">
-              
-              <ul class="list-unstyled">
-
-                <li>
-                  <strong>País:</strong> {{ nombrePais }}
-                  <br>
-                  <small>{{ paisRiesgoCorrupcion }}</small>
-                  <br>
-                  <small>{{ paisRiesgoGAFI }}</small>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>Tipo persona:</strong> {{ categoriaTercero || 'N/A' }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(categoriaTerceroRiesgo)">
+                      {{ getRiskLevelLabel(categoriaTerceroRiesgo) }}
+                    </span>
+                  </div>
                 </li>
-                <hr class="my-2">
-
-
-                <li>
-                  <strong>Categoría del tercero:</strong> {{ categoriaTercero }}
-                  <br>
-                  <small>{{ categoriaTerceroRiesgo }}</small>
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>País corrupción:</strong> {{ nombrePais || 'N/A' }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(paisRiesgoCorrupcion)">
+                      {{ getRiskLevelLabel(paisRiesgoCorrupcion) }}
+                    </span>
+                  </div>
                 </li>
-                <hr class="my-2">
-
-
-                <li>
-                  <strong>Tamaño Tercero:</strong> {{ tamanoTercero }}
-                  <br>
-                  <small>{{ tamanoSociedadRiesgo }}</small>
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>País GAFI:</strong> {{ nombrePais || 'N/A' }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(paisRiesgoGAFI)">
+                      {{ getRiskLevelLabel(paisRiesgoGAFI) }}
+                    </span>
+                  </div>
                 </li>
-                <hr class="my-2">
-
-
-                <li>
-                  <strong>es PEP :</strong> <strong *ngIf="esPEP">Si</strong><strong *ngIf="!esPEP">No</strong>
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>PEP:</strong> {{ formatYesNo(esPEP) }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(esPEP_SiNoRiesgo)">
+                      {{ getRiskLevelLabel(esPEP_SiNoRiesgo) }}
+                    </span>
+                  </div>
+                </li>
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>Cotiza en bolsa:</strong> {{ formatYesNo(cotizaEnBolsa) }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(cotizaEnBolsa_SiNoRiesgo)">
+                      {{ getRiskLevelLabel(cotizaEnBolsa_SiNoRiesgo) }}
+                    </span>
+                  </div>
+                </li>
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>Operaciones en efectivo:</strong> {{ formatYesNo(manejaEfectivo) }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(manejaEfectivo_SiNoRiesgo)">
+                      {{ getRiskLevelLabel(manejaEfectivo_SiNoRiesgo) }}
+                    </span>
+                  </div>
+                </li>
+                <li class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>Operaciones con activos virtuales:</strong> {{ formatYesNo(manejaActivosVirtuales) }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(manejaActivosVirtuales_SiNoRiesgo)">
+                      {{ getRiskLevelLabel(manejaActivosVirtuales_SiNoRiesgo) }}
+                    </span>
+                  </div>
                 </li>
                 <li>
-                  <strong>Cotiza en Bolsa:</strong> <strong *ngIf="cotizaEnBolsa">Si</strong><!----><strong
-                    *ngIf="!cotizaEnBolsa">No</strong>
-                </li>
-                <li>
-                  <strong>Maneja Efectivo:</strong> <strong *ngIf="manejaEfectivo">Si</strong><strong
-                    *ngIf="!manejaEfectivo">No </strong>
-                </li>
-                <li>
-                  <strong>Maneja Activos Virtuales:</strong> <strong *ngIf="manejaActivosVirtuales">Si</strong><strong
-                    *ngIf="!manejaActivosVirtuales">No</strong>
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                      <strong>Tamaño de la sociedad:</strong> {{ tamanoTercero || 'N/A' }}
+                    </div>
+                    <span class="badge px-3 py-2 text-uppercase fw-semibold"
+                      [ngClass]="getRiskBadgeClass(tamanoSociedadRiesgo)">
+                      {{ getRiskLevelLabel(tamanoSociedadRiesgo) }}
+                    </span>
+                  </div>
                 </li>
               </ul>
             </div>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -128,6 +128,13 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
   valorPaisGAFI: string = '';
   valorPersona: string = '';
   valorTamano: string = '';
+  private readonly personaRiskMap: Record<number, string> = { 8: 'Alto', 0: 'Bajo' };
+  private readonly tamanoRiskMap: Record<number, string> = { 0: 'Bajo', 8: 'Medio', 9: 'Alto' };
+  private readonly pepRiskMap: Record<number, string> = { 8: 'Alto', 0: 'Bajo' };
+  private readonly cotizaRiskMap: Record<number, string> = { 2: 'Medio', 0: 'Bajo' };
+  private readonly efectivoRiskMap: Record<number, string> = { 25: 'Alto', 0: 'Bajo' };
+  private readonly activosRiskMap: Record<number, string> = { 25: 'Alto', 0: 'Bajo' };
+  private readonly paisRiskMap: Record<number, string> = { 25: 'Alto', 9: 'Medio', 1: 'Bajo', 0: 'Bajo' };
 
   classClient = false;
   classProveedor = false;
@@ -238,37 +245,7 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
           .subscribe({
             next: (riesgo) => {
               console.log('nivel de riesgo', riesgo);
-              if (riesgo) {
-                this.nivelRiesgo = riesgo.nivelRiesgoFinal;
-                this.totalRiesgo = riesgo.totalRiesgo;
-                this.categoriaTercero = riesgo.categoriaTercero;
-                this.categoriaTerceroRiesgo = riesgo.categoriaTerceroRiesgo;
-                this.cotizaEnBolsa = riesgo.cotizaEnBolsa;
-                this.cotizaEnBolsa_SiNoRiesgo = riesgo.cotizaEnBolsa_SiNoRiesgo;
-                this.esPEP = riesgo.esPEP;
-                this.esPEP_SiNoRiesgo = riesgo.esPEP_SiNoRiesgo;
-                this.fechaCalculo = riesgo.fechaCalculo;
-                this.id = riesgo.id;
-                this.idFormulario = riesgo.idFormulario;
-                this.manejaActivosVirtuales = riesgo.manejaActivosVirtuales;
-                this.manejaActivosVirtuales_SiNoRiesgo = riesgo.manejaActivosVirtuales_SiNoRiesgo;
-                this.manejaEfectivo = riesgo.manejaEfectivo;
-                this.manejaEfectivo_SiNoRiesgo = riesgo.manejaEfectivo_SiNoRiesgo;
-                this.nivelRiesgoFinal = riesgo.nivelRiesgoFinal;
-                this.nombrePais = riesgo.nombrePais;
-                this.paisRiesgoCorrupcion = riesgo.paisRiesgoCorrupcion;
-                this.paisRiesgoGAFI = riesgo.paisRiesgoGAFI;
-                this.tamanoSociedadRiesgo = riesgo.tamanoSociedadRiesgo;
-                this.tamanoTercero = riesgo.tamanoTercero;
-                this.valorActivosVirtuales = riesgo.valorActivosVirtuales;
-                this.valorCotizaBolsa = riesgo.valorCotizaBolsa;
-                this.valorOperacionesEfectivo = riesgo.valorOperacionesEfectivo;
-                this.valorPEP = riesgo.valorPEP;
-                this.valorPaisCorrupcion = riesgo.valorPaisCorrupcion;
-                this.valorPaisGAFI = riesgo.valorPaisGAFI;
-                this.valorPersona = riesgo.valorPersona;
-                this.valorTamano = riesgo.valorTamano;
-              }
+              this.setRiesgoData(riesgo);
             },
             error: (err) => console.error('Error consultando riesgo:', err)
           });
@@ -424,9 +401,127 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
       this.mostrarTabInformacionTriburaria = false;
       this.mostrarTabConflictoInteres = true;
     }
+  }
 
+  private setRiesgoData(riesgo: any): void {
+    if (!riesgo) {
+      return;
+    }
 
+    this.nivelRiesgo = riesgo.nivelRiesgoFinal ?? this.nivelRiesgo;
+    this.totalRiesgo = riesgo.totalRiesgo ?? this.totalRiesgo;
+    this.categoriaTercero = riesgo.categoriaTercero ?? this.categoriaTercero;
+    this.categoriaTerceroRiesgo = riesgo.categoriaTerceroRiesgo || this.mapCategoriaRiesgo(riesgo.valorPersona);
+    this.cotizaEnBolsa = riesgo.cotizaEnBolsa ?? this.cotizaEnBolsa;
+    this.cotizaEnBolsa_SiNoRiesgo = riesgo.cotizaEnBolsa_SiNoRiesgo || this.mapCotizaRisk(riesgo.valorCotizaBolsa);
+    this.esPEP = riesgo.esPEP ?? this.esPEP;
+    this.esPEP_SiNoRiesgo = riesgo.esPEP_SiNoRiesgo || this.mapPepRisk(riesgo.valorPEP);
+    this.fechaCalculo = riesgo.fechaCalculo ?? this.fechaCalculo;
+    this.id = riesgo.id ?? this.id;
+    this.idFormulario = riesgo.idFormulario ?? this.idFormulario;
+    this.manejaActivosVirtuales = riesgo.manejaActivosVirtuales ?? this.manejaActivosVirtuales;
+    this.manejaActivosVirtuales_SiNoRiesgo = riesgo.manejaActivosVirtuales_SiNoRiesgo || this.mapActivosRisk(riesgo.valorActivosVirtuales);
+    this.manejaEfectivo = riesgo.manejaEfectivo ?? this.manejaEfectivo;
+    this.manejaEfectivo_SiNoRiesgo = riesgo.manejaEfectivo_SiNoRiesgo || this.mapOperacionesRisk(riesgo.valorOperacionesEfectivo);
+    this.nivelRiesgoFinal = riesgo.nivelRiesgoFinal ?? this.nivelRiesgoFinal;
+    this.nombrePais = riesgo.nombrePais ?? this.nombrePais;
+    this.paisRiesgoCorrupcion = riesgo.paisRiesgoCorrupcion || this.mapPaisRisk(riesgo.valorPaisCorrupcion);
+    this.paisRiesgoGAFI = riesgo.paisRiesgoGAFI || this.mapPaisRisk(riesgo.valorPaisGAFI);
+    this.tamanoSociedadRiesgo = riesgo.tamanoSociedadRiesgo || this.mapTamanoRisk(riesgo.valorTamano);
+    this.tamanoTercero = riesgo.tamanoTercero ?? this.tamanoTercero;
+    this.valorActivosVirtuales = riesgo.valorActivosVirtuales ?? this.valorActivosVirtuales;
+    this.valorCotizaBolsa = riesgo.valorCotizaBolsa ?? this.valorCotizaBolsa;
+    this.valorOperacionesEfectivo = riesgo.valorOperacionesEfectivo ?? this.valorOperacionesEfectivo;
+    this.valorPEP = riesgo.valorPEP ?? this.valorPEP;
+    this.valorPaisCorrupcion = riesgo.valorPaisCorrupcion ?? this.valorPaisCorrupcion;
+    this.valorPaisGAFI = riesgo.valorPaisGAFI ?? this.valorPaisGAFI;
+    this.valorPersona = riesgo.valorPersona ?? this.valorPersona;
+    this.valorTamano = riesgo.valorTamano ?? this.valorTamano;
+  }
 
+  private mapCategoriaRiesgo(value: any): string | null {
+    return this.resolveRiskLevel(value, this.personaRiskMap);
+  }
+
+  private mapTamanoRisk(value: any): string | null {
+    return this.resolveRiskLevel(value, this.tamanoRiskMap);
+  }
+
+  private mapPepRisk(value: any): string | null {
+    return this.resolveRiskLevel(value, this.pepRiskMap);
+  }
+
+  private mapCotizaRisk(value: any): string | null {
+    return this.resolveRiskLevel(value, this.cotizaRiskMap);
+  }
+
+  private mapOperacionesRisk(value: any): string | null {
+    return this.resolveRiskLevel(value, this.efectivoRiskMap);
+  }
+
+  private mapActivosRisk(value: any): string | null {
+    return this.resolveRiskLevel(value, this.activosRiskMap);
+  }
+
+  private mapPaisRisk(value: any): string | null {
+    return this.resolveRiskLevel(value, this.paisRiskMap);
+  }
+
+  private resolveRiskLevel(value: any, dictionary: Record<number, string>): string | null {
+    const numeric = this.toNumeric(value);
+    if (numeric === null) {
+      return null;
+    }
+
+    const directMatch = dictionary[numeric];
+    if (directMatch) {
+      return directMatch;
+    }
+
+    if (numeric >= 20) {
+      return 'Alto';
+    }
+
+    if (numeric >= 5) {
+      return 'Medio';
+    }
+
+    if (numeric >= 0) {
+      return 'Bajo';
+    }
+
+    return null;
+  }
+
+  private toNumeric(value: any): number | null {
+    if (value === null || value === undefined) {
+      return null;
+    }
+    if (typeof value === 'number' && !Number.isNaN(value)) {
+      return value;
+    }
+    const parsed = Number(value);
+    return Number.isNaN(parsed) ? null : parsed;
+  }
+
+  formatYesNo(value: any): string {
+    if (value === null || value === undefined || value === '') {
+      return 'N/A';
+    }
+    if (typeof value === 'boolean') {
+      return value ? 'Sí' : 'No';
+    }
+    const normalized = value.toString().trim().toLowerCase();
+    if (['si', 'sí', 'true', '1'].includes(normalized)) {
+      return 'Sí';
+    }
+    if (['no', 'false', '0'].includes(normalized)) {
+      return 'No';
+    }
+    return value;
+  }
+
+  getRiskBadgeClass(value: string | null | undefined): string {
   }
 
 
@@ -837,14 +932,11 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
             switchMap(() => this.serviciocliente.ObtenerRiesgoFormulario(this.IdFormulario))
           ).subscribe({
             next: (riesgo: any) => {
-              if (riesgo) {
-                this.nivelRiesgo = riesgo.nivelRiesgoFinal;
-                this.totalRiesgo = riesgo.totalRiesgo;
+              this.setRiesgoData(riesgo);
 
-                setTimeout(() => {
-                  this.router.navigate(['/pages/dash/ListaFormulariosUsuario']);
-                }, 3000);
-              }
+              setTimeout(() => {
+                this.router.navigate(['/pages/dash/ListaFormulariosUsuario']);
+              }, 3000);
             },
             error: (err) => {
               console.error('Error calculando/consultando riesgo:', err);
@@ -2236,7 +2328,43 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
     }
   }
 
+  getRiskBadgeClass(value: string | null | undefined): string {
+    const level = this.extractRiskLevel(value);
+    if (!level) {
+      return 'bg-secondary text-white';
+    }
+    const normalized = level.toLowerCase();
+    if (normalized === 'alto') {
+      return 'bg-danger text-white';
+    }
+    if (normalized === 'medio') {
+      return 'bg-warning text-dark';
+    }
+    if (normalized === 'bajo') {
+      return 'bg-success text-white';
+    }
+    return 'bg-secondary text-white';
+  }
+
+  getRiskLevelLabel(value: string | null | undefined): string {
+    return this.extractRiskLevel(value) ?? 'N/A';
+  }
+
+  private extractRiskLevel(value: string | null | undefined): string | null {
+    if (!value) {
+      return null;
+    }
+    const normalized = value.toLowerCase();
+    if (normalized.includes('alto')) {
+      return 'Alto';
+    }
+    if (normalized.includes('medio')) {
+      return 'Medio';
+    }
+    if (normalized.includes('bajo')) {
+      return 'Bajo';
+    }
+    return value.trim() || null;
+  }
+
 }
-
-
-
