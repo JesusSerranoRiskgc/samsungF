@@ -258,7 +258,10 @@
 
 
           <div class="col-md-4" *ngIf="formulario.get('claseTercero')?.value !== 3 && formulario.get('claseTercero')?.value !== '3'">
-            <label>{{ 'DG_Correo_para_Factura_Electrónica' | translate }} <b class="text-error">*</b></label>
+            <label>
+              {{ 'DG_Correo_para_Factura_Electrónica' | translate }}
+              <b class="text-error" *ngIf="correoFERequerido">*</b>
+            </label>
             <input type="email" class="form-control" formControlName="correoElectronicoFE"
                 [class.is-invalid]="formulario.get('correoElectronicoFE')?.invalid && formulario.get('correoElectronicoFE')?.touched">
             <span

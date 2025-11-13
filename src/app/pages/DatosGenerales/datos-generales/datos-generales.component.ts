@@ -89,6 +89,7 @@ export class DatosGeneralesComponent implements OnInit {
   tabDatosRevisorFiscal: boolean = true;
   tabDatosdepagos: boolean = true;
   tabDatosdeContacto: boolean = true;
+  correoFERequerido: boolean = false;
   formulario: FormGroup;
 
   constructor(private fb: FormBuilder, private translate: TranslateService, private serviciocliente: ServicioPrincipalService, private cdr: ChangeDetectorRef, private internalservicet: InternalDataService) {
@@ -179,6 +180,7 @@ export class DatosGeneralesComponent implements OnInit {
     this.setupIdentificacionHandlers();
     this.emitirCambioDeVisibilidad();
     this.applyEmailValidators();
+    this.updateCorreoElectronicoFEValidators();
     this.initializeFormSubscriptions();
     this.getFechaActual();
     this.ConsultaDatosGenerales();
@@ -566,19 +568,7 @@ export class DatosGeneralesComponent implements OnInit {
     });
 
     this.applyEmailValidators();
-
-
-    const claseTerceroValue = this.formulario.get('claseTercero')?.value;
-    const controlEmail = this.formulario.get('correoElectronicoFE');
-    controlEmail?.setValue('');
-    controlEmail?.clearValidators();
-    if (claseTerceroValue !== 3 && claseTerceroValue !== '3' && claseTerceroValue !== '-1') {
-      controlEmail?.setValidators([
-        Validators.required,
-        IdentificacionValidators.emailWithComValidator()
-      ]);
-      controlEmail?.updateValueAndValidity();
-    }
+    this.updateCorreoElectronicoFEValidators();
 
 
     this.formulario.get('preguntasAdicionales.vinculadoPep')?.valueChanges.subscribe(value => {
@@ -608,6 +598,36 @@ export class DatosGeneralesComponent implements OnInit {
     });
 
     //this.disableAdditionalQuestions();
+  }
+
+  private updateCorreoElectronicoFEValidators(): void {
+    if (!this.formulario) {
+      return;
+    }
+
+    const controlEmail = this.formulario.get('correoElectronicoFE');
+    if (!controlEmail) {
+      return;
+    }
+
+    const obligadoValor = this.formulario.get('ObligadoFacturarElectronicatab1')?.value;
+    const claseTerceroValor = this.formulario.get('claseTercero')?.value;
+
+    const esClaseVisible = claseTerceroValor !== 3 && claseTerceroValor !== '3';
+    const esObligatorio = esClaseVisible && (obligadoValor === '1' || obligadoValor === 1 || obligadoValor === true || obligadoValor === 'true');
+
+    const validators = [
+      IdentificacionValidators.emailWithComValidator(),
+      this.requireAtSymbolValidator()
+    ];
+
+    if (esObligatorio) {
+      validators.unshift(Validators.required);
+    }
+
+    controlEmail.setValidators(validators);
+    controlEmail.updateValueAndValidity({ emitEvent: false });
+    this.correoFERequerido = esObligatorio;
   }
 
 
@@ -714,20 +734,12 @@ export class DatosGeneralesComponent implements OnInit {
       this.formulario.get('tamanoTercero')?.updateValueAndValidity();
       this.formulario.get('ActividadEconomicatab1')?.updateValueAndValidity();
       this.formulario.get('ObligadoFacturarElectronicatab1')?.updateValueAndValidity();
+      this.updateCorreoElectronicoFEValidators();
 
     });
 
-    this.formulario.get('ObligadoFacturarElectronicatab1')?.valueChanges.subscribe((valorPais) => {
-      const claseTerceroValue = this.formulario.get('claseTercero')?.value;
-      const controlEmail = this.formulario.get('correoElectronicoFE');
-
-      if (valorPais !== '1' || claseTerceroValue === 3 || claseTerceroValue === '3') {
-        controlEmail?.setValue("");
-        controlEmail?.clearValidators();
-      } else {
-        controlEmail?.setValidators([Validators.required, IdentificacionValidators.emailWithComValidator()]);
-      }
-      controlEmail?.updateValueAndValidity();
+    this.formulario.get('ObligadoFacturarElectronicatab1')?.valueChanges.subscribe(() => {
+      this.updateCorreoElectronicoFEValidators();
     });
 
 
@@ -749,6 +761,7 @@ export class DatosGeneralesComponent implements OnInit {
     this.formulario.get('claseTercero')?.valueChanges.subscribe((value) => {
       this.tabdespachos = (value.toString() === '1');
       this.emitirCambioDeVisibilidad();
+      this.updateCorreoElectronicoFEValidators();
     });
 
 
@@ -793,25 +806,6 @@ export class DatosGeneralesComponent implements OnInit {
     this.formulario.get('claseTercero')?.valueChanges.subscribe((value) => {
 
       this.idTipoTerceroChange.emit({ idClaseTercero: value });
-    });
-
-    this.formulario.get('ObligadoFacturarElectronicatab1')?.valueChanges.subscribe(valor => {
-      const controlEmail = this.formulario.get('correoElectronicoFE');
-
-      // 🔹 Si ObligadoFacturarElectronicatab1 es 0 → no requerido
-      if (valor === '0' || valor === 0) {
-        controlEmail?.clearValidators();
-        controlEmail?.setValue('');
-        controlEmail?.setValidators([]);
-      } else {
-        // 🔹 Si ObligadoFacturarElectronicatab1 NO es 0 → requerido y validar email
-        controlEmail?.setValidators([
-          Validators.required,
-          IdentificacionValidators.emailWithComValidator()
-        ]);
-      }
-
-      controlEmail?.updateValueAndValidity();
     });
 
   }
