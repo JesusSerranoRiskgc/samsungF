@@ -28,6 +28,12 @@ export class DatosAdjuntosComponent implements OnInit, OnChanges, AfterViewInit 
   private modalService = inject(NgbModal);
   adjuntosForm: FormGroup;
   files: { [key: string]: File } = {};
+  readonly optionalAttachmentKeys: Set<string> = new Set<string>([
+    'CertificadoLibertadProveedor',
+    'CertificadoLibertadProveedorNatural',
+    'PremiosReconocimientosProveedor',
+    'CertificadoInmuebleProveedor'
+  ]);
   disableCertificacionBancariaJuridica: boolean = false;
 
   fileOverActive: boolean = false;
@@ -588,6 +594,7 @@ export class DatosAdjuntosComponent implements OnInit, OnChanges, AfterViewInit 
 
   esFormularioValido() {
     // Marcar todos los campos como touched para mostrar errores de validación
+    this.configurarValidaciones();
     this.markAllFieldsAsTouched();
 
     // Verificar si el formulario es válido
@@ -910,14 +917,7 @@ export class DatosAdjuntosComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   removeValidators(): void {
-    const nonMandatoryFields = [
-      'CertificadoLibertadProveedor',
-      'CertificadoLibertadProveedorNatural',
-      'PremiosReconocimientosProveedor',
-      'CertificadoInmuebleProveedor'
-    ];
-
-    nonMandatoryFields.forEach(field => {
+    this.optionalAttachmentKeys.forEach(field => {
       const control = this.adjuntosForm.get(field);
       if (control) {
         control.clearValidators();
@@ -925,5 +925,17 @@ export class DatosAdjuntosComponent implements OnInit, OnChanges, AfterViewInit 
         control.updateValueAndValidity({ emitEvent: false });
       }
     });
+  }
+
+  esCampoObligatorio(key: string): boolean {
+    return !this.optionalAttachmentKeys.has(key);
+  }
+
+  shouldShowRequiredMessage(key: string): boolean {
+    const control = this.adjuntosForm.get(key);
+    if (!control) {
+      return false;
+    }
+    return this.esCampoObligatorio(key) && control.invalid && (control.dirty || control.touched);
   }
 }

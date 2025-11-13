@@ -7,6 +7,16 @@
     <br />
     <form [formGroup]="adjuntosForm">
 
+      <ng-template #requiredHint let-key="key">
+        <small *ngIf="esCampoObligatorio(key)" class="text-danger font-weight-bold d-block mb-2">Campo obligatorio</small>
+      </ng-template>
+
+      <ng-template #requiredError let-key="key">
+        <div *ngIf="shouldShowRequiredMessage(key)" class="text-danger mt-2">
+          <small>Este documento es obligatorio</small>
+        </div>
+      </ng-template>
+
       <!--    CLIENTES  -->
       <div *ngIf="classClient">
         <!--=JURIDICA=-->
@@ -20,6 +30,7 @@
                   <!-- <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small> -->
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdRepresentanteLegalCliente' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableIdRepresentanteLegalCliente && !files['IdRepresentanteLegalCliente']"
                     (onFileDrop)="onFilesDropped('IdRepresentanteLegalCliente', $event)"
                     (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
@@ -48,6 +59,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'IdRepresentanteLegalCliente' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -59,6 +71,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioCliente' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableCamaraComercioDrop && !files['CamaraComercioCliente']"
                     (onFileDrop)="onFilesDropped('CamaraComercioCliente', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -86,6 +99,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CamaraComercioCliente' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -99,6 +113,7 @@
                   {{ 'Declaración Renta' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaJuridica' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableDeclaracionRentaJuridica && !files['DeclaracionRentaJuridica']"
                     (onFileDrop)="onFilesDropped('DeclaracionRentaJuridica', $event)"
@@ -128,6 +143,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'DeclaracionRentaJuridica' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -138,6 +154,7 @@
                   {{ 'RUT' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTCliente' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRUTCliNat && !files['RUTCliente']"
                     (onFileDrop)="onFilesDropped('RUTCliente', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -165,6 +182,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'RUTCliente' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -178,6 +196,7 @@
                   {{ 'Estados Financieros del Último Año.' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'EstadosFinancierosJuridica' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableEstadosFinancierosJuridica && !files['EstadosFinancierosJuridica']"
                     (onFileDrop)="onFilesDropped('EstadosFinancierosJuridica', $event)"
@@ -207,6 +226,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'EstadosFinancierosJuridica' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -218,6 +238,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancariaJuridica' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableCertificacionBancariaJuridica && !files['CertificacionBancariaJuridica']"
                     (onFileDrop)="onFilesDropped('CertificacionBancariaJuridica', $event)"
@@ -247,6 +268,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CertificacionBancariaJuridica' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -261,6 +283,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'ReferenciaComercialBancariaJuridica' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableReferenciaComercialBancariaJuridica && !files['ReferenciaComercialBancariaJuridica']"
                     (onFileDrop)="onFilesDropped('ReferenciaComercialBancariaJuridica', $event)"
@@ -290,6 +313,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'ReferenciaComercialBancariaJuridica' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -306,6 +330,7 @@
                   {{ 'Copia documento identificación persona natural' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdPersonaNatural' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableIdPersonaNatural && !files['IdPersonaNatural']"
                     (onFileDrop)="onFilesDropped('IdPersonaNatural', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -333,6 +358,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'IdPersonaNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -343,6 +369,7 @@
                   {{ 'Declaración de renta (de los dos (2) últimos períodos gravables disponibles)' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaNatural' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableDeclaracionRentaNatural && !files['DeclaracionRentaNatural']"
                     (onFileDrop)="onFilesDropped('DeclaracionRentaNatural', $event)"
@@ -371,6 +398,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'DeclaracionRentaNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -385,6 +413,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancaria' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableCertificacionBancaria && !files['CertificacionBancaria']"
                     (onFileDrop)="onFilesDropped('CertificacionBancaria', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -412,6 +441,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CertificacionBancaria' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -422,6 +452,7 @@
                   {{ 'RUT' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTCliNat' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRUTCliNat && !files['RUTCliNat']"
                     (onFileDrop)="onFilesDropped('RUTCliNat', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -449,6 +480,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'RUTCliNat' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -462,6 +494,7 @@
                   {{ 'Estados Financieros' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'EstadosFinancierosNatural' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableEstadosFinancierosNatural && !files['EstadosFinancierosNatural']"
                     (onFileDrop)="onFilesDropped('EstadosFinancierosNatural', $event)"
@@ -491,6 +524,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'EstadosFinancierosNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -502,6 +536,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioNatural' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableCamaraComercioNatural && !files['CamaraComercioNatural']"
                     (onFileDrop)="onFilesDropped('CamaraComercioNatural', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -529,6 +564,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CamaraComercioNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -543,6 +579,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'ReferenciaComercialBancariaNatural' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableReferenciaComercialBancariaNatural && !files['ReferenciaComercialBancariaNatural']"
                     (onFileDrop)="onFilesDropped('ReferenciaComercialBancariaNatural', $event)"
@@ -572,6 +609,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'ReferenciaComercialBancariaNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -594,6 +632,7 @@
                   <small class="d-block text-white-50">Documento de identificación del representante legal</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdRepresentanteLegalProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableIdRepresentanteLegalProveedor && !files['IdRepresentanteLegalProveedor']"
                     (onFileDrop)="onFilesDropped('IdRepresentanteLegalProveedor', $event)">
@@ -615,10 +654,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('IdRepresentanteLegalProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('IdRepresentanteLegalProveedor')?.invalid && adjuntosForm.get('IdRepresentanteLegalProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'IdRepresentanteLegalProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -632,6 +668,7 @@
                   <small class="d-block text-white-50">Certificado de existencia y representación legal</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableCamaraComercioProveedor && !files['CamaraComercioProveedor']"
                     (onFileDrop)="onFilesDropped('CamaraComercioProveedor', $event)">
@@ -653,10 +690,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('CamaraComercioProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('CamaraComercioProveedor')?.invalid && adjuntosForm.get('CamaraComercioProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CamaraComercioProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -672,6 +706,7 @@
                   <small class="d-block text-white-50">Registro Único Tributario vigente</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTProveedor' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRUTProveedor && !files['RUTProveedor']"
                     (onFileDrop)="onFilesDropped('RUTProveedor', $event)">
                     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -690,10 +725,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('RUTProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('RUTProveedor')?.invalid && adjuntosForm.get('RUTProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'RUTProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -706,6 +738,7 @@
                   <small class="d-block text-white-50">Últimos 2 años presentados ante la DIAN</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableDeclaracionRentaProveedor && !files['DeclaracionRentaProveedor']"
                     (onFileDrop)="onFilesDropped('DeclaracionRentaProveedor', $event)">
@@ -727,10 +760,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('DeclaracionRentaProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('DeclaracionRentaProveedor')?.invalid && adjuntosForm.get('DeclaracionRentaProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'DeclaracionRentaProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -747,6 +777,7 @@
                   <small class="d-block text-white-50">Certificación de cuentas bancarias vigente</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancariaProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableCertificacionBancariaProveedor && !files['CertificacionBancariaProveedor']"
                     (onFileDrop)="onFilesDropped('CertificacionBancariaProveedor', $event)">
@@ -768,10 +799,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('CertificacionBancariaProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('CertificacionBancariaProveedor')?.invalid && adjuntosForm.get('CertificacionBancariaProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CertificacionBancariaProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -821,6 +849,7 @@
                   <small class="d-block text-white-50">Estados financieros auditados de los últimos 2 años</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'EstadosFinancierosProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableEstadosFinancierosProveedor && !files['EstadosFinancierosProveedor']"
                     (onFileDrop)="onFilesDropped('EstadosFinancierosProveedor', $event)">
@@ -842,10 +871,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('EstadosFinancierosProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('EstadosFinancierosProveedor')?.invalid && adjuntosForm.get('EstadosFinancierosProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'EstadosFinancierosProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -858,6 +884,7 @@
                   <small class="d-block text-white-50">Catálogo detallado de productos y/o servicios ofrecidos</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'PortafolioServiciosProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disablePortafolioServiciosProveedor && !files['PortafolioServiciosProveedor']"
                     (onFileDrop)="onFilesDropped('PortafolioServiciosProveedor', $event)">
@@ -879,10 +906,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('PortafolioServiciosProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('PortafolioServiciosProveedor')?.invalid && adjuntosForm.get('PortafolioServiciosProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'PortafolioServiciosProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -899,6 +923,7 @@
                   <small class="d-block text-white-50">Referencias comerciales y bancarias</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionComercialProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableCertificacionComercialProveedor && !files['CertificacionComercialProveedor']"
                     (onFileDrop)="onFilesDropped('CertificacionComercialProveedor', $event)">
@@ -920,10 +945,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('CertificacionComercialProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('CertificacionComercialProveedor')?.invalid && adjuntosForm.get('CertificacionComercialProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CertificacionComercialProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1005,6 +1027,7 @@
                   <small class="d-block text-white-50">Acuerdo firmado de confidencialidad y protección de datos</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'AcuerdoConfidencialidadProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableAcuerdoConfidencialidadProveedor && !files['AcuerdoConfidencialidadProveedor']"
                     (onFileDrop)="onFilesDropped('AcuerdoConfidencialidadProveedor', $event)">
@@ -1026,10 +1049,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('AcuerdoConfidencialidadProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('AcuerdoConfidencialidadProveedor')?.invalid && adjuntosForm.get('AcuerdoConfidencialidadProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'AcuerdoConfidencialidadProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1045,6 +1065,7 @@
                   <small class="d-block text-white-50">Certificado de afiliación a ARL y cumplimiento del SGSST</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificadoARLProveedor' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableCertificadoARLProveedor && !files['CertificadoARLProveedor']"
                     (onFileDrop)="onFilesDropped('CertificadoARLProveedor', $event)">
@@ -1066,10 +1087,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('CertificadoARLProveedor')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('CertificadoARLProveedor')?.invalid && adjuntosForm.get('CertificadoARLProveedor')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CertificadoARLProveedor' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1090,6 +1108,7 @@
                   <small class="d-block text-white-50">Cédula de ciudadanía o documento de identificación vigente</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdProveedorNatural' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableIdProveedorNatural && !files['IdProveedorNatural']"
                     (onFileDrop)="onFilesDropped('IdProveedorNatural', $event)">
                     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -1110,10 +1129,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('IdProveedorNatural')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('IdProveedorNatural')?.invalid && adjuntosForm.get('IdProveedorNatural')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'IdProveedorNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1126,6 +1142,7 @@
                   <small class="d-block text-white-50">Últimos 2 años presentados ante la DIAN o documento aplicable para extranjeros”</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaProveedorNatural' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableDeclaracionRentaProveedorNatural && !files['DeclaracionRentaProveedorNatural']"
                     (onFileDrop)="onFilesDropped('DeclaracionRentaProveedorNatural', $event)">
@@ -1147,10 +1164,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('DeclaracionRentaProveedorNatural')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('DeclaracionRentaProveedorNatural')?.invalid && adjuntosForm.get('DeclaracionRentaProveedorNatural')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'DeclaracionRentaProveedorNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1167,6 +1181,7 @@
 
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancariaProveedorNatural' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableCertificacionBancariaProveedorNatural && !files['CertificacionBancariaProveedorNatural']"
                     (onFileDrop)="onFilesDropped('CertificacionBancariaProveedorNatural', $event)">
@@ -1188,10 +1203,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('CertificacionBancariaProveedorNatural')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('CertificacionBancariaProveedorNatural')?.invalid && adjuntosForm.get('CertificacionBancariaProveedorNatural')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CertificacionBancariaProveedorNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1239,6 +1251,7 @@
                   <small class="d-block text-white-50">Acuerdo firmado de confidencialidad y protección de datos</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'AcuerdoConfidencialidadProveedorNatural' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableAcuerdoConfidencialidadProveedorNatural && !files['AcuerdoConfidencialidadProveedorNatural']"
                     (onFileDrop)="onFilesDropped('AcuerdoConfidencialidadProveedorNatural', $event)">
@@ -1260,10 +1273,7 @@
                     <button type="button" class="btn btn-sm btn-delete"
                       (click)="removeFile('AcuerdoConfidencialidadProveedorNatural')">Eliminar</button>
                   </div>
-                  <div *ngIf="adjuntosForm.get('AcuerdoConfidencialidadProveedorNatural')?.invalid && adjuntosForm.get('AcuerdoConfidencialidadProveedorNatural')?.touched"
-                       class="text-danger mt-2">
-                    <small>Este documento es obligatorio</small>
-                  </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'AcuerdoConfidencialidadProveedorNatural' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1283,6 +1293,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdRepresentanteLegalAliado' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRepLegDrop && !files['IdRepresentanteLegalAliado']"
                     (onFileDrop)="onFilesDropped('IdRepresentanteLegalAliado', $event)"
                     (onFileOver)="fileOverActive = true" (onFileLeave)="fileOverActive = false"
@@ -1311,6 +1322,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'IdRepresentanteLegalAliado' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1323,6 +1335,7 @@
                   <small class="d-block text-white-50">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioAliado' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableCamComer && !files['CamaraComercioAliado']"
                     (onFileDrop)="onFilesDropped('CamaraComercioAliado', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -1350,6 +1363,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'CamaraComercioAliado' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1363,6 +1377,7 @@
                   {{ 'RUT' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTAliado' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRUTAliado && !files['RUTAliado']"
                     (onFileDrop)="onFilesDropped('RUTAliado', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -1390,6 +1405,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'RUTAliado' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1407,6 +1423,7 @@
                   {{ 'Copia documento identificación persona natural' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdRepresentanteLegalAliado' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRepLegDrop && !files['IdRepresentanteLegalAliado']"
                     (onFileDrop)="onFilesDropped('IdRepresentanteLegalAliado', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -1434,6 +1451,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'IdRepresentanteLegalAliado' }"></ng-container>
                 </div>
               </div>
             </div>
@@ -1445,6 +1463,7 @@
                   {{ 'RUT' | translate }}
                 </div>
                 <div class="card-body">
+                  <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTAliado' }"></ng-container>
                   <ngx-file-drop *ngIf="editable && !disableRUTAliado && !files['RUTAliado']"
                     (onFileDrop)="onFilesDropped('RUTAliado', $event)" (onFileOver)="fileOverActive = true"
                     (onFileLeave)="fileOverActive = false"
@@ -1472,6 +1491,7 @@
                       <i class="fas fa-trash-alt"></i> {{ 'Eliminar' | translate }}
                     </button>
                   </div>
+                  <ng-container *ngTemplateOutlet="requiredError; context: { key: 'RUTAliado' }"></ng-container>
                 </div>
               </div>
             </div>
