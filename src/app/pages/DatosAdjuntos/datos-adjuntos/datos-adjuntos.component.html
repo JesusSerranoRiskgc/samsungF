@@ -68,7 +68,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Cámara Comercio' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioCliente' }"></ng-container>
@@ -235,7 +235,7 @@
               <div class="card shadow-sm">
                   <div class="card-header bg-primary text-white">
                   {{ 'Certificación Bancaria' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancariaJuridica' }"></ng-container>
@@ -280,7 +280,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Referencia Comercial Bancaria' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'ReferenciaComercialBancariaJuridica' }"></ng-container>
@@ -410,7 +410,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Certificación Bancaria' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancaria' }"></ng-container>
@@ -533,7 +533,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Cámara Comercio' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioNatural' }"></ng-container>
@@ -576,7 +576,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Referencia Comercial Bancaria' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'ReferenciaComercialBancariaNatural' }"></ng-container>
@@ -628,8 +628,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Representante Legal <span class="text-warning">*</span>
-
-                  <small class="d-block text-white-50">Documento de identificación del representante legal</small>
+                  <small class="d-block text-white">Documento de identificación del representante legal</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdRepresentanteLegalProveedor' }"></ng-container>
@@ -664,8 +663,8 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Cámara de Comercio <span class="text-warning">*</span>
-                  <small class="d-block text-white-50"></small>
-                  <small class="d-block text-white-50">Certificado de existencia y representación legal</small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  <small class="d-block text-white">Certificado de existencia y representación legal</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioProveedor' }"></ng-container>
@@ -703,7 +702,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'RUT / ID Tributario' | translate }} <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Registro Único Tributario vigente</small>
+                  <small class="d-block text-white">Registro Único Tributario vigente</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTProveedor' }"></ng-container>
@@ -735,7 +734,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Declaración de Renta - o documento aplicable para extranjeros <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Últimos 2 años presentados ante la DIAN</small>
+                  <small class="d-block text-white">Últimos 2 años presentados ante la DIAN</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaProveedor' }"></ng-container>
@@ -773,8 +772,8 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Certificación Bancaria <span class="text-warning">*</span>
-                  <small class="d-block text-white-50"></small>
-                  <small class="d-block text-white-50">Certificación de cuentas bancarias vigente</small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                  <small class="d-block text-white">Certificación de cuentas bancarias vigente</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionBancariaProveedor' }"></ng-container>
@@ -808,9 +807,9 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Certificado Libertad/Tradición (Inmueble) <small class="text-white-50">(Opcional)</small>
-                  <small class="d-block text-white-50"></small>
-                  <small class="d-block text-white-50">Certificado de libertad y tradición de bienes inmuebles (si aplica)</small>
+                  Certificado Libertad/Tradición (Inmueble) <small class="text-white">(Opcional)</small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  <small class="d-block text-white">Certificado de libertad y tradición de bienes inmuebles (si aplica)</small>
                 </div>
                 <div class="card-body">
                   <ngx-file-drop
@@ -846,7 +845,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Estados Financieros <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Estados financieros auditados de los últimos 2 años</small>
+                  <small class="d-block text-white">Estados financieros auditados de los últimos 2 años</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'EstadosFinancierosProveedor' }"></ng-container>
@@ -881,7 +880,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Portafolio de Servicios <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Catálogo detallado de productos y/o servicios ofrecidos</small>
+                  <small class="d-block text-white">Catálogo detallado de productos y/o servicios ofrecidos</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'PortafolioServiciosProveedor' }"></ng-container>
@@ -919,8 +918,8 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Certificación Comercial <span class="text-warning">*</span>
-                  <small class="d-block text-white-50"></small>
-                  <small class="d-block text-white-50">Referencias comerciales y bancarias</small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 60 días' | translate }}</small>
+                  <small class="d-block text-white">Referencias comerciales y bancarias</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificacionComercialProveedor' }"></ng-container>
@@ -954,8 +953,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Premios / Reconocimientos <small class="text-white-50">(Opcional)</small>
-                  <small class="d-block text-white-50">Certificaciones, premios y reconocimientos obtenidos</small>
+                  Premios / Reconocimientos <small class="text-white">(Opcional)</small>
+                  <small class="d-block text-white">Certificaciones, premios y reconocimientos obtenidos</small>
                 </div>
                 <div class="card-body">
                   <ngx-file-drop
@@ -990,8 +989,8 @@
      <!--        <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Certificado Inmueble <small class="text-white-50">(Opcional)</small>
-                  <small class="d-block text-white-50">Certificaciones de propiedades inmobiliarias (si aplica)</small>
+                  Certificado Inmueble <small class="text-white">(Opcional)</small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ngx-file-drop
@@ -1024,7 +1023,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Acuerdo de Confidencialidad <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Acuerdo firmado de confidencialidad y protección de datos</small>
+                  <small class="d-block text-white">Acuerdo firmado de confidencialidad y protección de datos</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'AcuerdoConfidencialidadProveedor' }"></ng-container>
@@ -1062,7 +1061,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Certificado ARL (SGSST) <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Certificado de afiliación a ARL y cumplimiento del SGSST</small>
+                  <small class="d-block text-white">Certificado de afiliación a ARL y cumplimiento del SGSST</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CertificadoARLProveedor' }"></ng-container>
@@ -1105,7 +1104,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Documento de Identificación <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Cédula de ciudadanía o documento de identificación vigente</small>
+                  <small class="d-block text-white">Cédula de ciudadanía o documento de identificación vigente</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdProveedorNatural' }"></ng-container>
@@ -1139,7 +1138,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Declaración de Renta - o documento aplicable para extranjeros <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Últimos 2 años presentados ante la DIAN o documento aplicable para extranjeros”</small>
+                  <small class="d-block text-white">Últimos 2 años presentados ante la DIAN o documento aplicable para extranjeros</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaProveedorNatural' }"></ng-container>
@@ -1177,7 +1176,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Certificación Bancaria <span class="text-warning">*</span>
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
 
                 </div>
                 <div class="card-body">
@@ -1211,9 +1210,9 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Certificado Libertad o documento equivalente en el caso en que el inmueble se encuentre ubicado en el exterior <small class="text-white-50">(Opcional)</small>
-                  <small class="d-block text-white-50"></small>
-                  <small class="d-block text-white-50">Certificado de libertad y tradición de bienes inmuebles (si aplica)</small>
+                  Certificado Libertad o documento equivalente en el caso en que el inmueble se encuentre ubicado en el exterior <small class="text-white">(Opcional)</small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  <small class="d-block text-white">Certificado de libertad y tradición de bienes inmuebles (si aplica)</small>
                 </div>
                 <div class="card-body">
                   <ngx-file-drop
@@ -1248,7 +1247,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Acuerdo Confidencialidad <span class="text-warning">*</span>
-                  <small class="d-block text-white-50">Acuerdo firmado de confidencialidad y protección de datos</small>
+                  <small class="d-block text-white">Acuerdo firmado de confidencialidad y protección de datos</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'AcuerdoConfidencialidadProveedorNatural' }"></ng-container>
@@ -1290,7 +1289,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   copia del documento de identificación del representante legal
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'IdRepresentanteLegalAliado' }"></ng-container>
@@ -1332,7 +1331,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Cámara Comercio' | translate }}
-                  <small class="d-block text-white-50"></small>
+                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioAliado' }"></ng-container>

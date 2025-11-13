@@ -58,8 +58,7 @@ export class DatosGeneralesComponent implements OnInit {
   public formularioEnviado: boolean = false;
 
   private emailFields: string[] = [
-    'CorreoElectronicoTab1',
-     'correoElectronicoFE'
+    'CorreoElectronicoTab1'
   ];
 
   @Output() claseTerceroChange = new EventEmitter<number>();
@@ -616,17 +615,20 @@ export class DatosGeneralesComponent implements OnInit {
     const esClaseVisible = claseTerceroValor !== 3 && claseTerceroValor !== '3';
     const esObligatorio = esClaseVisible && (obligadoValor === '1' || obligadoValor === 1 || obligadoValor === true || obligadoValor === 'true');
 
-    const validators = [
-      IdentificacionValidators.emailWithComValidator(),
-      this.requireAtSymbolValidator()
-    ];
-
     if (esObligatorio) {
-      validators.unshift(Validators.required);
+      controlEmail.setValidators([
+        Validators.required,
+        IdentificacionValidators.emailWithComValidator(),
+        this.requireAtSymbolValidator()
+      ]);
+    } else {
+      controlEmail.clearValidators();
     }
 
-    controlEmail.setValidators(validators);
     controlEmail.updateValueAndValidity({ emitEvent: false });
+    if (!esObligatorio && controlEmail.errors) {
+      controlEmail.setErrors(null);
+    }
     this.correoFERequerido = esObligatorio;
   }
 
@@ -696,6 +698,8 @@ export class DatosGeneralesComponent implements OnInit {
     if (claseTerceroValue === 3 || claseTerceroValue == '3' || claseTerceroValue === '-1') {
       controlEmail?.setValue('');
       controlEmail?.clearValidators();
+      controlEmail?.setErrors(null);
+      this.updateCorreoElectronicoFEValidators();
     }
 
 
