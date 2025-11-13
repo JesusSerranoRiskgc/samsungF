@@ -521,10 +521,6 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
     return value;
   }
 
-  getRiskBadgeClass(value: string | null | undefined): string {
-  }
-
-
   onClaseTerceroChange(event: { idClaseTercero: string }): void {
     this.idClaseTercero = event.idClaseTercero;
 

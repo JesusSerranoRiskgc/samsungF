@@ -67,8 +67,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  Certificado de existencia y representación legal (vigencia no superior a tres meses expedido por la Cámara de Comercio)
-                  <small class="d-block text-white">En caso de ser sociedad extranjera, documento de incorporación o estatutos de la sociedad.</small>
+                  Cámara de Comercio
+                  <small class="d-block text-white">En caso de ser sociedad extranjera documento de incorporación o estatutos de la sociedad.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioCliente' }"></ng-container>
@@ -110,9 +110,12 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  {{ 'Declaración Renta' | translate }} - o documento aplicable para extranjeros
+                  Declaración de renta del último período gravable disponible o documento aplicable para extranjeros
                 </div>
                 <div class="card-body">
+                  <button type="button" class="btn btn-link p-0 mb-2" (click)="openNotaPersonaJuridicaExtranjera()">
+                    Ver nota para sociedades extranjeras
+                  </button>
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'DeclaracionRentaJuridica' }"></ng-container>
                   <ngx-file-drop
                     *ngIf="editable && !disableDeclaracionRentaJuridica && !files['DeclaracionRentaJuridica']"
@@ -152,7 +155,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   Fotocopia del RUT
-                  <small class="d-block text-white">O ID tributario en caso que aplique para personas jurídicas extranjeras.</small>
+       
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTCliente' }"></ng-container>
@@ -281,7 +284,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Referencia Comercial Bancaria' | translate }}
-                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                  <small class="d-block text-white">Dos referencias comerciales y dos bancarias. Adjuntar original de las referencias por escrito expedidas por el banco y proveedor no mayor a 30 días.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'ReferenciaComercialBancariaJuridica' }"></ng-container>
@@ -450,7 +453,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  {{ 'RUT' | translate }}
+                  Fotocopia del RUT
+                  <small class="d-block text-white">O ID tributario en caso que aplique para personas jurídicas extranjeras.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTCliNat' }"></ng-container>
@@ -493,6 +497,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Estados Financieros' | translate }}
+                  <small class="d-block text-white">De los últimos dos (2) años fiscales y estados financieros parciales del año en curso.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'EstadosFinancierosNatural' }"></ng-container>
@@ -577,7 +582,7 @@
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                   {{ 'Referencia Comercial Bancaria' | translate }}
-                  <small class="d-block text-white">{{ 'Vigencia no mayor a 30 días' | translate }}</small>
+                  <small class="d-block text-white">Dos referencias comerciales y dos bancarias. Adjuntar original de las referencias por escrito expedidas por el banco y proveedor no mayor a 30 días.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'ReferenciaComercialBancariaNatural' }"></ng-container>
@@ -1330,8 +1335,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  {{ 'Cámara Comercio' | translate }}
-                  <small class="d-block text-white">{{ 'Vigencia no mayor a 3 meses' | translate }}</small>
+                  Certificado de existencia y representación legal con vigencia no superior a tres meses expedido por la Cámara de Comercio
+                  <small class="d-block text-white">En caso de ser sociedad extranjera documento de incorporación o estatutos de la sociedad</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'CamaraComercioAliado' }"></ng-container>
@@ -1460,7 +1465,8 @@
             <div class="col-md-5 mb-3">
               <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                  {{ 'RUT' | translate }}
+                  Fotocopia del RUT
+                  <small class="d-block text-white">O ID tributario en caso que aplique para personas extranjeras.</small>
                 </div>
                 <div class="card-body">
                   <ng-container *ngTemplateOutlet="requiredHint; context: { key: 'RUTAliado' }"></ng-container>

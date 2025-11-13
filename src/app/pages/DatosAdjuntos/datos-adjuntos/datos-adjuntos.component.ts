@@ -364,6 +364,13 @@ export class DatosAdjuntosComponent implements OnInit, OnChanges, AfterViewInit 
     }
   }
 
+  openNotaPersonaJuridicaExtranjera(): void {
+    const modalRef = this.modalService.open(AlertModalComponent, { size: 'lg' });
+    modalRef.componentInstance.name = 'En caso de que la persona jurídica extranjera no envíe la declaración de renta o documento equivalente, deberá remitir una certificación firmada por su representante legal, contador y/o revisor fiscal en la que afirme que sus ingresos provienen netamente de su actividad comercial legítima y que la sociedad cumple con las disposiciones tributarias de su país de origen.';
+    modalRef.componentInstance.title = 'Nota para personas jurídicas extranjeras';
+    modalRef.componentInstance.isError = false;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['classClient'] || changes['classProveedor'] || changes['classAliado'] ||
         changes['esPersonaNatural'] || changes['esPersonaJuridica']) {
