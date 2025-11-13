@@ -378,7 +378,25 @@ export class FormularioProveedoresClientesComponent implements OnInit, AfterView
       ?.value;
     return cat === '2';
   }
-  onTabVisibilityChange(event: { tabDespachos: boolean, tabRepresentanteLegal: boolean, tabInformacionTriburaria: boolean, tabPrinProvAndClient: boolean, tabIsAliado: boolean, tabAccionistas: boolean, tabDeclaraciones: boolean, tabInfoFinanciera: boolean, tabRevisorFiscal: boolean, tabtabInformacionTriburaria: boolean, tabDatosdeContacto: boolean }): void {
+  onTabVisibilityChange(event: {
+    tabDespachos: boolean,
+    tabRepresentanteLegal: boolean,
+    tabInformacionTriburaria: boolean,
+    tabPrinProvAndClient: boolean,
+    tabIsAliado: boolean,
+    tabAccionistas: boolean,
+    tabDeclaraciones: boolean,
+    tabInfoFinanciera: boolean,
+    tabRevisorFiscal: boolean,
+    tabtabInformacionTriburaria: boolean,
+    tabInformacionComplementaria: boolean,
+    tabConflictoInteres: boolean,
+    tabReferenciasBancarias: boolean,
+    tabCumplimientoNormativo: boolean,
+    tabDatosRevisorFiscal: boolean,
+    tabDatosdeContacto: boolean,
+    tabDatosdepagos: boolean
+  }): void {
 
 
     this.mostrarTabDespachos = event.tabDespachos;
@@ -386,12 +404,16 @@ export class FormularioProveedoresClientesComponent implements OnInit, AfterView
     this.mostrarTabRepresentanteLegal = event.tabRepresentanteLegal;
     this.mostrarTabInformacionTriburaria = event.tabInformacionTriburaria;
     this.mostrarTabInfoFinanciera = event.tabInfoFinanciera;
-    this.mostrarTabReferenciasBancarias = event.tabPrinProvAndClient;
-    this.mostrarTabDatosRevisorFiscal = event.tabRevisorFiscal;
+    this.mostrarTabReferenciasBancarias = event.tabReferenciasBancarias ?? event.tabPrinProvAndClient;
+    this.mostrarTabDatosRevisorFiscal = event.tabDatosRevisorFiscal;
     this.mostrarTabDatosdeContacto = event.tabDatosdeContacto;
     this.claseTerceroIsAliado = event.tabIsAliado;
     this.mostrarTabDeclaraciones = event.tabDeclaraciones;
     this.mostrarTabInformacionTriburaria = event.tabtabInformacionTriburaria;
+    this.mostrarTabInformacionComplementaria = event.tabInformacionComplementaria;
+    this.mostrarTabConflictoInteres = event.tabConflictoInteres;
+    this.mostrarTabDatosdepagos = event.tabDatosdepagos;
+    this.mostrarTabCumplimientoNormativo = event.tabCumplimientoNormativo;
 
     // here cambiar the emit tabs show/hide
     const catControl = this.componenteDatosGenerales?.formulario.get('categoriaTercero');
@@ -418,6 +440,8 @@ export class FormularioProveedoresClientesComponent implements OnInit, AfterView
         this.mostrarTabAccionistas = false;
         this.mostrarTabJuntaDirectiva = false;
       }
+
+      this.mostrarTabConflictoInteres = true;
     }
 
     if (valueCategoria === '3') {
@@ -458,7 +482,7 @@ export class FormularioProveedoresClientesComponent implements OnInit, AfterView
 
 
       this.mostrarTabInfoFinanciera = false;
-      this.mostrarTabConflictoInteres = false;
+      this.mostrarTabConflictoInteres = true;
       this.mostrarTabDatosdepagos = false;
       this.mostrarTabDespachos = false;
       this.mostrarTabCumplimientoNormativo = false;

@@ -383,11 +383,27 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
 
 
   // vision de los tabs
-  onTabVisibilityChange(event: { tabDespachos: boolean, tabRepresentanteLegal: boolean, tabPrinProvAndClient: boolean, tabIsAliado: boolean, tabInformacionTriburaria: boolean, tabDeclaraciones: boolean, tabInfoFinanciera: boolean, tabRevisorFiscal: boolean, tabDatosdeContacto: boolean }): void {
+  onTabVisibilityChange(event: {
+    tabDespachos: boolean,
+    tabRepresentanteLegal: boolean,
+    tabPrinProvAndClient: boolean,
+    tabIsAliado: boolean,
+    tabInformacionTriburaria: boolean,
+    tabDeclaraciones: boolean,
+    tabInfoFinanciera: boolean,
+    tabRevisorFiscal: boolean,
+    tabDatosdeContacto: boolean,
+    tabInformacionComplementaria: boolean,
+    tabConflictoInteres: boolean,
+    tabReferenciasBancarias: boolean,
+    tabCumplimientoNormativo: boolean,
+    tabDatosRevisorFiscal: boolean,
+    tabDatosdepagos: boolean
+  }): void {
     this.mostrarTabDespachos = event.tabDespachos;
     this.mostrarTabRepresentanteLegal = event.tabRepresentanteLegal;
     this.claseTerceroEsProveedor = event.tabPrinProvAndClient;
-    this.mostrarTabReferenciasBancarias = event.tabPrinProvAndClient; // Agregar esta línea
+    this.mostrarTabReferenciasBancarias = event.tabReferenciasBancarias ?? event.tabPrinProvAndClient; // Agregar esta línea
     this.mostrarTabInfoFinanciera = event.tabInfoFinanciera;
     this.claseTerceroIsAliado = event.tabIsAliado;
 
@@ -397,11 +413,16 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
     }
 
     this.mostrarTabDeclaraciones = event.tabDeclaraciones;
-    this.mostrarTabDatosRevisorFiscal = event.tabRevisorFiscal;
+    this.mostrarTabDatosRevisorFiscal = event.tabDatosRevisorFiscal;
     this.mostrarTabDatosdeContacto = event.tabDatosdeContacto;
+    this.mostrarTabInformacionComplementaria = event.tabInformacionComplementaria;
+    this.mostrarTabConflictoInteres = event.tabConflictoInteres;
+    this.mostrarTabDatosdepagos = event.tabDatosdepagos;
+    this.mostrarTabCumplimientoNormativo = event.tabCumplimientoNormativo;
 
     if (this.classAliado) {
       this.mostrarTabInformacionTriburaria = false;
+      this.mostrarTabConflictoInteres = true;
     }
 
 
@@ -1558,7 +1579,9 @@ export class FormularioProovedoresClienteEdicionComponent implements OnInit, Aft
         this.mostrarTabDatosRevisorFiscal = false;
         this.mostrarTabInfoFinanciera = false;
         this.mostrarTabInformacionComplementaria = false;
-        this.mostrarTabConflictoInteres = false;
+        if (!this.classAliado) {
+          this.mostrarTabConflictoInteres = false;
+        }
         this.mostrarTabReferenciasBancarias = true;
       }
     }
